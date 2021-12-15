@@ -107,7 +107,7 @@ export type Pedido = {
   numeroPedidoLoja: string | null
   tipoIntegracao: string | null
   cliente_id: number
-  transportadora_id: number | null
+  transportadora_id: string | null
   enderecoEntrega_id: number | null
 }
 
@@ -134,9 +134,8 @@ export type Cliente = {
  * 
  */
 export type Transportadora = {
-  id: number
+  cnpj: string
   nome: string | null
-  cnpj: string | null
   tipo_frete: string | null
   servico_correios: string | null
 }
@@ -4445,7 +4444,6 @@ export namespace Prisma {
     totalprodutos: number | null
     totalvenda: number | null
     cliente_id: number | null
-    transportadora_id: number | null
     enderecoEntrega_id: number | null
   }
 
@@ -4457,7 +4455,6 @@ export namespace Prisma {
     totalprodutos: number | null
     totalvenda: number | null
     cliente_id: number | null
-    transportadora_id: number | null
     enderecoEntrega_id: number | null
   }
 
@@ -4479,7 +4476,7 @@ export namespace Prisma {
     numeroPedidoLoja: string | null
     tipoIntegracao: string | null
     cliente_id: number | null
-    transportadora_id: number | null
+    transportadora_id: string | null
     enderecoEntrega_id: number | null
   }
 
@@ -4501,7 +4498,7 @@ export namespace Prisma {
     numeroPedidoLoja: string | null
     tipoIntegracao: string | null
     cliente_id: number | null
-    transportadora_id: number | null
+    transportadora_id: string | null
     enderecoEntrega_id: number | null
   }
 
@@ -4537,7 +4534,6 @@ export namespace Prisma {
     totalprodutos?: true
     totalvenda?: true
     cliente_id?: true
-    transportadora_id?: true
     enderecoEntrega_id?: true
   }
 
@@ -4549,7 +4545,6 @@ export namespace Prisma {
     totalprodutos?: true
     totalvenda?: true
     cliente_id?: true
-    transportadora_id?: true
     enderecoEntrega_id?: true
   }
 
@@ -4730,7 +4725,7 @@ export namespace Prisma {
     numeroPedidoLoja: string | null
     tipoIntegracao: string | null
     cliente_id: number
-    transportadora_id: number | null
+    transportadora_id: string | null
     enderecoEntrega_id: number | null
     _count: PedidoCountAggregateOutputType | null
     _avg: PedidoAvgAggregateOutputType | null
@@ -6465,74 +6460,50 @@ export namespace Prisma {
 
   export type AggregateTransportadora = {
     _count: TransportadoraCountAggregateOutputType | null
-    _avg: TransportadoraAvgAggregateOutputType | null
-    _sum: TransportadoraSumAggregateOutputType | null
     _min: TransportadoraMinAggregateOutputType | null
     _max: TransportadoraMaxAggregateOutputType | null
   }
 
-  export type TransportadoraAvgAggregateOutputType = {
-    id: number | null
-  }
-
-  export type TransportadoraSumAggregateOutputType = {
-    id: number | null
-  }
-
   export type TransportadoraMinAggregateOutputType = {
-    id: number | null
-    nome: string | null
     cnpj: string | null
+    nome: string | null
     tipo_frete: string | null
     servico_correios: string | null
   }
 
   export type TransportadoraMaxAggregateOutputType = {
-    id: number | null
-    nome: string | null
     cnpj: string | null
+    nome: string | null
     tipo_frete: string | null
     servico_correios: string | null
   }
 
   export type TransportadoraCountAggregateOutputType = {
-    id: number
-    nome: number
     cnpj: number
+    nome: number
     tipo_frete: number
     servico_correios: number
     _all: number
   }
 
 
-  export type TransportadoraAvgAggregateInputType = {
-    id?: true
-  }
-
-  export type TransportadoraSumAggregateInputType = {
-    id?: true
-  }
-
   export type TransportadoraMinAggregateInputType = {
-    id?: true
-    nome?: true
     cnpj?: true
+    nome?: true
     tipo_frete?: true
     servico_correios?: true
   }
 
   export type TransportadoraMaxAggregateInputType = {
-    id?: true
-    nome?: true
     cnpj?: true
+    nome?: true
     tipo_frete?: true
     servico_correios?: true
   }
 
   export type TransportadoraCountAggregateInputType = {
-    id?: true
-    nome?: true
     cnpj?: true
+    nome?: true
     tipo_frete?: true
     servico_correios?: true
     _all?: true
@@ -6581,18 +6552,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: TransportadoraAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: TransportadoraSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: TransportadoraMinAggregateInputType
@@ -6623,22 +6582,17 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: TransportadoraCountAggregateInputType | true
-    _avg?: TransportadoraAvgAggregateInputType
-    _sum?: TransportadoraSumAggregateInputType
     _min?: TransportadoraMinAggregateInputType
     _max?: TransportadoraMaxAggregateInputType
   }
 
 
   export type TransportadoraGroupByOutputType = {
-    id: number
+    cnpj: string
     nome: string | null
-    cnpj: string | null
     tipo_frete: string | null
     servico_correios: string | null
     _count: TransportadoraCountAggregateOutputType | null
-    _avg: TransportadoraAvgAggregateOutputType | null
-    _sum: TransportadoraSumAggregateOutputType | null
     _min: TransportadoraMinAggregateOutputType | null
     _max: TransportadoraMaxAggregateOutputType | null
   }
@@ -6658,9 +6612,8 @@ export namespace Prisma {
 
 
   export type TransportadoraSelect = {
-    id?: boolean
-    nome?: boolean
     cnpj?: boolean
+    nome?: boolean
     tipo_frete?: boolean
     servico_correios?: boolean
     pedido?: boolean | PedidoFindManyArgs
@@ -6752,8 +6705,8 @@ export namespace Prisma {
      * // Get first 10 Transportadoras
      * const transportadoras = await prisma.transportadora.findMany({ take: 10 })
      * 
-     * // Only select the `id`
-     * const transportadoraWithIdOnly = await prisma.transportadora.findMany({ select: { id: true } })
+     * // Only select the `cnpj`
+     * const transportadoraWithCnpjOnly = await prisma.transportadora.findMany({ select: { cnpj: true } })
      * 
     **/
     findMany<T extends TransportadoraFindManyArgs>(
@@ -13137,9 +13090,8 @@ export namespace Prisma {
 
 
   export const TransportadoraScalarFieldEnum: {
-    id: 'id',
-    nome: 'nome',
     cnpj: 'cnpj',
+    nome: 'nome',
     tipo_frete: 'tipo_frete',
     servico_correios: 'servico_correios'
   };
@@ -13586,7 +13538,7 @@ export namespace Prisma {
     tipoIntegracao?: StringNullableFilter | string | null
     cliente_id?: IntFilter | number
     cliente?: XOR<ClienteRelationFilter, ClienteWhereInput>
-    transportadora_id?: IntNullableFilter | number | null
+    transportadora_id?: StringNullableFilter | string | null
     transportadora?: XOR<TransportadoraRelationFilter, TransportadoraWhereInput> | null
     enderecoEntrega_id?: IntNullableFilter | number | null
     enderecoEntrega?: XOR<EnderecoRelationFilter, EnderecoWhereInput> | null
@@ -13677,7 +13629,7 @@ export namespace Prisma {
     numeroPedidoLoja?: StringNullableWithAggregatesFilter | string | null
     tipoIntegracao?: StringNullableWithAggregatesFilter | string | null
     cliente_id?: IntWithAggregatesFilter | number
-    transportadora_id?: IntNullableWithAggregatesFilter | number | null
+    transportadora_id?: StringNullableWithAggregatesFilter | string | null
     enderecoEntrega_id?: IntNullableWithAggregatesFilter | number | null
   }
 
@@ -13760,47 +13712,41 @@ export namespace Prisma {
     AND?: Enumerable<TransportadoraWhereInput>
     OR?: Enumerable<TransportadoraWhereInput>
     NOT?: Enumerable<TransportadoraWhereInput>
-    id?: IntFilter | number
+    cnpj?: StringFilter | string
     nome?: StringNullableFilter | string | null
-    cnpj?: StringNullableFilter | string | null
     tipo_frete?: StringNullableFilter | string | null
     servico_correios?: StringNullableFilter | string | null
     pedido?: PedidoListRelationFilter
   }
 
   export type TransportadoraOrderByWithRelationInput = {
-    id?: SortOrder
-    nome?: SortOrder
     cnpj?: SortOrder
+    nome?: SortOrder
     tipo_frete?: SortOrder
     servico_correios?: SortOrder
     pedido?: PedidoOrderByRelationAggregateInput
   }
 
   export type TransportadoraWhereUniqueInput = {
-    id?: number
+    cnpj?: string
   }
 
   export type TransportadoraOrderByWithAggregationInput = {
-    id?: SortOrder
-    nome?: SortOrder
     cnpj?: SortOrder
+    nome?: SortOrder
     tipo_frete?: SortOrder
     servico_correios?: SortOrder
     _count?: TransportadoraCountOrderByAggregateInput
-    _avg?: TransportadoraAvgOrderByAggregateInput
     _max?: TransportadoraMaxOrderByAggregateInput
     _min?: TransportadoraMinOrderByAggregateInput
-    _sum?: TransportadoraSumOrderByAggregateInput
   }
 
   export type TransportadoraScalarWhereWithAggregatesInput = {
     AND?: Enumerable<TransportadoraScalarWhereWithAggregatesInput>
     OR?: Enumerable<TransportadoraScalarWhereWithAggregatesInput>
     NOT?: Enumerable<TransportadoraScalarWhereWithAggregatesInput>
-    id?: IntWithAggregatesFilter | number
+    cnpj?: StringWithAggregatesFilter | string
     nome?: StringNullableWithAggregatesFilter | string | null
-    cnpj?: StringNullableWithAggregatesFilter | string | null
     tipo_frete?: StringNullableWithAggregatesFilter | string | null
     servico_correios?: StringNullableWithAggregatesFilter | string | null
   }
@@ -14715,7 +14661,7 @@ export namespace Prisma {
     numeroPedidoLoja?: string | null
     tipoIntegracao?: string | null
     cliente_id: number
-    transportadora_id?: number | null
+    transportadora_id?: string | null
     enderecoEntrega_id?: number | null
     volume?: VolumeUncheckedCreateNestedManyWithoutPedidoInput
     parcelas?: ParcelaUncheckedCreateNestedManyWithoutPedidoInput
@@ -14767,7 +14713,7 @@ export namespace Prisma {
     numeroPedidoLoja?: NullableStringFieldUpdateOperationsInput | string | null
     tipoIntegracao?: NullableStringFieldUpdateOperationsInput | string | null
     cliente_id?: IntFieldUpdateOperationsInput | number
-    transportadora_id?: NullableIntFieldUpdateOperationsInput | number | null
+    transportadora_id?: NullableStringFieldUpdateOperationsInput | string | null
     enderecoEntrega_id?: NullableIntFieldUpdateOperationsInput | number | null
     volume?: VolumeUncheckedUpdateManyWithoutPedidoInput
     parcelas?: ParcelaUncheckedUpdateManyWithoutPedidoInput
@@ -14793,7 +14739,7 @@ export namespace Prisma {
     numeroPedidoLoja?: string | null
     tipoIntegracao?: string | null
     cliente_id: number
-    transportadora_id?: number | null
+    transportadora_id?: string | null
     enderecoEntrega_id?: number | null
   }
 
@@ -14834,7 +14780,7 @@ export namespace Prisma {
     numeroPedidoLoja?: NullableStringFieldUpdateOperationsInput | string | null
     tipoIntegracao?: NullableStringFieldUpdateOperationsInput | string | null
     cliente_id?: IntFieldUpdateOperationsInput | number
-    transportadora_id?: NullableIntFieldUpdateOperationsInput | number | null
+    transportadora_id?: NullableStringFieldUpdateOperationsInput | string | null
     enderecoEntrega_id?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
@@ -14940,61 +14886,54 @@ export namespace Prisma {
   }
 
   export type TransportadoraCreateInput = {
-    id: number
+    cnpj: string
     nome?: string | null
-    cnpj?: string | null
     tipo_frete?: string | null
     servico_correios?: string | null
     pedido?: PedidoCreateNestedManyWithoutTransportadoraInput
   }
 
   export type TransportadoraUncheckedCreateInput = {
-    id: number
+    cnpj: string
     nome?: string | null
-    cnpj?: string | null
     tipo_frete?: string | null
     servico_correios?: string | null
     pedido?: PedidoUncheckedCreateNestedManyWithoutTransportadoraInput
   }
 
   export type TransportadoraUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    cnpj?: StringFieldUpdateOperationsInput | string
     nome?: NullableStringFieldUpdateOperationsInput | string | null
-    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
     tipo_frete?: NullableStringFieldUpdateOperationsInput | string | null
     servico_correios?: NullableStringFieldUpdateOperationsInput | string | null
     pedido?: PedidoUpdateManyWithoutTransportadoraInput
   }
 
   export type TransportadoraUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    cnpj?: StringFieldUpdateOperationsInput | string
     nome?: NullableStringFieldUpdateOperationsInput | string | null
-    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
     tipo_frete?: NullableStringFieldUpdateOperationsInput | string | null
     servico_correios?: NullableStringFieldUpdateOperationsInput | string | null
     pedido?: PedidoUncheckedUpdateManyWithoutTransportadoraInput
   }
 
   export type TransportadoraCreateManyInput = {
-    id: number
+    cnpj: string
     nome?: string | null
-    cnpj?: string | null
     tipo_frete?: string | null
     servico_correios?: string | null
   }
 
   export type TransportadoraUpdateManyMutationInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    cnpj?: StringFieldUpdateOperationsInput | string
     nome?: NullableStringFieldUpdateOperationsInput | string | null
-    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
     tipo_frete?: NullableStringFieldUpdateOperationsInput | string | null
     servico_correios?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TransportadoraUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    cnpj?: StringFieldUpdateOperationsInput | string
     nome?: NullableStringFieldUpdateOperationsInput | string | null
-    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
     tipo_frete?: NullableStringFieldUpdateOperationsInput | string | null
     servico_correios?: NullableStringFieldUpdateOperationsInput | string | null
   }
@@ -16092,7 +16031,6 @@ export namespace Prisma {
     totalprodutos?: SortOrder
     totalvenda?: SortOrder
     cliente_id?: SortOrder
-    transportadora_id?: SortOrder
     enderecoEntrega_id?: SortOrder
   }
 
@@ -16148,7 +16086,6 @@ export namespace Prisma {
     totalprodutos?: SortOrder
     totalvenda?: SortOrder
     cliente_id?: SortOrder
-    transportadora_id?: SortOrder
     enderecoEntrega_id?: SortOrder
   }
 
@@ -16231,35 +16168,24 @@ export namespace Prisma {
   }
 
   export type TransportadoraCountOrderByAggregateInput = {
-    id?: SortOrder
-    nome?: SortOrder
     cnpj?: SortOrder
+    nome?: SortOrder
     tipo_frete?: SortOrder
     servico_correios?: SortOrder
   }
 
-  export type TransportadoraAvgOrderByAggregateInput = {
-    id?: SortOrder
-  }
-
   export type TransportadoraMaxOrderByAggregateInput = {
-    id?: SortOrder
-    nome?: SortOrder
     cnpj?: SortOrder
+    nome?: SortOrder
     tipo_frete?: SortOrder
     servico_correios?: SortOrder
   }
 
   export type TransportadoraMinOrderByAggregateInput = {
-    id?: SortOrder
-    nome?: SortOrder
     cnpj?: SortOrder
+    nome?: SortOrder
     tipo_frete?: SortOrder
     servico_correios?: SortOrder
-  }
-
-  export type TransportadoraSumOrderByAggregateInput = {
-    id?: SortOrder
   }
 
   export type ClienteListRelationFilter = {
@@ -17972,17 +17898,15 @@ export namespace Prisma {
   }
 
   export type TransportadoraCreateWithoutPedidoInput = {
-    id: number
+    cnpj: string
     nome?: string | null
-    cnpj?: string | null
     tipo_frete?: string | null
     servico_correios?: string | null
   }
 
   export type TransportadoraUncheckedCreateWithoutPedidoInput = {
-    id: number
+    cnpj: string
     nome?: string | null
-    cnpj?: string | null
     tipo_frete?: string | null
     servico_correios?: string | null
   }
@@ -18207,17 +18131,15 @@ export namespace Prisma {
   }
 
   export type TransportadoraUpdateWithoutPedidoInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    cnpj?: StringFieldUpdateOperationsInput | string
     nome?: NullableStringFieldUpdateOperationsInput | string | null
-    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
     tipo_frete?: NullableStringFieldUpdateOperationsInput | string | null
     servico_correios?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TransportadoraUncheckedUpdateWithoutPedidoInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    cnpj?: StringFieldUpdateOperationsInput | string
     nome?: NullableStringFieldUpdateOperationsInput | string | null
-    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
     tipo_frete?: NullableStringFieldUpdateOperationsInput | string | null
     servico_correios?: NullableStringFieldUpdateOperationsInput | string | null
   }
@@ -18453,7 +18375,7 @@ export namespace Prisma {
     loja?: string | null
     numeroPedidoLoja?: string | null
     tipoIntegracao?: string | null
-    transportadora_id?: number | null
+    transportadora_id?: string | null
     enderecoEntrega_id?: number | null
     volume?: VolumeUncheckedCreateNestedManyWithoutPedidoInput
     parcelas?: ParcelaUncheckedCreateNestedManyWithoutPedidoInput
@@ -18538,7 +18460,7 @@ export namespace Prisma {
     numeroPedidoLoja?: StringNullableFilter | string | null
     tipoIntegracao?: StringNullableFilter | string | null
     cliente_id?: IntFilter | number
-    transportadora_id?: IntNullableFilter | number | null
+    transportadora_id?: StringNullableFilter | string | null
     enderecoEntrega_id?: IntNullableFilter | number | null
   }
 
@@ -18699,7 +18621,7 @@ export namespace Prisma {
     numeroPedidoLoja?: string | null
     tipoIntegracao?: string | null
     cliente_id: number
-    transportadora_id?: number | null
+    transportadora_id?: string | null
     volume?: VolumeUncheckedCreateNestedManyWithoutPedidoInput
     parcelas?: ParcelaUncheckedCreateNestedManyWithoutPedidoInput
     nota?: NotaUncheckedCreateNestedOneWithoutPedidoInput
@@ -18808,7 +18730,7 @@ export namespace Prisma {
     numeroPedidoLoja?: string | null
     tipoIntegracao?: string | null
     cliente_id: number
-    transportadora_id?: number | null
+    transportadora_id?: string | null
     enderecoEntrega_id?: number | null
     parcelas?: ParcelaUncheckedCreateNestedManyWithoutPedidoInput
     nota?: NotaUncheckedCreateNestedOneWithoutPedidoInput
@@ -18891,7 +18813,7 @@ export namespace Prisma {
     numeroPedidoLoja?: NullableStringFieldUpdateOperationsInput | string | null
     tipoIntegracao?: NullableStringFieldUpdateOperationsInput | string | null
     cliente_id?: IntFieldUpdateOperationsInput | number
-    transportadora_id?: NullableIntFieldUpdateOperationsInput | number | null
+    transportadora_id?: NullableStringFieldUpdateOperationsInput | string | null
     enderecoEntrega_id?: NullableIntFieldUpdateOperationsInput | number | null
     parcelas?: ParcelaUncheckedUpdateManyWithoutPedidoInput
     nota?: NotaUncheckedUpdateOneWithoutPedidoInput
@@ -19050,7 +18972,7 @@ export namespace Prisma {
     numeroPedidoLoja?: string | null
     tipoIntegracao?: string | null
     cliente_id: number
-    transportadora_id?: number | null
+    transportadora_id?: string | null
     enderecoEntrega_id?: number | null
     volume?: VolumeUncheckedCreateNestedManyWithoutPedidoInput
     nota?: NotaUncheckedCreateNestedOneWithoutPedidoInput
@@ -19110,7 +19032,7 @@ export namespace Prisma {
     numeroPedidoLoja?: NullableStringFieldUpdateOperationsInput | string | null
     tipoIntegracao?: NullableStringFieldUpdateOperationsInput | string | null
     cliente_id?: IntFieldUpdateOperationsInput | number
-    transportadora_id?: NullableIntFieldUpdateOperationsInput | number | null
+    transportadora_id?: NullableStringFieldUpdateOperationsInput | string | null
     enderecoEntrega_id?: NullableIntFieldUpdateOperationsInput | number | null
     volume?: VolumeUncheckedUpdateManyWithoutPedidoInput
     nota?: NotaUncheckedUpdateOneWithoutPedidoInput
@@ -19160,7 +19082,7 @@ export namespace Prisma {
     numeroPedidoLoja?: string | null
     tipoIntegracao?: string | null
     cliente_id: number
-    transportadora_id?: number | null
+    transportadora_id?: string | null
     enderecoEntrega_id?: number | null
     volume?: VolumeUncheckedCreateNestedManyWithoutPedidoInput
     parcelas?: ParcelaUncheckedCreateNestedManyWithoutPedidoInput
@@ -19220,7 +19142,7 @@ export namespace Prisma {
     numeroPedidoLoja?: NullableStringFieldUpdateOperationsInput | string | null
     tipoIntegracao?: NullableStringFieldUpdateOperationsInput | string | null
     cliente_id?: IntFieldUpdateOperationsInput | number
-    transportadora_id?: NullableIntFieldUpdateOperationsInput | number | null
+    transportadora_id?: NullableStringFieldUpdateOperationsInput | string | null
     enderecoEntrega_id?: NullableIntFieldUpdateOperationsInput | number | null
     volume?: VolumeUncheckedUpdateManyWithoutPedidoInput
     parcelas?: ParcelaUncheckedUpdateManyWithoutPedidoInput
@@ -19270,7 +19192,7 @@ export namespace Prisma {
     numeroPedidoLoja?: string | null
     tipoIntegracao?: string | null
     cliente_id: number
-    transportadora_id?: number | null
+    transportadora_id?: string | null
     enderecoEntrega_id?: number | null
     volume?: VolumeUncheckedCreateNestedManyWithoutPedidoInput
     parcelas?: ParcelaUncheckedCreateNestedManyWithoutPedidoInput
@@ -19330,7 +19252,7 @@ export namespace Prisma {
     numeroPedidoLoja?: NullableStringFieldUpdateOperationsInput | string | null
     tipoIntegracao?: NullableStringFieldUpdateOperationsInput | string | null
     cliente_id?: IntFieldUpdateOperationsInput | number
-    transportadora_id?: NullableIntFieldUpdateOperationsInput | number | null
+    transportadora_id?: NullableStringFieldUpdateOperationsInput | string | null
     enderecoEntrega_id?: NullableIntFieldUpdateOperationsInput | number | null
     volume?: VolumeUncheckedUpdateManyWithoutPedidoInput
     parcelas?: ParcelaUncheckedUpdateManyWithoutPedidoInput
@@ -19571,7 +19493,7 @@ export namespace Prisma {
     loja?: string | null
     numeroPedidoLoja?: string | null
     tipoIntegracao?: string | null
-    transportadora_id?: number | null
+    transportadora_id?: string | null
     enderecoEntrega_id?: number | null
   }
 
@@ -19617,7 +19539,7 @@ export namespace Prisma {
     loja?: NullableStringFieldUpdateOperationsInput | string | null
     numeroPedidoLoja?: NullableStringFieldUpdateOperationsInput | string | null
     tipoIntegracao?: NullableStringFieldUpdateOperationsInput | string | null
-    transportadora_id?: NullableIntFieldUpdateOperationsInput | number | null
+    transportadora_id?: NullableStringFieldUpdateOperationsInput | string | null
     enderecoEntrega_id?: NullableIntFieldUpdateOperationsInput | number | null
     volume?: VolumeUncheckedUpdateManyWithoutPedidoInput
     parcelas?: ParcelaUncheckedUpdateManyWithoutPedidoInput
@@ -19642,7 +19564,7 @@ export namespace Prisma {
     loja?: NullableStringFieldUpdateOperationsInput | string | null
     numeroPedidoLoja?: NullableStringFieldUpdateOperationsInput | string | null
     tipoIntegracao?: NullableStringFieldUpdateOperationsInput | string | null
-    transportadora_id?: NullableIntFieldUpdateOperationsInput | number | null
+    transportadora_id?: NullableStringFieldUpdateOperationsInput | string | null
     enderecoEntrega_id?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
@@ -19748,7 +19670,7 @@ export namespace Prisma {
     numeroPedidoLoja?: string | null
     tipoIntegracao?: string | null
     cliente_id: number
-    transportadora_id?: number | null
+    transportadora_id?: string | null
   }
 
   export type ClienteUpdateWithoutEnderecoInput = {
@@ -19835,7 +19757,7 @@ export namespace Prisma {
     numeroPedidoLoja?: NullableStringFieldUpdateOperationsInput | string | null
     tipoIntegracao?: NullableStringFieldUpdateOperationsInput | string | null
     cliente_id?: IntFieldUpdateOperationsInput | number
-    transportadora_id?: NullableIntFieldUpdateOperationsInput | number | null
+    transportadora_id?: NullableStringFieldUpdateOperationsInput | string | null
     volume?: VolumeUncheckedUpdateManyWithoutPedidoInput
     parcelas?: ParcelaUncheckedUpdateManyWithoutPedidoInput
     nota?: NotaUncheckedUpdateOneWithoutPedidoInput

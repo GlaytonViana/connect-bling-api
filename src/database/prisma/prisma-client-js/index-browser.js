@@ -174,9 +174,8 @@ exports.Prisma.ClienteScalarFieldEnum = makeEnum({
 });
 
 exports.Prisma.TransportadoraScalarFieldEnum = makeEnum({
-  id: 'id',
-  nome: 'nome',
   cnpj: 'cnpj',
+  nome: 'nome',
   tipo_frete: 'tipo_frete',
   servico_correios: 'servico_correios'
 });

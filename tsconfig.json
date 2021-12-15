@@ -1,20 +1,21 @@
 {
-  "compilerOptions": {
-      "target": "es5",
-      "module": "CommonJS",
-      "baseUrl": "./src",
-      "outDir": "./dist",
-      "esModuleInterop": true,
-      "forceConsistentCasingInFileNames": true,
-      "strict": true,
-      "strictPropertyInitialization": false,
-      "skipLibCheck": true,
-      "paths": {
-          "@modules/*": ["modules/*"],
-          "@config/*": ["config/*"],
-          "@shared/*": ["shared/*"]
-      },
-      "emitDecoratorMetadata": true,
-      "experimentalDecorators": true
-  }
+    "compilerOptions": {
+        "target": "es5",
+        "module": "CommonJS",
+        "baseUrl": "./src",
+        "outDir": "./dist",
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
+        "strictPropertyInitialization": false,
+        "skipLibCheck": true,
+        "paths": {
+            "@modules/*": ["modules/*"],
+            "@config/*": ["config/*"],
+            "@shared/*": ["shared/*"],
+            "@database/*": ["database/*"]
+        },
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true
+    }
 }

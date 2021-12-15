@@ -1,4 +1,4 @@
-import { Prisma } from '@prisma/client'
+import { Prisma } from '@database/prisma/prisma-client-js'
 import { IBlingProduct } from '@modules/bling/providers/BlingAPI'
 import { removeDuplicatedElementByAttribute } from '@shared/utils'
 

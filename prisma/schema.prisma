@@ -116,8 +116,8 @@ model Pedido {
   cliente    Cliente @relation(fields: [cliente_id], references: [id])
 
   // Transportadora
-  transportadora_id Int?
-  transportadora    Transportadora? @relation(fields: [transportadora_id], references: [id])
+  transportadora_id String?
+  transportadora    Transportadora? @relation(fields: [transportadora_id], references: [cnpj])
 
   // EnderecoEntrega
   enderecoEntrega_id Int?
@@ -160,9 +160,8 @@ model Cliente {
 }
 
 model Transportadora {
-  id               Int     @id
+  cnpj             String  @id
   nome             String?
-  cnpj             String?
   tipo_frete       String?
   servico_correios String?
 
