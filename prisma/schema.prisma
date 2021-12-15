@@ -1,0 +1,280 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/database/prisma/prisma-client-js"
+}
+
+// generator dbml {
+//   provider   = "prisma-dbml-generator"
+//   output     = "../src/database/dbml"
+//   outputName = "bling.dbml"
+// }
+
+// generator docs {
+//   provider = "node node_modules/prisma-docs-generator"
+//   output   = "../src/database/docs"
+// }
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Produto {
+  id                    String    @id
+  codigo                String
+  descricao             String?
+  tipo                  String?
+  situacao              String?
+  unidade               String?
+  preco                 Decimal?
+  precoCusto            Decimal?
+  descricaoCurta        String?
+  descricaoComplementar String?
+  dataInclusao          DateTime?
+  dataAlteracao         DateTime?
+  imageThumbnail        String?
+  urlVideo              String?
+  nomeFornecedor        String?
+  codigoFabricante      String?
+  marca                 String?
+  classFiscal           String?
+  cest                  String?
+  origem                Int?
+  idGrupoProduto        Int?
+  linkExterno           String?
+  observacoes           String?
+  grupoProduto          String?
+  garantia              Int?
+  descricaoFornecedor   String?
+  idFabricante          Int?
+  pesoLiq               Decimal?
+  pesoBruto             Decimal?
+  estoqueMinimo         Decimal?
+  estoqueMaximo         Decimal?
+  gtin                  String?
+  gtinEmbalagem         String?
+  larguraProduto        Decimal?
+  alturaProduto         Decimal?
+  profundidadeProduto   Decimal?
+  unidadeMedida         String?
+  itensPorCaixa         Int?
+  volumes               Int?
+  localizacao           String?
+  crossdocking          Int?
+  condicao              String?
+  freteGratis           String?
+  producao              String?
+  dataValidade          DateTime?
+  spedTipoItem          String?
+  codigoPai             String?
+  clonarDadosPai        String?
+
+  categorias CategoriasNoProduto[]
+
+  @@map("produto")
+}
+
+model CategoriasNoProduto {
+  produto_id   String
+  produto      Produto          @relation(fields: [produto_id], references: [id])
+  categoria_id Int
+  categoria    CategoriaProduto @relation(fields: [categoria_id], references: [id])
+
+  @@id([produto_id, categoria_id])
+  @@map("categorias_no_produto")
+}
+
+model CategoriaProduto {
+  id        Int                   @id
+  descricao String
+  produtos  CategoriasNoProduto[]
+
+  @@map("categoria_produto")
+}
+
+model Pedido {
+  numero Int @id
+
+  desconto          Float?
+  observacoes       String?   @db.Text
+  observacaointerna String?   @db.Text
+  data              DateTime?
+  dataSaida         DateTime?
+  numeroOrdemCompra String?
+  vendedor          String?
+  valorfrete        Float?
+  outrasdespesas    Float?
+  totalprodutos     Float?
+  totalvenda        Float?
+  situacao          String?
+  loja              String?
+  numeroPedidoLoja  String?
+  tipoIntegracao    String?
+
+  // Cliente
+  cliente_id Int
+  cliente    Cliente @relation(fields: [cliente_id], references: [id])
+
+  // Transportadora
+  transportadora_id Int?
+  transportadora    Transportadora? @relation(fields: [transportadora_id], references: [id])
+
+  // EnderecoEntrega
+  enderecoEntrega_id Int?
+  enderecoEntrega    Endereco? @relation(fields: [enderecoEntrega_id], references: [id])
+
+  // Volumes
+  volume Volume[]
+
+  // Parcelas
+  parcelas Parcela[]
+
+  // Nota
+  nota Nota?
+
+  // Produtos
+  produtos ProdutoNoPedido[]
+
+  @@map("pedido")
+}
+
+model Cliente {
+  id               Int     @id
+  nome             String
+  tipoPessoa       String? @db.Char
+  cpfCnpj          String?
+  incricaoEstadual String?
+  rg               String?
+  contribuinte     String? @db.Char
+  fone             String?
+  celular          String?
+  email            String?
+
+  // Endereço
+  endereco_id Int
+  endereco    Endereco? @relation(fields: [endereco_id], references: [id])
+
+  // Pedido
+  pedido Pedido[]
+  @@map("cliente")
+}
+
+model Transportadora {
+  id               Int     @id
+  nome             String?
+  cnpj             String?
+  tipo_frete       String?
+  servico_correios String?
+
+  pedido Pedido[]
+  @@map("transportadora")
+}
+
+model Endereco {
+  id          Int     @id @default(autoincrement())
+  nome        String?
+  endereco    String?
+  numero      String?
+  complemento String?
+  bairro      String?
+  cep         String?
+  cidade      String?
+  uf          String?
+
+  cliente Cliente[]
+  pedido  Pedido[]
+  @@map("endereco")
+}
+
+model Volume {
+
+  id                   Int       @id
+  idServico            Int
+  idOrigem             String?
+  servico              String?
+  codigoServico        String?
+  codigoRastreamento   String?
+  valorFretePrevisto   Float?
+  remessaNumero        String?
+  remessaDataCriacao   DateTime?
+  dataSaida            DateTime?
+  prazoEntregaPrevisto String?
+  valorDeclarado       Float?
+  avisoRecebimento     Boolean?
+  maoPropria           Boolean?
+  urlRastreamento      String?
+
+  // Pedido
+  pedidoNumero Int?
+  pedido       Pedido? @relation(fields: [pedidoNumero], references: [numero])
+
+  // Dimensão
+  dimensao Dimensao?
+
+  @@map("volume")
+}
+
+model Dimensao {
+
+  id          Int     @id
+  peso        String?
+  altura      String?
+  largura     String?
+  comprimento String?
+  diametro    String?
+
+  volume_id Int    @unique
+  volume    Volume @relation(fields: [volume_id], references: [id])
+
+  @@map("dimensao_do_volume")
+}
+
+model Parcela {
+  id                         Int      @id
+  valor                      Decimal
+  dataVencimento             DateTime
+  obs                        String?
+  destino                    String?
+  formaPagamento_id          String
+  formaPagamentoDescricao    String?
+  formaPagamentoCodigoFiscal String?
+
+  pedidoNumero Int?
+  Pedido       Pedido? @relation(fields: [pedidoNumero], references: [numero])
+
+  @@map("parcela")
+}
+
+model Nota {
+  numero      String    @id
+  serie       String?
+  dataEmissao DateTime?
+  situacao    Int?
+  valorNota   Decimal?  @db.Money
+  chaveAcesso String?
+
+  pedidoNumero Int    @unique
+  pedido       Pedido @relation(fields: [pedidoNumero], references: [numero])
+}
+
+model ProdutoNoPedido {
+  id                 Int      @id @default(autoincrement())
+  codigo             String?
+  descricao          String?
+  quantidade         Decimal?
+  valorunidade       Decimal? @db.Money
+  precocusto         Decimal? @db.Money
+  descontoItem       Decimal? @db.Money
+  un                 String?
+  pesoBruto          Decimal?
+  largura            Decimal?
+  altura             Decimal?
+  profundidade       Decimal?
+  unidadeMedida      String?
+  descricaoDetalhada String?
+
+  pedidoNumero Int?
+  pedido       Pedido? @relation(fields: [pedidoNumero], references: [numero])
+
+  @@map("produto_no_pedido")
+}

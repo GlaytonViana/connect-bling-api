@@ -1,0 +1,237 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table Produto {
+  id String [pk]
+  codigo String [not null]
+  descricao String
+  tipo String
+  situacao String
+  unidade String
+  preco Decimal
+  precoCusto Decimal
+  descricaoCurta String
+  descricaoComplementar String
+  dataInclusao DateTime
+  dataAlteracao DateTime
+  imageThumbnail String
+  urlVideo String
+  nomeFornecedor String
+  codigoFabricante String
+  marca String
+  classFiscal String
+  cest String
+  origem Int
+  idGrupoProduto Int
+  linkExterno String
+  observacoes String
+  grupoProduto String
+  garantia Int
+  descricaoFornecedor String
+  idFabricante Int
+  pesoLiq Decimal
+  pesoBruto Decimal
+  estoqueMinimo Decimal
+  estoqueMaximo Decimal
+  gtin String
+  gtinEmbalagem String
+  larguraProduto Decimal
+  alturaProduto Decimal
+  profundidadeProduto Decimal
+  unidadeMedida String
+  itensPorCaixa Int
+  volumes Int
+  localizacao String
+  crossdocking Int
+  condicao String
+  freteGratis String
+  producao String
+  dataValidade DateTime
+  spedTipoItem String
+  codigoPai String
+  clonarDadosPai String
+  categorias CategoriasNoProduto [not null]
+}
+
+Table CategoriasNoProduto {
+  produto_id String [not null]
+  produto Produto [not null]
+  categoria_id Int [not null]
+  categoria CategoriaProduto [not null]
+
+  indexes {
+    (produto_id, categoria_id) [pk]
+  }
+}
+
+Table CategoriaProduto {
+  id Int [pk]
+  descricao String [not null]
+  produtos CategoriasNoProduto [not null]
+}
+
+Table Pedido {
+  numero Int [pk]
+  desconto String [not null]
+  observacoes String [not null]
+  observacaointerna String [not null]
+  data DateTime [not null]
+  numeroOrdemCompra String [not null]
+  vendedor String [not null]
+  valorfrete Float [not null]
+  outrasdespesas Float [not null]
+  totalprodutos Float [not null]
+  totalvenda Float [not null]
+  situacao String [not null]
+  dataSaida DateTime [not null]
+  loja String [not null]
+  numeroPedidoLoja String [not null]
+  tipoIntegracao String [not null]
+  cliente_id Int [not null]
+  cliente Cliente [not null]
+  transportadora_id Int
+  transportadora Transportadora
+  enderecoEntrega_id Int
+  enderecoEntrega Endereco
+  volume Volume [not null]
+  parcelas Parcela [not null]
+  nota Nota
+  produtos ProdutoNoPedido [not null]
+}
+
+Table Cliente {
+  id Int [pk]
+  nome String [not null]
+  tipoPessoa String
+  cpfCnpj String
+  incricaoEstadual String
+  rg String
+  contribuinte String
+  fone String
+  celular String
+  email String
+  endereco_id Int [not null]
+  endereco Endereco
+  pedido Pedido [not null]
+}
+
+Table Transportadora {
+  id Int [pk]
+  nome String
+  cnpj String
+  tipo_frete String
+  servico_correios String
+  pedido Pedido [not null]
+}
+
+Table Endereco {
+  id Int [pk, increment]
+  nome String
+  endereco String
+  numero String
+  complemento String
+  bairro String
+  cep String
+  cidade String
+  uf String
+  cliente Cliente [not null]
+  pedido Pedido [not null]
+}
+
+Table Volume {
+  id Int [pk]
+  idServico Int [not null]
+  idOrigem String
+  servico String
+  codigoServico String
+  codigoRastreamento String
+  valorFretePrevisto Float
+  remessaNumero String
+  remessaDataCriacao DateTime
+  dataSaida DateTime
+  prazoEntregaPrevisto String
+  valorDeclarado Float
+  avisoRecebimento Boolean
+  maoPropria Boolean
+  urlRastreamento String
+  pedidoNumero Int
+  pedido Pedido
+  dimensao Dimensao
+}
+
+Table Dimensao {
+  id Int [pk]
+  peso String
+  altura String
+  largura String
+  comprimento String
+  diametro String
+  volume_id Int [unique, not null]
+  volume Volume [not null]
+}
+
+Table Parcela {
+  id Int [pk]
+  valor Decimal [not null]
+  dataVencimento DateTime [not null]
+  obs String
+  destino String
+  formaPagamento_id String [not null]
+  formaPagamentoDescricao String
+  formaPagamentoCodigoFiscal String
+  pedidoNumero Int
+  Pedido Pedido
+}
+
+Table Nota {
+  numero String [pk]
+  serie String
+  dataEmissao DateTime
+  situacao Int
+  valorNota Decimal
+  chaveAcesso String
+  pedidoNumero Int [unique, not null]
+  pedido Pedido [not null]
+}
+
+Table ProdutoNoPedido {
+  id Int [pk, increment]
+  codigo String
+  descricao String
+  quantidade Decimal
+  valorunidade Decimal
+  precocusto Decimal
+  descontoItem Decimal
+  un String
+  pesoBruto Decimal
+  largura Decimal
+  altura Decimal
+  profundidade Decimal
+  unidadeMedida String
+  descricaoDetalhada String
+  pedidoNumero Int
+  pedido Pedido
+}
+
+Ref: CategoriasNoProduto.produto_id > Produto.id
+
+Ref: CategoriasNoProduto.categoria_id > CategoriaProduto.id
+
+Ref: Pedido.cliente_id > Cliente.id
+
+Ref: Pedido.transportadora_id > Transportadora.id
+
+Ref: Pedido.enderecoEntrega_id > Endereco.id
+
+Ref: Cliente.endereco_id > Endereco.id
+
+Ref: Volume.pedidoNumero > Pedido.numero
+
+Ref: Dimensao.volume_id - Volume.id
+
+Ref: Parcela.pedidoNumero > Pedido.numero
+
+Ref: Nota.pedidoNumero - Pedido.numero
+
+Ref: ProdutoNoPedido.pedidoNumero > Pedido.numero
