@@ -126,10 +126,10 @@ export interface IBlingOrder {
             chaveAcesso: string
         }
         transporte: {
-            transportadora: string
+            transportadora?: string
             cnpj: string
-            tipo_frete: string
-            qtde_volumes: string
+            tipo_frete?: string
+            qtde_volumes?: string
             enderecoEntrega: {
                 nome: string
                 endereco: string
@@ -149,7 +149,10 @@ export interface IBlingOrder {
                     codigoServico: string
                     codigoRastreamento: string
                     valorFretePrevisto: string
-                    remessa?: string
+                    remessa?: {
+                        numero: string
+                        dataCriacao: string
+                    }
                     dataSaida: string
                     prazoEntregaPrevisto: string
                     valorDeclarado: string
@@ -185,7 +188,7 @@ export interface IBlingOrder {
                 gtin?: string
             }
         }[]
-        parcelas: {
+        parcelas?: {
             parcela: {
                 idLancamento: string
                 valor: string

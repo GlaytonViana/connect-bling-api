@@ -26,8 +26,8 @@ model Produto {
   tipo                  String?
   situacao              String?
   unidade               String?
-  preco                 Decimal?
-  precoCusto            Decimal?
+  preco                 Float?
+  precoCusto            Float?
   descricaoCurta        String?
   descricaoComplementar String?
   dataInclusao          DateTime?
@@ -47,15 +47,15 @@ model Produto {
   garantia              Int?
   descricaoFornecedor   String?
   idFabricante          Int?
-  pesoLiq               Decimal?
-  pesoBruto             Decimal?
-  estoqueMinimo         Decimal?
-  estoqueMaximo         Decimal?
+  pesoLiq               Float?
+  pesoBruto             Float?
+  estoqueMinimo         Float?
+  estoqueMaximo         Float?
   gtin                  String?
   gtinEmbalagem         String?
-  larguraProduto        Decimal?
-  alturaProduto         Decimal?
-  profundidadeProduto   Decimal?
+  larguraProduto        Float?
+  alturaProduto         Float?
+  profundidadeProduto   Float?
   unidadeMedida         String?
   itensPorCaixa         Int?
   volumes               Int?
@@ -113,15 +113,15 @@ model Pedido {
 
   // Cliente
   cliente_id Int
-  cliente    Cliente @relation(fields: [cliente_id], references: [id])
+  cliente    Cliente @relation(fields: [cliente_id], references: [id], onDelete: Cascade)
 
   // Transportadora
   transportadora_id String?
-  transportadora    Transportadora? @relation(fields: [transportadora_id], references: [cnpj])
+  transportadora    Transportadora? @relation(fields: [transportadora_id], references: [cnpj], onDelete: Cascade)
 
   // EnderecoEntrega
   enderecoEntrega_id Int?
-  enderecoEntrega    Endereco? @relation(fields: [enderecoEntrega_id], references: [id])
+  enderecoEntrega    Endereco? @relation(fields: [enderecoEntrega_id], references: [id], onDelete: Cascade)
 
   // Volumes
   volume Volume[]
@@ -152,7 +152,7 @@ model Cliente {
 
   // Endereço
   endereco_id Int
-  endereco    Endereco? @relation(fields: [endereco_id], references: [id])
+  endereco    Endereco? @relation(fields: [endereco_id], references: [id], onDelete: Cascade)
 
   // Pedido
   pedido Pedido[]
@@ -187,7 +187,8 @@ model Endereco {
 
 model Volume {
 
-  id                   Int       @id
+  id                   Int       @id @default(autoincrement())
+  codigo               Int
   idServico            Int
   idOrigem             String?
   servico              String?
@@ -202,35 +203,22 @@ model Volume {
   avisoRecebimento     Boolean?
   maoPropria           Boolean?
   urlRastreamento      String?
+  peso                 String?
+  altura               String?
+  largura              String?
+  comprimento          String?
+  diametro             String?
 
   // Pedido
-  pedidoNumero Int?
-  pedido       Pedido? @relation(fields: [pedidoNumero], references: [numero])
-
-  // Dimensão
-  dimensao Dimensao?
+  pedidoNumero Int
+  pedido       Pedido @relation(fields: [pedidoNumero], references: [numero], onDelete: Cascade)
 
   @@map("volume")
 }
 
-model Dimensao {
-
-  id          Int     @id
-  peso        String?
-  altura      String?
-  largura     String?
-  comprimento String?
-  diametro    String?
-
-  volume_id Int    @unique
-  volume    Volume @relation(fields: [volume_id], references: [id])
-
-  @@map("dimensao_do_volume")
-}
-
 model Parcela {
-  id                         Int      @id
-  valor                      Decimal
+  id                         Int
+  valor                      Float
   dataVencimento             DateTime
   obs                        String?
   destino                    String?
@@ -238,9 +226,10 @@ model Parcela {
   formaPagamentoDescricao    String?
   formaPagamentoCodigoFiscal String?
 
-  pedidoNumero Int?
-  Pedido       Pedido? @relation(fields: [pedidoNumero], references: [numero])
+  pedidoNumero Int
+  pedido       Pedido @relation(fields: [pedidoNumero], references: [numero], onDelete: Cascade)
 
+  @@id([id, pedidoNumero])
   @@map("parcela")
 }
 
@@ -249,31 +238,33 @@ model Nota {
   serie       String?
   dataEmissao DateTime?
   situacao    Int?
-  valorNota   Decimal?  @db.Money
+  valorNota   Float?
   chaveAcesso String?
 
   pedidoNumero Int    @unique
-  pedido       Pedido @relation(fields: [pedidoNumero], references: [numero])
+  pedido       Pedido @relation(fields: [pedidoNumero], references: [numero], onDelete: Cascade)
+
+  @@map("nota")
 }
 
 model ProdutoNoPedido {
-  id                 Int      @id @default(autoincrement())
+  id                 Int     @id @default(autoincrement())
   codigo             String?
   descricao          String?
-  quantidade         Decimal?
-  valorunidade       Decimal? @db.Money
-  precocusto         Decimal? @db.Money
-  descontoItem       Decimal? @db.Money
+  quantidade         Float?
+  valorunidade       Float?
+  precocusto         Float?
+  descontoItem       Float?
   un                 String?
-  pesoBruto          Decimal?
-  largura            Decimal?
-  altura             Decimal?
-  profundidade       Decimal?
+  pesoBruto          Float?
+  largura            Float?
+  altura             Float?
+  profundidade       Float?
   unidadeMedida      String?
   descricaoDetalhada String?
 
   pedidoNumero Int?
-  pedido       Pedido? @relation(fields: [pedidoNumero], references: [numero])
+  pedido       Pedido? @relation(fields: [pedidoNumero], references: [numero], onDelete: Cascade)
 
   @@map("produto_no_pedido")
 }

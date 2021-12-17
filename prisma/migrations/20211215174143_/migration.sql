@@ -71,23 +71,23 @@ CREATE TABLE "categoria_produto" (
 -- CreateTable
 CREATE TABLE "pedido" (
     "numero" INTEGER NOT NULL,
-    "desconto" TEXT NOT NULL,
-    "observacoes" TEXT NOT NULL,
-    "observacaointerna" TEXT NOT NULL,
-    "data" TIMESTAMP(3) NOT NULL,
-    "numeroOrdemCompra" TEXT NOT NULL,
-    "vendedor" TEXT NOT NULL,
-    "valorfrete" DOUBLE PRECISION NOT NULL,
-    "outrasdespesas" DOUBLE PRECISION NOT NULL,
-    "totalprodutos" DOUBLE PRECISION NOT NULL,
-    "totalvenda" DOUBLE PRECISION NOT NULL,
-    "situacao" TEXT NOT NULL,
-    "dataSaida" TIMESTAMP(3) NOT NULL,
-    "loja" TEXT NOT NULL,
-    "numeroPedidoLoja" TEXT NOT NULL,
-    "tipoIntegracao" TEXT NOT NULL,
+    "desconto" DOUBLE PRECISION,
+    "observacoes" TEXT,
+    "observacaointerna" TEXT,
+    "data" TIMESTAMP(3),
+    "dataSaida" TIMESTAMP(3),
+    "numeroOrdemCompra" TEXT,
+    "vendedor" TEXT,
+    "valorfrete" DOUBLE PRECISION,
+    "outrasdespesas" DOUBLE PRECISION,
+    "totalprodutos" DOUBLE PRECISION,
+    "totalvenda" DOUBLE PRECISION,
+    "situacao" TEXT,
+    "loja" TEXT,
+    "numeroPedidoLoja" TEXT,
+    "tipoIntegracao" TEXT,
     "cliente_id" INTEGER NOT NULL,
-    "transportadora_id" INTEGER,
+    "transportadora_id" TEXT,
     "enderecoEntrega_id" INTEGER,
 
     CONSTRAINT "pedido_pkey" PRIMARY KEY ("numero")
@@ -112,13 +112,12 @@ CREATE TABLE "cliente" (
 
 -- CreateTable
 CREATE TABLE "transportadora" (
-    "id" INTEGER NOT NULL,
+    "cnpj" TEXT NOT NULL,
     "nome" TEXT,
-    "cnpj" TEXT,
     "tipo_frete" TEXT,
     "servico_correios" TEXT,
 
-    CONSTRAINT "transportadora_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "transportadora_pkey" PRIMARY KEY ("cnpj")
 );
 
 -- CreateTable
@@ -171,8 +170,60 @@ CREATE TABLE "dimensao_do_volume" (
     CONSTRAINT "dimensao_do_volume_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "parcela" (
+    "id" INTEGER NOT NULL,
+    "valor" DOUBLE PRECISION NOT NULL,
+    "dataVencimento" TIMESTAMP(3) NOT NULL,
+    "obs" TEXT,
+    "destino" TEXT,
+    "formaPagamento_id" TEXT NOT NULL,
+    "formaPagamentoDescricao" TEXT,
+    "formaPagamentoCodigoFiscal" TEXT,
+    "pedidoNumero" INTEGER,
+
+    CONSTRAINT "parcela_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Nota" (
+    "numero" TEXT NOT NULL,
+    "serie" TEXT,
+    "dataEmissao" TIMESTAMP(3),
+    "situacao" INTEGER,
+    "valorNota" DOUBLE PRECISION,
+    "chaveAcesso" TEXT,
+    "pedidoNumero" INTEGER NOT NULL,
+
+    CONSTRAINT "Nota_pkey" PRIMARY KEY ("numero")
+);
+
+-- CreateTable
+CREATE TABLE "produto_no_pedido" (
+    "id" SERIAL NOT NULL,
+    "codigo" TEXT,
+    "descricao" TEXT,
+    "quantidade" DECIMAL(65,30),
+    "valorunidade" DOUBLE PRECISION,
+    "precocusto" DOUBLE PRECISION,
+    "descontoItem" DOUBLE PRECISION,
+    "un" TEXT,
+    "pesoBruto" DECIMAL(65,30),
+    "largura" DECIMAL(65,30),
+    "altura" DECIMAL(65,30),
+    "profundidade" DECIMAL(65,30),
+    "unidadeMedida" TEXT,
+    "descricaoDetalhada" TEXT,
+    "pedidoNumero" INTEGER,
+
+    CONSTRAINT "produto_no_pedido_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "dimensao_do_volume_volume_id_key" ON "dimensao_do_volume"("volume_id");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Nota_pedidoNumero_key" ON "Nota"("pedidoNumero");
 
 -- AddForeignKey
 ALTER TABLE "categorias_no_produto" ADD CONSTRAINT "categorias_no_produto_produto_id_fkey" FOREIGN KEY ("produto_id") REFERENCES "produto"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -184,7 +235,7 @@ ALTER TABLE "categorias_no_produto" ADD CONSTRAINT "categorias_no_produto_catego
 ALTER TABLE "pedido" ADD CONSTRAINT "pedido_cliente_id_fkey" FOREIGN KEY ("cliente_id") REFERENCES "cliente"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "pedido" ADD CONSTRAINT "pedido_transportadora_id_fkey" FOREIGN KEY ("transportadora_id") REFERENCES "transportadora"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "pedido" ADD CONSTRAINT "pedido_transportadora_id_fkey" FOREIGN KEY ("transportadora_id") REFERENCES "transportadora"("cnpj") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "pedido" ADD CONSTRAINT "pedido_enderecoEntrega_id_fkey" FOREIGN KEY ("enderecoEntrega_id") REFERENCES "endereco"("id") ON DELETE SET NULL ON UPDATE CASCADE;
@@ -197,3 +248,12 @@ ALTER TABLE "volume" ADD CONSTRAINT "volume_pedidoNumero_fkey" FOREIGN KEY ("ped
 
 -- AddForeignKey
 ALTER TABLE "dimensao_do_volume" ADD CONSTRAINT "dimensao_do_volume_volume_id_fkey" FOREIGN KEY ("volume_id") REFERENCES "volume"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "parcela" ADD CONSTRAINT "parcela_pedidoNumero_fkey" FOREIGN KEY ("pedidoNumero") REFERENCES "pedido"("numero") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Nota" ADD CONSTRAINT "Nota_pedidoNumero_fkey" FOREIGN KEY ("pedidoNumero") REFERENCES "pedido"("numero") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "produto_no_pedido" ADD CONSTRAINT "produto_no_pedido_pedidoNumero_fkey" FOREIGN KEY ("pedidoNumero") REFERENCES "pedido"("numero") ON DELETE SET NULL ON UPDATE CASCADE;

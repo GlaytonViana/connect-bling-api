@@ -194,6 +194,7 @@ exports.Prisma.EnderecoScalarFieldEnum = makeEnum({
 
 exports.Prisma.VolumeScalarFieldEnum = makeEnum({
   id: 'id',
+  codigo: 'codigo',
   idServico: 'idServico',
   idOrigem: 'idOrigem',
   servico: 'servico',
@@ -208,17 +209,12 @@ exports.Prisma.VolumeScalarFieldEnum = makeEnum({
   avisoRecebimento: 'avisoRecebimento',
   maoPropria: 'maoPropria',
   urlRastreamento: 'urlRastreamento',
-  pedidoNumero: 'pedidoNumero'
-});
-
-exports.Prisma.DimensaoScalarFieldEnum = makeEnum({
-  id: 'id',
   peso: 'peso',
   altura: 'altura',
   largura: 'largura',
   comprimento: 'comprimento',
   diametro: 'diametro',
-  volume_id: 'volume_id'
+  pedidoNumero: 'pedidoNumero'
 });
 
 exports.Prisma.ParcelaScalarFieldEnum = makeEnum({
@@ -281,7 +277,6 @@ exports.Prisma.ModelName = makeEnum({
   Transportadora: 'Transportadora',
   Endereco: 'Endereco',
   Volume: 'Volume',
-  Dimensao: 'Dimensao',
   Parcela: 'Parcela',
   Nota: 'Nota',
   ProdutoNoPedido: 'ProdutoNoPedido'

@@ -5,7 +5,7 @@ class OrderRepository {
 
     constructor() {
         this.prisma = new PrismaClient({
-            log: ['query'],
+            log: ['error'],
         })
     }
 
@@ -16,7 +16,17 @@ class OrderRepository {
             return this.prisma.pedido.create({
                 data: order,
                 include: {
-                    cliente: true,
+                    cliente: {
+                        include: {
+                            endereco: true,
+                        },
+                    },
+                    enderecoEntrega: true,
+                    parcelas: true,
+                    produtos: true,
+                    volume: true,
+                    nota: true,
+                    transportadora: true,
                 },
             })
         })

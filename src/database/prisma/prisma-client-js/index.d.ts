@@ -23,8 +23,8 @@ export type Produto = {
   tipo: string | null
   situacao: string | null
   unidade: string | null
-  preco: Prisma.Decimal | null
-  precoCusto: Prisma.Decimal | null
+  preco: number | null
+  precoCusto: number | null
   descricaoCurta: string | null
   descricaoComplementar: string | null
   dataInclusao: Date | null
@@ -44,15 +44,15 @@ export type Produto = {
   garantia: number | null
   descricaoFornecedor: string | null
   idFabricante: number | null
-  pesoLiq: Prisma.Decimal | null
-  pesoBruto: Prisma.Decimal | null
-  estoqueMinimo: Prisma.Decimal | null
-  estoqueMaximo: Prisma.Decimal | null
+  pesoLiq: number | null
+  pesoBruto: number | null
+  estoqueMinimo: number | null
+  estoqueMaximo: number | null
   gtin: string | null
   gtinEmbalagem: string | null
-  larguraProduto: Prisma.Decimal | null
-  alturaProduto: Prisma.Decimal | null
-  profundidadeProduto: Prisma.Decimal | null
+  larguraProduto: number | null
+  alturaProduto: number | null
+  profundidadeProduto: number | null
   unidadeMedida: string | null
   itensPorCaixa: number | null
   volumes: number | null
@@ -162,6 +162,7 @@ export type Endereco = {
  */
 export type Volume = {
   id: number
+  codigo: number
   idServico: number
   idOrigem: string | null
   servico: string | null
@@ -176,21 +177,12 @@ export type Volume = {
   avisoRecebimento: boolean | null
   maoPropria: boolean | null
   urlRastreamento: string | null
-  pedidoNumero: number | null
-}
-
-/**
- * Model Dimensao
- * 
- */
-export type Dimensao = {
-  id: number
   peso: string | null
   altura: string | null
   largura: string | null
   comprimento: string | null
   diametro: string | null
-  volume_id: number
+  pedidoNumero: number
 }
 
 /**
@@ -199,14 +191,14 @@ export type Dimensao = {
  */
 export type Parcela = {
   id: number
-  valor: Prisma.Decimal
+  valor: number
   dataVencimento: Date
   obs: string | null
   destino: string | null
   formaPagamento_id: string
   formaPagamentoDescricao: string | null
   formaPagamentoCodigoFiscal: string | null
-  pedidoNumero: number | null
+  pedidoNumero: number
 }
 
 /**
@@ -218,7 +210,7 @@ export type Nota = {
   serie: string | null
   dataEmissao: Date | null
   situacao: number | null
-  valorNota: Prisma.Decimal | null
+  valorNota: number | null
   chaveAcesso: string | null
   pedidoNumero: number
 }
@@ -231,15 +223,15 @@ export type ProdutoNoPedido = {
   id: number
   codigo: string | null
   descricao: string | null
-  quantidade: Prisma.Decimal | null
-  valorunidade: Prisma.Decimal | null
-  precocusto: Prisma.Decimal | null
-  descontoItem: Prisma.Decimal | null
+  quantidade: number | null
+  valorunidade: number | null
+  precocusto: number | null
+  descontoItem: number | null
   un: string | null
-  pesoBruto: Prisma.Decimal | null
-  largura: Prisma.Decimal | null
-  altura: Prisma.Decimal | null
-  profundidade: Prisma.Decimal | null
+  pesoBruto: number | null
+  largura: number | null
+  altura: number | null
+  profundidade: number | null
   unidadeMedida: string | null
   descricaoDetalhada: string | null
   pedidoNumero: number | null
@@ -466,16 +458,6 @@ export class PrismaClient<
     * ```
     */
   get volume(): Prisma.VolumeDelegate<GlobalReject>;
-
-  /**
-   * `prisma.dimensao`: Exposes CRUD operations for the **Dimensao** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Dimensaos
-    * const dimensaos = await prisma.dimensao.findMany()
-    * ```
-    */
-  get dimensao(): Prisma.DimensaoDelegate<GlobalReject>;
 
   /**
    * `prisma.parcela`: Exposes CRUD operations for the **Parcela** model.
@@ -924,7 +906,6 @@ export namespace Prisma {
     Transportadora: 'Transportadora',
     Endereco: 'Endereco',
     Volume: 'Volume',
-    Dimensao: 'Dimensao',
     Parcela: 'Parcela',
     Nota: 'Nota',
     ProdutoNoPedido: 'ProdutoNoPedido'
@@ -1406,38 +1387,38 @@ export namespace Prisma {
   }
 
   export type ProdutoAvgAggregateOutputType = {
-    preco: Decimal | null
-    precoCusto: Decimal | null
+    preco: number | null
+    precoCusto: number | null
     origem: number | null
     idGrupoProduto: number | null
     garantia: number | null
     idFabricante: number | null
-    pesoLiq: Decimal | null
-    pesoBruto: Decimal | null
-    estoqueMinimo: Decimal | null
-    estoqueMaximo: Decimal | null
-    larguraProduto: Decimal | null
-    alturaProduto: Decimal | null
-    profundidadeProduto: Decimal | null
+    pesoLiq: number | null
+    pesoBruto: number | null
+    estoqueMinimo: number | null
+    estoqueMaximo: number | null
+    larguraProduto: number | null
+    alturaProduto: number | null
+    profundidadeProduto: number | null
     itensPorCaixa: number | null
     volumes: number | null
     crossdocking: number | null
   }
 
   export type ProdutoSumAggregateOutputType = {
-    preco: Decimal | null
-    precoCusto: Decimal | null
+    preco: number | null
+    precoCusto: number | null
     origem: number | null
     idGrupoProduto: number | null
     garantia: number | null
     idFabricante: number | null
-    pesoLiq: Decimal | null
-    pesoBruto: Decimal | null
-    estoqueMinimo: Decimal | null
-    estoqueMaximo: Decimal | null
-    larguraProduto: Decimal | null
-    alturaProduto: Decimal | null
-    profundidadeProduto: Decimal | null
+    pesoLiq: number | null
+    pesoBruto: number | null
+    estoqueMinimo: number | null
+    estoqueMaximo: number | null
+    larguraProduto: number | null
+    alturaProduto: number | null
+    profundidadeProduto: number | null
     itensPorCaixa: number | null
     volumes: number | null
     crossdocking: number | null
@@ -1450,8 +1431,8 @@ export namespace Prisma {
     tipo: string | null
     situacao: string | null
     unidade: string | null
-    preco: Decimal | null
-    precoCusto: Decimal | null
+    preco: number | null
+    precoCusto: number | null
     descricaoCurta: string | null
     descricaoComplementar: string | null
     dataInclusao: Date | null
@@ -1471,15 +1452,15 @@ export namespace Prisma {
     garantia: number | null
     descricaoFornecedor: string | null
     idFabricante: number | null
-    pesoLiq: Decimal | null
-    pesoBruto: Decimal | null
-    estoqueMinimo: Decimal | null
-    estoqueMaximo: Decimal | null
+    pesoLiq: number | null
+    pesoBruto: number | null
+    estoqueMinimo: number | null
+    estoqueMaximo: number | null
     gtin: string | null
     gtinEmbalagem: string | null
-    larguraProduto: Decimal | null
-    alturaProduto: Decimal | null
-    profundidadeProduto: Decimal | null
+    larguraProduto: number | null
+    alturaProduto: number | null
+    profundidadeProduto: number | null
     unidadeMedida: string | null
     itensPorCaixa: number | null
     volumes: number | null
@@ -1501,8 +1482,8 @@ export namespace Prisma {
     tipo: string | null
     situacao: string | null
     unidade: string | null
-    preco: Decimal | null
-    precoCusto: Decimal | null
+    preco: number | null
+    precoCusto: number | null
     descricaoCurta: string | null
     descricaoComplementar: string | null
     dataInclusao: Date | null
@@ -1522,15 +1503,15 @@ export namespace Prisma {
     garantia: number | null
     descricaoFornecedor: string | null
     idFabricante: number | null
-    pesoLiq: Decimal | null
-    pesoBruto: Decimal | null
-    estoqueMinimo: Decimal | null
-    estoqueMaximo: Decimal | null
+    pesoLiq: number | null
+    pesoBruto: number | null
+    estoqueMinimo: number | null
+    estoqueMaximo: number | null
     gtin: string | null
     gtinEmbalagem: string | null
-    larguraProduto: Decimal | null
-    alturaProduto: Decimal | null
-    profundidadeProduto: Decimal | null
+    larguraProduto: number | null
+    alturaProduto: number | null
+    profundidadeProduto: number | null
     unidadeMedida: string | null
     itensPorCaixa: number | null
     volumes: number | null
@@ -1889,8 +1870,8 @@ export namespace Prisma {
     tipo: string | null
     situacao: string | null
     unidade: string | null
-    preco: Decimal | null
-    precoCusto: Decimal | null
+    preco: number | null
+    precoCusto: number | null
     descricaoCurta: string | null
     descricaoComplementar: string | null
     dataInclusao: Date | null
@@ -1910,15 +1891,15 @@ export namespace Prisma {
     garantia: number | null
     descricaoFornecedor: string | null
     idFabricante: number | null
-    pesoLiq: Decimal | null
-    pesoBruto: Decimal | null
-    estoqueMinimo: Decimal | null
-    estoqueMaximo: Decimal | null
+    pesoLiq: number | null
+    pesoBruto: number | null
+    estoqueMinimo: number | null
+    estoqueMaximo: number | null
     gtin: string | null
     gtinEmbalagem: string | null
-    larguraProduto: Decimal | null
-    alturaProduto: Decimal | null
-    profundidadeProduto: Decimal | null
+    larguraProduto: number | null
+    alturaProduto: number | null
+    profundidadeProduto: number | null
     unidadeMedida: string | null
     itensPorCaixa: number | null
     volumes: number | null
@@ -8248,6 +8229,7 @@ export namespace Prisma {
 
   export type VolumeAvgAggregateOutputType = {
     id: number | null
+    codigo: number | null
     idServico: number | null
     valorFretePrevisto: number | null
     valorDeclarado: number | null
@@ -8256,6 +8238,7 @@ export namespace Prisma {
 
   export type VolumeSumAggregateOutputType = {
     id: number | null
+    codigo: number | null
     idServico: number | null
     valorFretePrevisto: number | null
     valorDeclarado: number | null
@@ -8264,6 +8247,7 @@ export namespace Prisma {
 
   export type VolumeMinAggregateOutputType = {
     id: number | null
+    codigo: number | null
     idServico: number | null
     idOrigem: string | null
     servico: string | null
@@ -8278,11 +8262,17 @@ export namespace Prisma {
     avisoRecebimento: boolean | null
     maoPropria: boolean | null
     urlRastreamento: string | null
+    peso: string | null
+    altura: string | null
+    largura: string | null
+    comprimento: string | null
+    diametro: string | null
     pedidoNumero: number | null
   }
 
   export type VolumeMaxAggregateOutputType = {
     id: number | null
+    codigo: number | null
     idServico: number | null
     idOrigem: string | null
     servico: string | null
@@ -8297,11 +8287,17 @@ export namespace Prisma {
     avisoRecebimento: boolean | null
     maoPropria: boolean | null
     urlRastreamento: string | null
+    peso: string | null
+    altura: string | null
+    largura: string | null
+    comprimento: string | null
+    diametro: string | null
     pedidoNumero: number | null
   }
 
   export type VolumeCountAggregateOutputType = {
     id: number
+    codigo: number
     idServico: number
     idOrigem: number
     servico: number
@@ -8316,6 +8312,11 @@ export namespace Prisma {
     avisoRecebimento: number
     maoPropria: number
     urlRastreamento: number
+    peso: number
+    altura: number
+    largura: number
+    comprimento: number
+    diametro: number
     pedidoNumero: number
     _all: number
   }
@@ -8323,6 +8324,7 @@ export namespace Prisma {
 
   export type VolumeAvgAggregateInputType = {
     id?: true
+    codigo?: true
     idServico?: true
     valorFretePrevisto?: true
     valorDeclarado?: true
@@ -8331,6 +8333,7 @@ export namespace Prisma {
 
   export type VolumeSumAggregateInputType = {
     id?: true
+    codigo?: true
     idServico?: true
     valorFretePrevisto?: true
     valorDeclarado?: true
@@ -8339,6 +8342,7 @@ export namespace Prisma {
 
   export type VolumeMinAggregateInputType = {
     id?: true
+    codigo?: true
     idServico?: true
     idOrigem?: true
     servico?: true
@@ -8353,11 +8357,17 @@ export namespace Prisma {
     avisoRecebimento?: true
     maoPropria?: true
     urlRastreamento?: true
+    peso?: true
+    altura?: true
+    largura?: true
+    comprimento?: true
+    diametro?: true
     pedidoNumero?: true
   }
 
   export type VolumeMaxAggregateInputType = {
     id?: true
+    codigo?: true
     idServico?: true
     idOrigem?: true
     servico?: true
@@ -8372,11 +8382,17 @@ export namespace Prisma {
     avisoRecebimento?: true
     maoPropria?: true
     urlRastreamento?: true
+    peso?: true
+    altura?: true
+    largura?: true
+    comprimento?: true
+    diametro?: true
     pedidoNumero?: true
   }
 
   export type VolumeCountAggregateInputType = {
     id?: true
+    codigo?: true
     idServico?: true
     idOrigem?: true
     servico?: true
@@ -8391,6 +8407,11 @@ export namespace Prisma {
     avisoRecebimento?: true
     maoPropria?: true
     urlRastreamento?: true
+    peso?: true
+    altura?: true
+    largura?: true
+    comprimento?: true
+    diametro?: true
     pedidoNumero?: true
     _all?: true
   }
@@ -8489,6 +8510,7 @@ export namespace Prisma {
 
   export type VolumeGroupByOutputType = {
     id: number
+    codigo: number
     idServico: number
     idOrigem: string | null
     servico: string | null
@@ -8503,7 +8525,12 @@ export namespace Prisma {
     avisoRecebimento: boolean | null
     maoPropria: boolean | null
     urlRastreamento: string | null
-    pedidoNumero: number | null
+    peso: string | null
+    altura: string | null
+    largura: string | null
+    comprimento: string | null
+    diametro: string | null
+    pedidoNumero: number
     _count: VolumeCountAggregateOutputType | null
     _avg: VolumeAvgAggregateOutputType | null
     _sum: VolumeSumAggregateOutputType | null
@@ -8527,6 +8554,7 @@ export namespace Prisma {
 
   export type VolumeSelect = {
     id?: boolean
+    codigo?: boolean
     idServico?: boolean
     idOrigem?: boolean
     servico?: boolean
@@ -8541,14 +8569,17 @@ export namespace Prisma {
     avisoRecebimento?: boolean
     maoPropria?: boolean
     urlRastreamento?: boolean
+    peso?: boolean
+    altura?: boolean
+    largura?: boolean
+    comprimento?: boolean
+    diametro?: boolean
     pedidoNumero?: boolean
     pedido?: boolean | PedidoArgs
-    dimensao?: boolean | DimensaoArgs
   }
 
   export type VolumeInclude = {
     pedido?: boolean | PedidoArgs
-    dimensao?: boolean | DimensaoArgs
   }
 
   export type VolumeGetPayload<
@@ -8563,18 +8594,14 @@ export namespace Prisma {
     ? Volume  & {
     [P in TrueKeys<S['include']>]: 
           P extends 'pedido'
-        ? PedidoGetPayload<S['include'][P]> | null :
-        P extends 'dimensao'
-        ? DimensaoGetPayload<S['include'][P]> | null : never
+        ? PedidoGetPayload<S['include'][P]> : never
   } 
     : 'select' extends U
     ? {
     [P in TrueKeys<S['select']>]: P extends keyof Volume ?Volume [P]
   : 
           P extends 'pedido'
-        ? PedidoGetPayload<S['select'][P]> | null :
-        P extends 'dimensao'
-        ? DimensaoGetPayload<S['select'][P]> | null : never
+        ? PedidoGetPayload<S['select'][P]> : never
   } 
     : Volume
   : Volume
@@ -8916,8 +8943,6 @@ export namespace Prisma {
 
     pedido<T extends PedidoArgs = {}>(args?: Subset<T, PedidoArgs>): CheckSelect<T, Prisma__PedidoClient<Pedido | null >, Prisma__PedidoClient<PedidoGetPayload<T> | null >>;
 
-    dimensao<T extends DimensaoArgs = {}>(args?: Subset<T, DimensaoArgs>): CheckSelect<T, Prisma__DimensaoClient<Dimensao | null >, Prisma__DimensaoClient<DimensaoGetPayload<T> | null >>;
-
     private get _document();
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -9231,911 +9256,6 @@ export namespace Prisma {
 
 
   /**
-   * Model Dimensao
-   */
-
-
-  export type AggregateDimensao = {
-    _count: DimensaoCountAggregateOutputType | null
-    _avg: DimensaoAvgAggregateOutputType | null
-    _sum: DimensaoSumAggregateOutputType | null
-    _min: DimensaoMinAggregateOutputType | null
-    _max: DimensaoMaxAggregateOutputType | null
-  }
-
-  export type DimensaoAvgAggregateOutputType = {
-    id: number | null
-    volume_id: number | null
-  }
-
-  export type DimensaoSumAggregateOutputType = {
-    id: number | null
-    volume_id: number | null
-  }
-
-  export type DimensaoMinAggregateOutputType = {
-    id: number | null
-    peso: string | null
-    altura: string | null
-    largura: string | null
-    comprimento: string | null
-    diametro: string | null
-    volume_id: number | null
-  }
-
-  export type DimensaoMaxAggregateOutputType = {
-    id: number | null
-    peso: string | null
-    altura: string | null
-    largura: string | null
-    comprimento: string | null
-    diametro: string | null
-    volume_id: number | null
-  }
-
-  export type DimensaoCountAggregateOutputType = {
-    id: number
-    peso: number
-    altura: number
-    largura: number
-    comprimento: number
-    diametro: number
-    volume_id: number
-    _all: number
-  }
-
-
-  export type DimensaoAvgAggregateInputType = {
-    id?: true
-    volume_id?: true
-  }
-
-  export type DimensaoSumAggregateInputType = {
-    id?: true
-    volume_id?: true
-  }
-
-  export type DimensaoMinAggregateInputType = {
-    id?: true
-    peso?: true
-    altura?: true
-    largura?: true
-    comprimento?: true
-    diametro?: true
-    volume_id?: true
-  }
-
-  export type DimensaoMaxAggregateInputType = {
-    id?: true
-    peso?: true
-    altura?: true
-    largura?: true
-    comprimento?: true
-    diametro?: true
-    volume_id?: true
-  }
-
-  export type DimensaoCountAggregateInputType = {
-    id?: true
-    peso?: true
-    altura?: true
-    largura?: true
-    comprimento?: true
-    diametro?: true
-    volume_id?: true
-    _all?: true
-  }
-
-  export type DimensaoAggregateArgs = {
-    /**
-     * Filter which Dimensao to aggregate.
-     * 
-    **/
-    where?: DimensaoWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Dimensaos to fetch.
-     * 
-    **/
-    orderBy?: Enumerable<DimensaoOrderByWithRelationInput>
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     * 
-    **/
-    cursor?: DimensaoWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Dimensaos from the position of the cursor.
-     * 
-    **/
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Dimensaos.
-     * 
-    **/
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned Dimensaos
-    **/
-    _count?: true | DimensaoCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: DimensaoAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: DimensaoSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: DimensaoMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: DimensaoMaxAggregateInputType
-  }
-
-  export type GetDimensaoAggregateType<T extends DimensaoAggregateArgs> = {
-        [P in keyof T & keyof AggregateDimensao]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateDimensao[P]>
-      : GetScalarType<T[P], AggregateDimensao[P]>
-  }
-
-
-
-
-  export type DimensaoGroupByArgs = {
-    where?: DimensaoWhereInput
-    orderBy?: Enumerable<DimensaoOrderByWithAggregationInput>
-    by: Array<DimensaoScalarFieldEnum>
-    having?: DimensaoScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: DimensaoCountAggregateInputType | true
-    _avg?: DimensaoAvgAggregateInputType
-    _sum?: DimensaoSumAggregateInputType
-    _min?: DimensaoMinAggregateInputType
-    _max?: DimensaoMaxAggregateInputType
-  }
-
-
-  export type DimensaoGroupByOutputType = {
-    id: number
-    peso: string | null
-    altura: string | null
-    largura: string | null
-    comprimento: string | null
-    diametro: string | null
-    volume_id: number
-    _count: DimensaoCountAggregateOutputType | null
-    _avg: DimensaoAvgAggregateOutputType | null
-    _sum: DimensaoSumAggregateOutputType | null
-    _min: DimensaoMinAggregateOutputType | null
-    _max: DimensaoMaxAggregateOutputType | null
-  }
-
-  type GetDimensaoGroupByPayload<T extends DimensaoGroupByArgs> = Promise<
-    Array<
-      PickArray<DimensaoGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof DimensaoGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], DimensaoGroupByOutputType[P]>
-            : GetScalarType<T[P], DimensaoGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type DimensaoSelect = {
-    id?: boolean
-    peso?: boolean
-    altura?: boolean
-    largura?: boolean
-    comprimento?: boolean
-    diametro?: boolean
-    volume_id?: boolean
-    volume?: boolean | VolumeArgs
-  }
-
-  export type DimensaoInclude = {
-    volume?: boolean | VolumeArgs
-  }
-
-  export type DimensaoGetPayload<
-    S extends boolean | null | undefined | DimensaoArgs,
-    U = keyof S
-      > = S extends true
-        ? Dimensao
-    : S extends undefined
-    ? never
-    : S extends DimensaoArgs | DimensaoFindManyArgs
-    ?'include' extends U
-    ? Dimensao  & {
-    [P in TrueKeys<S['include']>]: 
-          P extends 'volume'
-        ? VolumeGetPayload<S['include'][P]> : never
-  } 
-    : 'select' extends U
-    ? {
-    [P in TrueKeys<S['select']>]: P extends keyof Dimensao ?Dimensao [P]
-  : 
-          P extends 'volume'
-        ? VolumeGetPayload<S['select'][P]> : never
-  } 
-    : Dimensao
-  : Dimensao
-
-
-  type DimensaoCountArgs = Merge<
-    Omit<DimensaoFindManyArgs, 'select' | 'include'> & {
-      select?: DimensaoCountAggregateInputType | true
-    }
-  >
-
-  export interface DimensaoDelegate<GlobalRejectSettings> {
-    /**
-     * Find zero or one Dimensao that matches the filter.
-     * @param {DimensaoFindUniqueArgs} args - Arguments to find a Dimensao
-     * @example
-     * // Get one Dimensao
-     * const dimensao = await prisma.dimensao.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findUnique<T extends DimensaoFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args: SelectSubset<T, DimensaoFindUniqueArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'Dimensao'> extends True ? CheckSelect<T, Prisma__DimensaoClient<Dimensao>, Prisma__DimensaoClient<DimensaoGetPayload<T>>> : CheckSelect<T, Prisma__DimensaoClient<Dimensao | null >, Prisma__DimensaoClient<DimensaoGetPayload<T> | null >>
-
-    /**
-     * Find the first Dimensao that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {DimensaoFindFirstArgs} args - Arguments to find a Dimensao
-     * @example
-     * // Get one Dimensao
-     * const dimensao = await prisma.dimensao.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findFirst<T extends DimensaoFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args?: SelectSubset<T, DimensaoFindFirstArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'Dimensao'> extends True ? CheckSelect<T, Prisma__DimensaoClient<Dimensao>, Prisma__DimensaoClient<DimensaoGetPayload<T>>> : CheckSelect<T, Prisma__DimensaoClient<Dimensao | null >, Prisma__DimensaoClient<DimensaoGetPayload<T> | null >>
-
-    /**
-     * Find zero or more Dimensaos that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {DimensaoFindManyArgs=} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Dimensaos
-     * const dimensaos = await prisma.dimensao.findMany()
-     * 
-     * // Get first 10 Dimensaos
-     * const dimensaos = await prisma.dimensao.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const dimensaoWithIdOnly = await prisma.dimensao.findMany({ select: { id: true } })
-     * 
-    **/
-    findMany<T extends DimensaoFindManyArgs>(
-      args?: SelectSubset<T, DimensaoFindManyArgs>
-    ): CheckSelect<T, PrismaPromise<Array<Dimensao>>, PrismaPromise<Array<DimensaoGetPayload<T>>>>
-
-    /**
-     * Create a Dimensao.
-     * @param {DimensaoCreateArgs} args - Arguments to create a Dimensao.
-     * @example
-     * // Create one Dimensao
-     * const Dimensao = await prisma.dimensao.create({
-     *   data: {
-     *     // ... data to create a Dimensao
-     *   }
-     * })
-     * 
-    **/
-    create<T extends DimensaoCreateArgs>(
-      args: SelectSubset<T, DimensaoCreateArgs>
-    ): CheckSelect<T, Prisma__DimensaoClient<Dimensao>, Prisma__DimensaoClient<DimensaoGetPayload<T>>>
-
-    /**
-     * Create many Dimensaos.
-     *     @param {DimensaoCreateManyArgs} args - Arguments to create many Dimensaos.
-     *     @example
-     *     // Create many Dimensaos
-     *     const dimensao = await prisma.dimensao.createMany({
-     *       data: {
-     *         // ... provide data here
-     *       }
-     *     })
-     *     
-    **/
-    createMany<T extends DimensaoCreateManyArgs>(
-      args?: SelectSubset<T, DimensaoCreateManyArgs>
-    ): PrismaPromise<BatchPayload>
-
-    /**
-     * Delete a Dimensao.
-     * @param {DimensaoDeleteArgs} args - Arguments to delete one Dimensao.
-     * @example
-     * // Delete one Dimensao
-     * const Dimensao = await prisma.dimensao.delete({
-     *   where: {
-     *     // ... filter to delete one Dimensao
-     *   }
-     * })
-     * 
-    **/
-    delete<T extends DimensaoDeleteArgs>(
-      args: SelectSubset<T, DimensaoDeleteArgs>
-    ): CheckSelect<T, Prisma__DimensaoClient<Dimensao>, Prisma__DimensaoClient<DimensaoGetPayload<T>>>
-
-    /**
-     * Update one Dimensao.
-     * @param {DimensaoUpdateArgs} args - Arguments to update one Dimensao.
-     * @example
-     * // Update one Dimensao
-     * const dimensao = await prisma.dimensao.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-    **/
-    update<T extends DimensaoUpdateArgs>(
-      args: SelectSubset<T, DimensaoUpdateArgs>
-    ): CheckSelect<T, Prisma__DimensaoClient<Dimensao>, Prisma__DimensaoClient<DimensaoGetPayload<T>>>
-
-    /**
-     * Delete zero or more Dimensaos.
-     * @param {DimensaoDeleteManyArgs} args - Arguments to filter Dimensaos to delete.
-     * @example
-     * // Delete a few Dimensaos
-     * const { count } = await prisma.dimensao.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-    **/
-    deleteMany<T extends DimensaoDeleteManyArgs>(
-      args?: SelectSubset<T, DimensaoDeleteManyArgs>
-    ): PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Dimensaos.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {DimensaoUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Dimensaos
-     * const dimensao = await prisma.dimensao.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-    **/
-    updateMany<T extends DimensaoUpdateManyArgs>(
-      args: SelectSubset<T, DimensaoUpdateManyArgs>
-    ): PrismaPromise<BatchPayload>
-
-    /**
-     * Create or update one Dimensao.
-     * @param {DimensaoUpsertArgs} args - Arguments to update or create a Dimensao.
-     * @example
-     * // Update or create a Dimensao
-     * const dimensao = await prisma.dimensao.upsert({
-     *   create: {
-     *     // ... data to create a Dimensao
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Dimensao we want to update
-     *   }
-     * })
-    **/
-    upsert<T extends DimensaoUpsertArgs>(
-      args: SelectSubset<T, DimensaoUpsertArgs>
-    ): CheckSelect<T, Prisma__DimensaoClient<Dimensao>, Prisma__DimensaoClient<DimensaoGetPayload<T>>>
-
-    /**
-     * Count the number of Dimensaos.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {DimensaoCountArgs} args - Arguments to filter Dimensaos to count.
-     * @example
-     * // Count the number of Dimensaos
-     * const count = await prisma.dimensao.count({
-     *   where: {
-     *     // ... the filter for the Dimensaos we want to count
-     *   }
-     * })
-    **/
-    count<T extends DimensaoCountArgs>(
-      args?: Subset<T, DimensaoCountArgs>,
-    ): PrismaPromise<
-      T extends _Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], DimensaoCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Dimensao.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {DimensaoAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends DimensaoAggregateArgs>(args: Subset<T, DimensaoAggregateArgs>): PrismaPromise<GetDimensaoAggregateType<T>>
-
-    /**
-     * Group by Dimensao.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {DimensaoGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends DimensaoGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: DimensaoGroupByArgs['orderBy'] }
-        : { orderBy?: DimensaoGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends TupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, DimensaoGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDimensaoGroupByPayload<T> : Promise<InputErrors>
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for Dimensao.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export class Prisma__DimensaoClient<T> implements PrismaPromise<T> {
-    [prisma]: true;
-    private readonly _dmmf;
-    private readonly _fetcher;
-    private readonly _queryType;
-    private readonly _rootField;
-    private readonly _clientMethod;
-    private readonly _args;
-    private readonly _dataPath;
-    private readonly _errorFormat;
-    private readonly _measurePerformance?;
-    private _isList;
-    private _callsite;
-    private _requestPromise?;
-    constructor(_dmmf: runtime.DMMFClass, _fetcher: PrismaClientFetcher, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
-    readonly [Symbol.toStringTag]: 'PrismaClientPromise';
-
-    volume<T extends VolumeArgs = {}>(args?: Subset<T, VolumeArgs>): CheckSelect<T, Prisma__VolumeClient<Volume | null >, Prisma__VolumeClient<VolumeGetPayload<T> | null >>;
-
-    private get _document();
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
-  }
-
-  // Custom InputTypes
-
-  /**
-   * Dimensao findUnique
-   */
-  export type DimensaoFindUniqueArgs = {
-    /**
-     * Select specific fields to fetch from the Dimensao
-     * 
-    **/
-    select?: DimensaoSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: DimensaoInclude | null
-    /**
-     * Throw an Error if a Dimensao can't be found
-     * 
-    **/
-    rejectOnNotFound?: RejectOnNotFound
-    /**
-     * Filter, which Dimensao to fetch.
-     * 
-    **/
-    where: DimensaoWhereUniqueInput
-  }
-
-
-  /**
-   * Dimensao findFirst
-   */
-  export type DimensaoFindFirstArgs = {
-    /**
-     * Select specific fields to fetch from the Dimensao
-     * 
-    **/
-    select?: DimensaoSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: DimensaoInclude | null
-    /**
-     * Throw an Error if a Dimensao can't be found
-     * 
-    **/
-    rejectOnNotFound?: RejectOnNotFound
-    /**
-     * Filter, which Dimensao to fetch.
-     * 
-    **/
-    where?: DimensaoWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Dimensaos to fetch.
-     * 
-    **/
-    orderBy?: Enumerable<DimensaoOrderByWithRelationInput>
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Dimensaos.
-     * 
-    **/
-    cursor?: DimensaoWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Dimensaos from the position of the cursor.
-     * 
-    **/
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Dimensaos.
-     * 
-    **/
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Dimensaos.
-     * 
-    **/
-    distinct?: Enumerable<DimensaoScalarFieldEnum>
-  }
-
-
-  /**
-   * Dimensao findMany
-   */
-  export type DimensaoFindManyArgs = {
-    /**
-     * Select specific fields to fetch from the Dimensao
-     * 
-    **/
-    select?: DimensaoSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: DimensaoInclude | null
-    /**
-     * Filter, which Dimensaos to fetch.
-     * 
-    **/
-    where?: DimensaoWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Dimensaos to fetch.
-     * 
-    **/
-    orderBy?: Enumerable<DimensaoOrderByWithRelationInput>
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing Dimensaos.
-     * 
-    **/
-    cursor?: DimensaoWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Dimensaos from the position of the cursor.
-     * 
-    **/
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Dimensaos.
-     * 
-    **/
-    skip?: number
-    distinct?: Enumerable<DimensaoScalarFieldEnum>
-  }
-
-
-  /**
-   * Dimensao create
-   */
-  export type DimensaoCreateArgs = {
-    /**
-     * Select specific fields to fetch from the Dimensao
-     * 
-    **/
-    select?: DimensaoSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: DimensaoInclude | null
-    /**
-     * The data needed to create a Dimensao.
-     * 
-    **/
-    data: XOR<DimensaoCreateInput, DimensaoUncheckedCreateInput>
-  }
-
-
-  /**
-   * Dimensao createMany
-   */
-  export type DimensaoCreateManyArgs = {
-    data: Enumerable<DimensaoCreateManyInput>
-    skipDuplicates?: boolean
-  }
-
-
-  /**
-   * Dimensao update
-   */
-  export type DimensaoUpdateArgs = {
-    /**
-     * Select specific fields to fetch from the Dimensao
-     * 
-    **/
-    select?: DimensaoSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: DimensaoInclude | null
-    /**
-     * The data needed to update a Dimensao.
-     * 
-    **/
-    data: XOR<DimensaoUpdateInput, DimensaoUncheckedUpdateInput>
-    /**
-     * Choose, which Dimensao to update.
-     * 
-    **/
-    where: DimensaoWhereUniqueInput
-  }
-
-
-  /**
-   * Dimensao updateMany
-   */
-  export type DimensaoUpdateManyArgs = {
-    data: XOR<DimensaoUpdateManyMutationInput, DimensaoUncheckedUpdateManyInput>
-    where?: DimensaoWhereInput
-  }
-
-
-  /**
-   * Dimensao upsert
-   */
-  export type DimensaoUpsertArgs = {
-    /**
-     * Select specific fields to fetch from the Dimensao
-     * 
-    **/
-    select?: DimensaoSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: DimensaoInclude | null
-    /**
-     * The filter to search for the Dimensao to update in case it exists.
-     * 
-    **/
-    where: DimensaoWhereUniqueInput
-    /**
-     * In case the Dimensao found by the `where` argument doesn't exist, create a new Dimensao with this data.
-     * 
-    **/
-    create: XOR<DimensaoCreateInput, DimensaoUncheckedCreateInput>
-    /**
-     * In case the Dimensao was found with the provided `where` argument, update it with this data.
-     * 
-    **/
-    update: XOR<DimensaoUpdateInput, DimensaoUncheckedUpdateInput>
-  }
-
-
-  /**
-   * Dimensao delete
-   */
-  export type DimensaoDeleteArgs = {
-    /**
-     * Select specific fields to fetch from the Dimensao
-     * 
-    **/
-    select?: DimensaoSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: DimensaoInclude | null
-    /**
-     * Filter which Dimensao to delete.
-     * 
-    **/
-    where: DimensaoWhereUniqueInput
-  }
-
-
-  /**
-   * Dimensao deleteMany
-   */
-  export type DimensaoDeleteManyArgs = {
-    where?: DimensaoWhereInput
-  }
-
-
-  /**
-   * Dimensao without action
-   */
-  export type DimensaoArgs = {
-    /**
-     * Select specific fields to fetch from the Dimensao
-     * 
-    **/
-    select?: DimensaoSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: DimensaoInclude | null
-  }
-
-
-
-  /**
    * Model Parcela
    */
 
@@ -10150,19 +9270,19 @@ export namespace Prisma {
 
   export type ParcelaAvgAggregateOutputType = {
     id: number | null
-    valor: Decimal | null
+    valor: number | null
     pedidoNumero: number | null
   }
 
   export type ParcelaSumAggregateOutputType = {
     id: number | null
-    valor: Decimal | null
+    valor: number | null
     pedidoNumero: number | null
   }
 
   export type ParcelaMinAggregateOutputType = {
     id: number | null
-    valor: Decimal | null
+    valor: number | null
     dataVencimento: Date | null
     obs: string | null
     destino: string | null
@@ -10174,7 +9294,7 @@ export namespace Prisma {
 
   export type ParcelaMaxAggregateOutputType = {
     id: number | null
-    valor: Decimal | null
+    valor: number | null
     dataVencimento: Date | null
     obs: string | null
     destino: string | null
@@ -10341,14 +9461,14 @@ export namespace Prisma {
 
   export type ParcelaGroupByOutputType = {
     id: number
-    valor: Decimal
+    valor: number
     dataVencimento: Date
     obs: string | null
     destino: string | null
     formaPagamento_id: string
     formaPagamentoDescricao: string | null
     formaPagamentoCodigoFiscal: string | null
-    pedidoNumero: number | null
+    pedidoNumero: number
     _count: ParcelaCountAggregateOutputType | null
     _avg: ParcelaAvgAggregateOutputType | null
     _sum: ParcelaSumAggregateOutputType | null
@@ -10380,11 +9500,11 @@ export namespace Prisma {
     formaPagamentoDescricao?: boolean
     formaPagamentoCodigoFiscal?: boolean
     pedidoNumero?: boolean
-    Pedido?: boolean | PedidoArgs
+    pedido?: boolean | PedidoArgs
   }
 
   export type ParcelaInclude = {
-    Pedido?: boolean | PedidoArgs
+    pedido?: boolean | PedidoArgs
   }
 
   export type ParcelaGetPayload<
@@ -10398,15 +9518,15 @@ export namespace Prisma {
     ?'include' extends U
     ? Parcela  & {
     [P in TrueKeys<S['include']>]: 
-          P extends 'Pedido'
-        ? PedidoGetPayload<S['include'][P]> | null : never
+          P extends 'pedido'
+        ? PedidoGetPayload<S['include'][P]> : never
   } 
     : 'select' extends U
     ? {
     [P in TrueKeys<S['select']>]: P extends keyof Parcela ?Parcela [P]
   : 
-          P extends 'Pedido'
-        ? PedidoGetPayload<S['select'][P]> | null : never
+          P extends 'pedido'
+        ? PedidoGetPayload<S['select'][P]> : never
   } 
     : Parcela
   : Parcela
@@ -10746,7 +9866,7 @@ export namespace Prisma {
     constructor(_dmmf: runtime.DMMFClass, _fetcher: PrismaClientFetcher, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
     readonly [Symbol.toStringTag]: 'PrismaClientPromise';
 
-    Pedido<T extends PedidoArgs = {}>(args?: Subset<T, PedidoArgs>): CheckSelect<T, Prisma__PedidoClient<Pedido | null >, Prisma__PedidoClient<PedidoGetPayload<T> | null >>;
+    pedido<T extends PedidoArgs = {}>(args?: Subset<T, PedidoArgs>): CheckSelect<T, Prisma__PedidoClient<Pedido | null >, Prisma__PedidoClient<PedidoGetPayload<T> | null >>;
 
     private get _document();
     /**
@@ -11075,13 +10195,13 @@ export namespace Prisma {
 
   export type NotaAvgAggregateOutputType = {
     situacao: number | null
-    valorNota: Decimal | null
+    valorNota: number | null
     pedidoNumero: number | null
   }
 
   export type NotaSumAggregateOutputType = {
     situacao: number | null
-    valorNota: Decimal | null
+    valorNota: number | null
     pedidoNumero: number | null
   }
 
@@ -11090,7 +10210,7 @@ export namespace Prisma {
     serie: string | null
     dataEmissao: Date | null
     situacao: number | null
-    valorNota: Decimal | null
+    valorNota: number | null
     chaveAcesso: string | null
     pedidoNumero: number | null
   }
@@ -11100,7 +10220,7 @@ export namespace Prisma {
     serie: string | null
     dataEmissao: Date | null
     situacao: number | null
-    valorNota: Decimal | null
+    valorNota: number | null
     chaveAcesso: string | null
     pedidoNumero: number | null
   }
@@ -11257,7 +10377,7 @@ export namespace Prisma {
     serie: string | null
     dataEmissao: Date | null
     situacao: number | null
-    valorNota: Decimal | null
+    valorNota: number | null
     chaveAcesso: string | null
     pedidoNumero: number
     _count: NotaCountAggregateOutputType | null
@@ -11984,27 +11104,27 @@ export namespace Prisma {
 
   export type ProdutoNoPedidoAvgAggregateOutputType = {
     id: number | null
-    quantidade: Decimal | null
-    valorunidade: Decimal | null
-    precocusto: Decimal | null
-    descontoItem: Decimal | null
-    pesoBruto: Decimal | null
-    largura: Decimal | null
-    altura: Decimal | null
-    profundidade: Decimal | null
+    quantidade: number | null
+    valorunidade: number | null
+    precocusto: number | null
+    descontoItem: number | null
+    pesoBruto: number | null
+    largura: number | null
+    altura: number | null
+    profundidade: number | null
     pedidoNumero: number | null
   }
 
   export type ProdutoNoPedidoSumAggregateOutputType = {
     id: number | null
-    quantidade: Decimal | null
-    valorunidade: Decimal | null
-    precocusto: Decimal | null
-    descontoItem: Decimal | null
-    pesoBruto: Decimal | null
-    largura: Decimal | null
-    altura: Decimal | null
-    profundidade: Decimal | null
+    quantidade: number | null
+    valorunidade: number | null
+    precocusto: number | null
+    descontoItem: number | null
+    pesoBruto: number | null
+    largura: number | null
+    altura: number | null
+    profundidade: number | null
     pedidoNumero: number | null
   }
 
@@ -12012,15 +11132,15 @@ export namespace Prisma {
     id: number | null
     codigo: string | null
     descricao: string | null
-    quantidade: Decimal | null
-    valorunidade: Decimal | null
-    precocusto: Decimal | null
-    descontoItem: Decimal | null
+    quantidade: number | null
+    valorunidade: number | null
+    precocusto: number | null
+    descontoItem: number | null
     un: string | null
-    pesoBruto: Decimal | null
-    largura: Decimal | null
-    altura: Decimal | null
-    profundidade: Decimal | null
+    pesoBruto: number | null
+    largura: number | null
+    altura: number | null
+    profundidade: number | null
     unidadeMedida: string | null
     descricaoDetalhada: string | null
     pedidoNumero: number | null
@@ -12030,15 +11150,15 @@ export namespace Prisma {
     id: number | null
     codigo: string | null
     descricao: string | null
-    quantidade: Decimal | null
-    valorunidade: Decimal | null
-    precocusto: Decimal | null
-    descontoItem: Decimal | null
+    quantidade: number | null
+    valorunidade: number | null
+    precocusto: number | null
+    descontoItem: number | null
     un: string | null
-    pesoBruto: Decimal | null
-    largura: Decimal | null
-    altura: Decimal | null
-    profundidade: Decimal | null
+    pesoBruto: number | null
+    largura: number | null
+    altura: number | null
+    profundidade: number | null
     unidadeMedida: string | null
     descricaoDetalhada: string | null
     pedidoNumero: number | null
@@ -12241,15 +11361,15 @@ export namespace Prisma {
     id: number
     codigo: string | null
     descricao: string | null
-    quantidade: Decimal | null
-    valorunidade: Decimal | null
-    precocusto: Decimal | null
-    descontoItem: Decimal | null
+    quantidade: number | null
+    valorunidade: number | null
+    precocusto: number | null
+    descontoItem: number | null
     un: string | null
-    pesoBruto: Decimal | null
-    largura: Decimal | null
-    altura: Decimal | null
-    profundidade: Decimal | null
+    pesoBruto: number | null
+    largura: number | null
+    altura: number | null
+    profundidade: number | null
     unidadeMedida: string | null
     descricaoDetalhada: string | null
     pedidoNumero: number | null
@@ -13116,6 +12236,7 @@ export namespace Prisma {
 
   export const VolumeScalarFieldEnum: {
     id: 'id',
+    codigo: 'codigo',
     idServico: 'idServico',
     idOrigem: 'idOrigem',
     servico: 'servico',
@@ -13130,23 +12251,15 @@ export namespace Prisma {
     avisoRecebimento: 'avisoRecebimento',
     maoPropria: 'maoPropria',
     urlRastreamento: 'urlRastreamento',
-    pedidoNumero: 'pedidoNumero'
-  };
-
-  export type VolumeScalarFieldEnum = (typeof VolumeScalarFieldEnum)[keyof typeof VolumeScalarFieldEnum]
-
-
-  export const DimensaoScalarFieldEnum: {
-    id: 'id',
     peso: 'peso',
     altura: 'altura',
     largura: 'largura',
     comprimento: 'comprimento',
     diametro: 'diametro',
-    volume_id: 'volume_id'
+    pedidoNumero: 'pedidoNumero'
   };
 
-  export type DimensaoScalarFieldEnum = (typeof DimensaoScalarFieldEnum)[keyof typeof DimensaoScalarFieldEnum]
+  export type VolumeScalarFieldEnum = (typeof VolumeScalarFieldEnum)[keyof typeof VolumeScalarFieldEnum]
 
 
   export const ParcelaScalarFieldEnum: {
@@ -13229,8 +12342,8 @@ export namespace Prisma {
     tipo?: StringNullableFilter | string | null
     situacao?: StringNullableFilter | string | null
     unidade?: StringNullableFilter | string | null
-    preco?: DecimalNullableFilter | Decimal | number | string | null
-    precoCusto?: DecimalNullableFilter | Decimal | number | string | null
+    preco?: FloatNullableFilter | number | null
+    precoCusto?: FloatNullableFilter | number | null
     descricaoCurta?: StringNullableFilter | string | null
     descricaoComplementar?: StringNullableFilter | string | null
     dataInclusao?: DateTimeNullableFilter | Date | string | null
@@ -13250,15 +12363,15 @@ export namespace Prisma {
     garantia?: IntNullableFilter | number | null
     descricaoFornecedor?: StringNullableFilter | string | null
     idFabricante?: IntNullableFilter | number | null
-    pesoLiq?: DecimalNullableFilter | Decimal | number | string | null
-    pesoBruto?: DecimalNullableFilter | Decimal | number | string | null
-    estoqueMinimo?: DecimalNullableFilter | Decimal | number | string | null
-    estoqueMaximo?: DecimalNullableFilter | Decimal | number | string | null
+    pesoLiq?: FloatNullableFilter | number | null
+    pesoBruto?: FloatNullableFilter | number | null
+    estoqueMinimo?: FloatNullableFilter | number | null
+    estoqueMaximo?: FloatNullableFilter | number | null
     gtin?: StringNullableFilter | string | null
     gtinEmbalagem?: StringNullableFilter | string | null
-    larguraProduto?: DecimalNullableFilter | Decimal | number | string | null
-    alturaProduto?: DecimalNullableFilter | Decimal | number | string | null
-    profundidadeProduto?: DecimalNullableFilter | Decimal | number | string | null
+    larguraProduto?: FloatNullableFilter | number | null
+    alturaProduto?: FloatNullableFilter | number | null
+    profundidadeProduto?: FloatNullableFilter | number | null
     unidadeMedida?: StringNullableFilter | string | null
     itensPorCaixa?: IntNullableFilter | number | null
     volumes?: IntNullableFilter | number | null
@@ -13396,8 +12509,8 @@ export namespace Prisma {
     tipo?: StringNullableWithAggregatesFilter | string | null
     situacao?: StringNullableWithAggregatesFilter | string | null
     unidade?: StringNullableWithAggregatesFilter | string | null
-    preco?: DecimalNullableWithAggregatesFilter | Decimal | number | string | null
-    precoCusto?: DecimalNullableWithAggregatesFilter | Decimal | number | string | null
+    preco?: FloatNullableWithAggregatesFilter | number | null
+    precoCusto?: FloatNullableWithAggregatesFilter | number | null
     descricaoCurta?: StringNullableWithAggregatesFilter | string | null
     descricaoComplementar?: StringNullableWithAggregatesFilter | string | null
     dataInclusao?: DateTimeNullableWithAggregatesFilter | Date | string | null
@@ -13417,15 +12530,15 @@ export namespace Prisma {
     garantia?: IntNullableWithAggregatesFilter | number | null
     descricaoFornecedor?: StringNullableWithAggregatesFilter | string | null
     idFabricante?: IntNullableWithAggregatesFilter | number | null
-    pesoLiq?: DecimalNullableWithAggregatesFilter | Decimal | number | string | null
-    pesoBruto?: DecimalNullableWithAggregatesFilter | Decimal | number | string | null
-    estoqueMinimo?: DecimalNullableWithAggregatesFilter | Decimal | number | string | null
-    estoqueMaximo?: DecimalNullableWithAggregatesFilter | Decimal | number | string | null
+    pesoLiq?: FloatNullableWithAggregatesFilter | number | null
+    pesoBruto?: FloatNullableWithAggregatesFilter | number | null
+    estoqueMinimo?: FloatNullableWithAggregatesFilter | number | null
+    estoqueMaximo?: FloatNullableWithAggregatesFilter | number | null
     gtin?: StringNullableWithAggregatesFilter | string | null
     gtinEmbalagem?: StringNullableWithAggregatesFilter | string | null
-    larguraProduto?: DecimalNullableWithAggregatesFilter | Decimal | number | string | null
-    alturaProduto?: DecimalNullableWithAggregatesFilter | Decimal | number | string | null
-    profundidadeProduto?: DecimalNullableWithAggregatesFilter | Decimal | number | string | null
+    larguraProduto?: FloatNullableWithAggregatesFilter | number | null
+    alturaProduto?: FloatNullableWithAggregatesFilter | number | null
+    profundidadeProduto?: FloatNullableWithAggregatesFilter | number | null
     unidadeMedida?: StringNullableWithAggregatesFilter | string | null
     itensPorCaixa?: IntNullableWithAggregatesFilter | number | null
     volumes?: IntNullableWithAggregatesFilter | number | null
@@ -13823,6 +12936,7 @@ export namespace Prisma {
     OR?: Enumerable<VolumeWhereInput>
     NOT?: Enumerable<VolumeWhereInput>
     id?: IntFilter | number
+    codigo?: IntFilter | number
     idServico?: IntFilter | number
     idOrigem?: StringNullableFilter | string | null
     servico?: StringNullableFilter | string | null
@@ -13837,13 +12951,18 @@ export namespace Prisma {
     avisoRecebimento?: BoolNullableFilter | boolean | null
     maoPropria?: BoolNullableFilter | boolean | null
     urlRastreamento?: StringNullableFilter | string | null
-    pedidoNumero?: IntNullableFilter | number | null
-    pedido?: XOR<PedidoRelationFilter, PedidoWhereInput> | null
-    dimensao?: XOR<DimensaoRelationFilter, DimensaoWhereInput> | null
+    peso?: StringNullableFilter | string | null
+    altura?: StringNullableFilter | string | null
+    largura?: StringNullableFilter | string | null
+    comprimento?: StringNullableFilter | string | null
+    diametro?: StringNullableFilter | string | null
+    pedidoNumero?: IntFilter | number
+    pedido?: XOR<PedidoRelationFilter, PedidoWhereInput>
   }
 
   export type VolumeOrderByWithRelationInput = {
     id?: SortOrder
+    codigo?: SortOrder
     idServico?: SortOrder
     idOrigem?: SortOrder
     servico?: SortOrder
@@ -13858,9 +12977,13 @@ export namespace Prisma {
     avisoRecebimento?: SortOrder
     maoPropria?: SortOrder
     urlRastreamento?: SortOrder
+    peso?: SortOrder
+    altura?: SortOrder
+    largura?: SortOrder
+    comprimento?: SortOrder
+    diametro?: SortOrder
     pedidoNumero?: SortOrder
     pedido?: PedidoOrderByWithRelationInput
-    dimensao?: DimensaoOrderByWithRelationInput
   }
 
   export type VolumeWhereUniqueInput = {
@@ -13869,6 +12992,7 @@ export namespace Prisma {
 
   export type VolumeOrderByWithAggregationInput = {
     id?: SortOrder
+    codigo?: SortOrder
     idServico?: SortOrder
     idOrigem?: SortOrder
     servico?: SortOrder
@@ -13883,6 +13007,11 @@ export namespace Prisma {
     avisoRecebimento?: SortOrder
     maoPropria?: SortOrder
     urlRastreamento?: SortOrder
+    peso?: SortOrder
+    altura?: SortOrder
+    largura?: SortOrder
+    comprimento?: SortOrder
+    diametro?: SortOrder
     pedidoNumero?: SortOrder
     _count?: VolumeCountOrderByAggregateInput
     _avg?: VolumeAvgOrderByAggregateInput
@@ -13896,6 +13025,7 @@ export namespace Prisma {
     OR?: Enumerable<VolumeScalarWhereWithAggregatesInput>
     NOT?: Enumerable<VolumeScalarWhereWithAggregatesInput>
     id?: IntWithAggregatesFilter | number
+    codigo?: IntWithAggregatesFilter | number
     idServico?: IntWithAggregatesFilter | number
     idOrigem?: StringNullableWithAggregatesFilter | string | null
     servico?: StringNullableWithAggregatesFilter | string | null
@@ -13910,65 +13040,12 @@ export namespace Prisma {
     avisoRecebimento?: BoolNullableWithAggregatesFilter | boolean | null
     maoPropria?: BoolNullableWithAggregatesFilter | boolean | null
     urlRastreamento?: StringNullableWithAggregatesFilter | string | null
-    pedidoNumero?: IntNullableWithAggregatesFilter | number | null
-  }
-
-  export type DimensaoWhereInput = {
-    AND?: Enumerable<DimensaoWhereInput>
-    OR?: Enumerable<DimensaoWhereInput>
-    NOT?: Enumerable<DimensaoWhereInput>
-    id?: IntFilter | number
-    peso?: StringNullableFilter | string | null
-    altura?: StringNullableFilter | string | null
-    largura?: StringNullableFilter | string | null
-    comprimento?: StringNullableFilter | string | null
-    diametro?: StringNullableFilter | string | null
-    volume_id?: IntFilter | number
-    volume?: XOR<VolumeRelationFilter, VolumeWhereInput>
-  }
-
-  export type DimensaoOrderByWithRelationInput = {
-    id?: SortOrder
-    peso?: SortOrder
-    altura?: SortOrder
-    largura?: SortOrder
-    comprimento?: SortOrder
-    diametro?: SortOrder
-    volume_id?: SortOrder
-    volume?: VolumeOrderByWithRelationInput
-  }
-
-  export type DimensaoWhereUniqueInput = {
-    id?: number
-    volume_id?: number
-  }
-
-  export type DimensaoOrderByWithAggregationInput = {
-    id?: SortOrder
-    peso?: SortOrder
-    altura?: SortOrder
-    largura?: SortOrder
-    comprimento?: SortOrder
-    diametro?: SortOrder
-    volume_id?: SortOrder
-    _count?: DimensaoCountOrderByAggregateInput
-    _avg?: DimensaoAvgOrderByAggregateInput
-    _max?: DimensaoMaxOrderByAggregateInput
-    _min?: DimensaoMinOrderByAggregateInput
-    _sum?: DimensaoSumOrderByAggregateInput
-  }
-
-  export type DimensaoScalarWhereWithAggregatesInput = {
-    AND?: Enumerable<DimensaoScalarWhereWithAggregatesInput>
-    OR?: Enumerable<DimensaoScalarWhereWithAggregatesInput>
-    NOT?: Enumerable<DimensaoScalarWhereWithAggregatesInput>
-    id?: IntWithAggregatesFilter | number
     peso?: StringNullableWithAggregatesFilter | string | null
     altura?: StringNullableWithAggregatesFilter | string | null
     largura?: StringNullableWithAggregatesFilter | string | null
     comprimento?: StringNullableWithAggregatesFilter | string | null
     diametro?: StringNullableWithAggregatesFilter | string | null
-    volume_id?: IntWithAggregatesFilter | number
+    pedidoNumero?: IntWithAggregatesFilter | number
   }
 
   export type ParcelaWhereInput = {
@@ -13976,15 +13053,15 @@ export namespace Prisma {
     OR?: Enumerable<ParcelaWhereInput>
     NOT?: Enumerable<ParcelaWhereInput>
     id?: IntFilter | number
-    valor?: DecimalFilter | Decimal | number | string
+    valor?: FloatFilter | number
     dataVencimento?: DateTimeFilter | Date | string
     obs?: StringNullableFilter | string | null
     destino?: StringNullableFilter | string | null
     formaPagamento_id?: StringFilter | string
     formaPagamentoDescricao?: StringNullableFilter | string | null
     formaPagamentoCodigoFiscal?: StringNullableFilter | string | null
-    pedidoNumero?: IntNullableFilter | number | null
-    Pedido?: XOR<PedidoRelationFilter, PedidoWhereInput> | null
+    pedidoNumero?: IntFilter | number
+    pedido?: XOR<PedidoRelationFilter, PedidoWhereInput>
   }
 
   export type ParcelaOrderByWithRelationInput = {
@@ -13997,11 +13074,11 @@ export namespace Prisma {
     formaPagamentoDescricao?: SortOrder
     formaPagamentoCodigoFiscal?: SortOrder
     pedidoNumero?: SortOrder
-    Pedido?: PedidoOrderByWithRelationInput
+    pedido?: PedidoOrderByWithRelationInput
   }
 
   export type ParcelaWhereUniqueInput = {
-    id?: number
+    id_pedidoNumero?: ParcelaIdPedidoNumeroCompoundUniqueInput
   }
 
   export type ParcelaOrderByWithAggregationInput = {
@@ -14026,14 +13103,14 @@ export namespace Prisma {
     OR?: Enumerable<ParcelaScalarWhereWithAggregatesInput>
     NOT?: Enumerable<ParcelaScalarWhereWithAggregatesInput>
     id?: IntWithAggregatesFilter | number
-    valor?: DecimalWithAggregatesFilter | Decimal | number | string
+    valor?: FloatWithAggregatesFilter | number
     dataVencimento?: DateTimeWithAggregatesFilter | Date | string
     obs?: StringNullableWithAggregatesFilter | string | null
     destino?: StringNullableWithAggregatesFilter | string | null
     formaPagamento_id?: StringWithAggregatesFilter | string
     formaPagamentoDescricao?: StringNullableWithAggregatesFilter | string | null
     formaPagamentoCodigoFiscal?: StringNullableWithAggregatesFilter | string | null
-    pedidoNumero?: IntNullableWithAggregatesFilter | number | null
+    pedidoNumero?: IntWithAggregatesFilter | number
   }
 
   export type NotaWhereInput = {
@@ -14044,7 +13121,7 @@ export namespace Prisma {
     serie?: StringNullableFilter | string | null
     dataEmissao?: DateTimeNullableFilter | Date | string | null
     situacao?: IntNullableFilter | number | null
-    valorNota?: DecimalNullableFilter | Decimal | number | string | null
+    valorNota?: FloatNullableFilter | number | null
     chaveAcesso?: StringNullableFilter | string | null
     pedidoNumero?: IntFilter | number
     pedido?: XOR<PedidoRelationFilter, PedidoWhereInput>
@@ -14089,7 +13166,7 @@ export namespace Prisma {
     serie?: StringNullableWithAggregatesFilter | string | null
     dataEmissao?: DateTimeNullableWithAggregatesFilter | Date | string | null
     situacao?: IntNullableWithAggregatesFilter | number | null
-    valorNota?: DecimalNullableWithAggregatesFilter | Decimal | number | string | null
+    valorNota?: FloatNullableWithAggregatesFilter | number | null
     chaveAcesso?: StringNullableWithAggregatesFilter | string | null
     pedidoNumero?: IntWithAggregatesFilter | number
   }
@@ -14101,15 +13178,15 @@ export namespace Prisma {
     id?: IntFilter | number
     codigo?: StringNullableFilter | string | null
     descricao?: StringNullableFilter | string | null
-    quantidade?: DecimalNullableFilter | Decimal | number | string | null
-    valorunidade?: DecimalNullableFilter | Decimal | number | string | null
-    precocusto?: DecimalNullableFilter | Decimal | number | string | null
-    descontoItem?: DecimalNullableFilter | Decimal | number | string | null
+    quantidade?: FloatNullableFilter | number | null
+    valorunidade?: FloatNullableFilter | number | null
+    precocusto?: FloatNullableFilter | number | null
+    descontoItem?: FloatNullableFilter | number | null
     un?: StringNullableFilter | string | null
-    pesoBruto?: DecimalNullableFilter | Decimal | number | string | null
-    largura?: DecimalNullableFilter | Decimal | number | string | null
-    altura?: DecimalNullableFilter | Decimal | number | string | null
-    profundidade?: DecimalNullableFilter | Decimal | number | string | null
+    pesoBruto?: FloatNullableFilter | number | null
+    largura?: FloatNullableFilter | number | null
+    altura?: FloatNullableFilter | number | null
+    profundidade?: FloatNullableFilter | number | null
     unidadeMedida?: StringNullableFilter | string | null
     descricaoDetalhada?: StringNullableFilter | string | null
     pedidoNumero?: IntNullableFilter | number | null
@@ -14169,15 +13246,15 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter | number
     codigo?: StringNullableWithAggregatesFilter | string | null
     descricao?: StringNullableWithAggregatesFilter | string | null
-    quantidade?: DecimalNullableWithAggregatesFilter | Decimal | number | string | null
-    valorunidade?: DecimalNullableWithAggregatesFilter | Decimal | number | string | null
-    precocusto?: DecimalNullableWithAggregatesFilter | Decimal | number | string | null
-    descontoItem?: DecimalNullableWithAggregatesFilter | Decimal | number | string | null
+    quantidade?: FloatNullableWithAggregatesFilter | number | null
+    valorunidade?: FloatNullableWithAggregatesFilter | number | null
+    precocusto?: FloatNullableWithAggregatesFilter | number | null
+    descontoItem?: FloatNullableWithAggregatesFilter | number | null
     un?: StringNullableWithAggregatesFilter | string | null
-    pesoBruto?: DecimalNullableWithAggregatesFilter | Decimal | number | string | null
-    largura?: DecimalNullableWithAggregatesFilter | Decimal | number | string | null
-    altura?: DecimalNullableWithAggregatesFilter | Decimal | number | string | null
-    profundidade?: DecimalNullableWithAggregatesFilter | Decimal | number | string | null
+    pesoBruto?: FloatNullableWithAggregatesFilter | number | null
+    largura?: FloatNullableWithAggregatesFilter | number | null
+    altura?: FloatNullableWithAggregatesFilter | number | null
+    profundidade?: FloatNullableWithAggregatesFilter | number | null
     unidadeMedida?: StringNullableWithAggregatesFilter | string | null
     descricaoDetalhada?: StringNullableWithAggregatesFilter | string | null
     pedidoNumero?: IntNullableWithAggregatesFilter | number | null
@@ -14190,8 +13267,8 @@ export namespace Prisma {
     tipo?: string | null
     situacao?: string | null
     unidade?: string | null
-    preco?: Decimal | number | string | null
-    precoCusto?: Decimal | number | string | null
+    preco?: number | null
+    precoCusto?: number | null
     descricaoCurta?: string | null
     descricaoComplementar?: string | null
     dataInclusao?: Date | string | null
@@ -14211,15 +13288,15 @@ export namespace Prisma {
     garantia?: number | null
     descricaoFornecedor?: string | null
     idFabricante?: number | null
-    pesoLiq?: Decimal | number | string | null
-    pesoBruto?: Decimal | number | string | null
-    estoqueMinimo?: Decimal | number | string | null
-    estoqueMaximo?: Decimal | number | string | null
+    pesoLiq?: number | null
+    pesoBruto?: number | null
+    estoqueMinimo?: number | null
+    estoqueMaximo?: number | null
     gtin?: string | null
     gtinEmbalagem?: string | null
-    larguraProduto?: Decimal | number | string | null
-    alturaProduto?: Decimal | number | string | null
-    profundidadeProduto?: Decimal | number | string | null
+    larguraProduto?: number | null
+    alturaProduto?: number | null
+    profundidadeProduto?: number | null
     unidadeMedida?: string | null
     itensPorCaixa?: number | null
     volumes?: number | null
@@ -14242,8 +13319,8 @@ export namespace Prisma {
     tipo?: string | null
     situacao?: string | null
     unidade?: string | null
-    preco?: Decimal | number | string | null
-    precoCusto?: Decimal | number | string | null
+    preco?: number | null
+    precoCusto?: number | null
     descricaoCurta?: string | null
     descricaoComplementar?: string | null
     dataInclusao?: Date | string | null
@@ -14263,15 +13340,15 @@ export namespace Prisma {
     garantia?: number | null
     descricaoFornecedor?: string | null
     idFabricante?: number | null
-    pesoLiq?: Decimal | number | string | null
-    pesoBruto?: Decimal | number | string | null
-    estoqueMinimo?: Decimal | number | string | null
-    estoqueMaximo?: Decimal | number | string | null
+    pesoLiq?: number | null
+    pesoBruto?: number | null
+    estoqueMinimo?: number | null
+    estoqueMaximo?: number | null
     gtin?: string | null
     gtinEmbalagem?: string | null
-    larguraProduto?: Decimal | number | string | null
-    alturaProduto?: Decimal | number | string | null
-    profundidadeProduto?: Decimal | number | string | null
+    larguraProduto?: number | null
+    alturaProduto?: number | null
+    profundidadeProduto?: number | null
     unidadeMedida?: string | null
     itensPorCaixa?: number | null
     volumes?: number | null
@@ -14294,8 +13371,8 @@ export namespace Prisma {
     tipo?: NullableStringFieldUpdateOperationsInput | string | null
     situacao?: NullableStringFieldUpdateOperationsInput | string | null
     unidade?: NullableStringFieldUpdateOperationsInput | string | null
-    preco?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    precoCusto?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
+    preco?: NullableFloatFieldUpdateOperationsInput | number | null
+    precoCusto?: NullableFloatFieldUpdateOperationsInput | number | null
     descricaoCurta?: NullableStringFieldUpdateOperationsInput | string | null
     descricaoComplementar?: NullableStringFieldUpdateOperationsInput | string | null
     dataInclusao?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -14315,15 +13392,15 @@ export namespace Prisma {
     garantia?: NullableIntFieldUpdateOperationsInput | number | null
     descricaoFornecedor?: NullableStringFieldUpdateOperationsInput | string | null
     idFabricante?: NullableIntFieldUpdateOperationsInput | number | null
-    pesoLiq?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    pesoBruto?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    estoqueMinimo?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    estoqueMaximo?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
+    pesoLiq?: NullableFloatFieldUpdateOperationsInput | number | null
+    pesoBruto?: NullableFloatFieldUpdateOperationsInput | number | null
+    estoqueMinimo?: NullableFloatFieldUpdateOperationsInput | number | null
+    estoqueMaximo?: NullableFloatFieldUpdateOperationsInput | number | null
     gtin?: NullableStringFieldUpdateOperationsInput | string | null
     gtinEmbalagem?: NullableStringFieldUpdateOperationsInput | string | null
-    larguraProduto?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    alturaProduto?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    profundidadeProduto?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
+    larguraProduto?: NullableFloatFieldUpdateOperationsInput | number | null
+    alturaProduto?: NullableFloatFieldUpdateOperationsInput | number | null
+    profundidadeProduto?: NullableFloatFieldUpdateOperationsInput | number | null
     unidadeMedida?: NullableStringFieldUpdateOperationsInput | string | null
     itensPorCaixa?: NullableIntFieldUpdateOperationsInput | number | null
     volumes?: NullableIntFieldUpdateOperationsInput | number | null
@@ -14346,8 +13423,8 @@ export namespace Prisma {
     tipo?: NullableStringFieldUpdateOperationsInput | string | null
     situacao?: NullableStringFieldUpdateOperationsInput | string | null
     unidade?: NullableStringFieldUpdateOperationsInput | string | null
-    preco?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    precoCusto?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
+    preco?: NullableFloatFieldUpdateOperationsInput | number | null
+    precoCusto?: NullableFloatFieldUpdateOperationsInput | number | null
     descricaoCurta?: NullableStringFieldUpdateOperationsInput | string | null
     descricaoComplementar?: NullableStringFieldUpdateOperationsInput | string | null
     dataInclusao?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -14367,15 +13444,15 @@ export namespace Prisma {
     garantia?: NullableIntFieldUpdateOperationsInput | number | null
     descricaoFornecedor?: NullableStringFieldUpdateOperationsInput | string | null
     idFabricante?: NullableIntFieldUpdateOperationsInput | number | null
-    pesoLiq?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    pesoBruto?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    estoqueMinimo?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    estoqueMaximo?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
+    pesoLiq?: NullableFloatFieldUpdateOperationsInput | number | null
+    pesoBruto?: NullableFloatFieldUpdateOperationsInput | number | null
+    estoqueMinimo?: NullableFloatFieldUpdateOperationsInput | number | null
+    estoqueMaximo?: NullableFloatFieldUpdateOperationsInput | number | null
     gtin?: NullableStringFieldUpdateOperationsInput | string | null
     gtinEmbalagem?: NullableStringFieldUpdateOperationsInput | string | null
-    larguraProduto?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    alturaProduto?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    profundidadeProduto?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
+    larguraProduto?: NullableFloatFieldUpdateOperationsInput | number | null
+    alturaProduto?: NullableFloatFieldUpdateOperationsInput | number | null
+    profundidadeProduto?: NullableFloatFieldUpdateOperationsInput | number | null
     unidadeMedida?: NullableStringFieldUpdateOperationsInput | string | null
     itensPorCaixa?: NullableIntFieldUpdateOperationsInput | number | null
     volumes?: NullableIntFieldUpdateOperationsInput | number | null
@@ -14398,8 +13475,8 @@ export namespace Prisma {
     tipo?: string | null
     situacao?: string | null
     unidade?: string | null
-    preco?: Decimal | number | string | null
-    precoCusto?: Decimal | number | string | null
+    preco?: number | null
+    precoCusto?: number | null
     descricaoCurta?: string | null
     descricaoComplementar?: string | null
     dataInclusao?: Date | string | null
@@ -14419,15 +13496,15 @@ export namespace Prisma {
     garantia?: number | null
     descricaoFornecedor?: string | null
     idFabricante?: number | null
-    pesoLiq?: Decimal | number | string | null
-    pesoBruto?: Decimal | number | string | null
-    estoqueMinimo?: Decimal | number | string | null
-    estoqueMaximo?: Decimal | number | string | null
+    pesoLiq?: number | null
+    pesoBruto?: number | null
+    estoqueMinimo?: number | null
+    estoqueMaximo?: number | null
     gtin?: string | null
     gtinEmbalagem?: string | null
-    larguraProduto?: Decimal | number | string | null
-    alturaProduto?: Decimal | number | string | null
-    profundidadeProduto?: Decimal | number | string | null
+    larguraProduto?: number | null
+    alturaProduto?: number | null
+    profundidadeProduto?: number | null
     unidadeMedida?: string | null
     itensPorCaixa?: number | null
     volumes?: number | null
@@ -14449,8 +13526,8 @@ export namespace Prisma {
     tipo?: NullableStringFieldUpdateOperationsInput | string | null
     situacao?: NullableStringFieldUpdateOperationsInput | string | null
     unidade?: NullableStringFieldUpdateOperationsInput | string | null
-    preco?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    precoCusto?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
+    preco?: NullableFloatFieldUpdateOperationsInput | number | null
+    precoCusto?: NullableFloatFieldUpdateOperationsInput | number | null
     descricaoCurta?: NullableStringFieldUpdateOperationsInput | string | null
     descricaoComplementar?: NullableStringFieldUpdateOperationsInput | string | null
     dataInclusao?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -14470,15 +13547,15 @@ export namespace Prisma {
     garantia?: NullableIntFieldUpdateOperationsInput | number | null
     descricaoFornecedor?: NullableStringFieldUpdateOperationsInput | string | null
     idFabricante?: NullableIntFieldUpdateOperationsInput | number | null
-    pesoLiq?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    pesoBruto?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    estoqueMinimo?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    estoqueMaximo?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
+    pesoLiq?: NullableFloatFieldUpdateOperationsInput | number | null
+    pesoBruto?: NullableFloatFieldUpdateOperationsInput | number | null
+    estoqueMinimo?: NullableFloatFieldUpdateOperationsInput | number | null
+    estoqueMaximo?: NullableFloatFieldUpdateOperationsInput | number | null
     gtin?: NullableStringFieldUpdateOperationsInput | string | null
     gtinEmbalagem?: NullableStringFieldUpdateOperationsInput | string | null
-    larguraProduto?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    alturaProduto?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    profundidadeProduto?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
+    larguraProduto?: NullableFloatFieldUpdateOperationsInput | number | null
+    alturaProduto?: NullableFloatFieldUpdateOperationsInput | number | null
+    profundidadeProduto?: NullableFloatFieldUpdateOperationsInput | number | null
     unidadeMedida?: NullableStringFieldUpdateOperationsInput | string | null
     itensPorCaixa?: NullableIntFieldUpdateOperationsInput | number | null
     volumes?: NullableIntFieldUpdateOperationsInput | number | null
@@ -14500,8 +13577,8 @@ export namespace Prisma {
     tipo?: NullableStringFieldUpdateOperationsInput | string | null
     situacao?: NullableStringFieldUpdateOperationsInput | string | null
     unidade?: NullableStringFieldUpdateOperationsInput | string | null
-    preco?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    precoCusto?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
+    preco?: NullableFloatFieldUpdateOperationsInput | number | null
+    precoCusto?: NullableFloatFieldUpdateOperationsInput | number | null
     descricaoCurta?: NullableStringFieldUpdateOperationsInput | string | null
     descricaoComplementar?: NullableStringFieldUpdateOperationsInput | string | null
     dataInclusao?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -14521,15 +13598,15 @@ export namespace Prisma {
     garantia?: NullableIntFieldUpdateOperationsInput | number | null
     descricaoFornecedor?: NullableStringFieldUpdateOperationsInput | string | null
     idFabricante?: NullableIntFieldUpdateOperationsInput | number | null
-    pesoLiq?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    pesoBruto?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    estoqueMinimo?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    estoqueMaximo?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
+    pesoLiq?: NullableFloatFieldUpdateOperationsInput | number | null
+    pesoBruto?: NullableFloatFieldUpdateOperationsInput | number | null
+    estoqueMinimo?: NullableFloatFieldUpdateOperationsInput | number | null
+    estoqueMaximo?: NullableFloatFieldUpdateOperationsInput | number | null
     gtin?: NullableStringFieldUpdateOperationsInput | string | null
     gtinEmbalagem?: NullableStringFieldUpdateOperationsInput | string | null
-    larguraProduto?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    alturaProduto?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    profundidadeProduto?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
+    larguraProduto?: NullableFloatFieldUpdateOperationsInput | number | null
+    alturaProduto?: NullableFloatFieldUpdateOperationsInput | number | null
+    profundidadeProduto?: NullableFloatFieldUpdateOperationsInput | number | null
     unidadeMedida?: NullableStringFieldUpdateOperationsInput | string | null
     itensPorCaixa?: NullableIntFieldUpdateOperationsInput | number | null
     volumes?: NullableIntFieldUpdateOperationsInput | number | null
@@ -15028,7 +14105,7 @@ export namespace Prisma {
   }
 
   export type VolumeCreateInput = {
-    id: number
+    codigo: number
     idServico: number
     idOrigem?: string | null
     servico?: string | null
@@ -15043,12 +14120,17 @@ export namespace Prisma {
     avisoRecebimento?: boolean | null
     maoPropria?: boolean | null
     urlRastreamento?: string | null
-    pedido?: PedidoCreateNestedOneWithoutVolumeInput
-    dimensao?: DimensaoCreateNestedOneWithoutVolumeInput
+    peso?: string | null
+    altura?: string | null
+    largura?: string | null
+    comprimento?: string | null
+    diametro?: string | null
+    pedido: PedidoCreateNestedOneWithoutVolumeInput
   }
 
   export type VolumeUncheckedCreateInput = {
-    id: number
+    id?: number
+    codigo: number
     idServico: number
     idOrigem?: string | null
     servico?: string | null
@@ -15063,12 +14145,16 @@ export namespace Prisma {
     avisoRecebimento?: boolean | null
     maoPropria?: boolean | null
     urlRastreamento?: string | null
-    pedidoNumero?: number | null
-    dimensao?: DimensaoUncheckedCreateNestedOneWithoutVolumeInput
+    peso?: string | null
+    altura?: string | null
+    largura?: string | null
+    comprimento?: string | null
+    diametro?: string | null
+    pedidoNumero: number
   }
 
   export type VolumeUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    codigo?: IntFieldUpdateOperationsInput | number
     idServico?: IntFieldUpdateOperationsInput | number
     idOrigem?: NullableStringFieldUpdateOperationsInput | string | null
     servico?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15083,12 +14169,17 @@ export namespace Prisma {
     avisoRecebimento?: NullableBoolFieldUpdateOperationsInput | boolean | null
     maoPropria?: NullableBoolFieldUpdateOperationsInput | boolean | null
     urlRastreamento?: NullableStringFieldUpdateOperationsInput | string | null
-    pedido?: PedidoUpdateOneWithoutVolumeInput
-    dimensao?: DimensaoUpdateOneWithoutVolumeInput
+    peso?: NullableStringFieldUpdateOperationsInput | string | null
+    altura?: NullableStringFieldUpdateOperationsInput | string | null
+    largura?: NullableStringFieldUpdateOperationsInput | string | null
+    comprimento?: NullableStringFieldUpdateOperationsInput | string | null
+    diametro?: NullableStringFieldUpdateOperationsInput | string | null
+    pedido?: PedidoUpdateOneRequiredWithoutVolumeInput
   }
 
   export type VolumeUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
+    codigo?: IntFieldUpdateOperationsInput | number
     idServico?: IntFieldUpdateOperationsInput | number
     idOrigem?: NullableStringFieldUpdateOperationsInput | string | null
     servico?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15103,12 +14194,17 @@ export namespace Prisma {
     avisoRecebimento?: NullableBoolFieldUpdateOperationsInput | boolean | null
     maoPropria?: NullableBoolFieldUpdateOperationsInput | boolean | null
     urlRastreamento?: NullableStringFieldUpdateOperationsInput | string | null
-    pedidoNumero?: NullableIntFieldUpdateOperationsInput | number | null
-    dimensao?: DimensaoUncheckedUpdateOneWithoutVolumeInput
+    peso?: NullableStringFieldUpdateOperationsInput | string | null
+    altura?: NullableStringFieldUpdateOperationsInput | string | null
+    largura?: NullableStringFieldUpdateOperationsInput | string | null
+    comprimento?: NullableStringFieldUpdateOperationsInput | string | null
+    diametro?: NullableStringFieldUpdateOperationsInput | string | null
+    pedidoNumero?: IntFieldUpdateOperationsInput | number
   }
 
   export type VolumeCreateManyInput = {
-    id: number
+    id?: number
+    codigo: number
     idServico: number
     idOrigem?: string | null
     servico?: string | null
@@ -15123,11 +14219,16 @@ export namespace Prisma {
     avisoRecebimento?: boolean | null
     maoPropria?: boolean | null
     urlRastreamento?: string | null
-    pedidoNumero?: number | null
+    peso?: string | null
+    altura?: string | null
+    largura?: string | null
+    comprimento?: string | null
+    diametro?: string | null
+    pedidoNumero: number
   }
 
   export type VolumeUpdateManyMutationInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    codigo?: IntFieldUpdateOperationsInput | number
     idServico?: IntFieldUpdateOperationsInput | number
     idOrigem?: NullableStringFieldUpdateOperationsInput | string | null
     servico?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15142,10 +14243,16 @@ export namespace Prisma {
     avisoRecebimento?: NullableBoolFieldUpdateOperationsInput | boolean | null
     maoPropria?: NullableBoolFieldUpdateOperationsInput | boolean | null
     urlRastreamento?: NullableStringFieldUpdateOperationsInput | string | null
+    peso?: NullableStringFieldUpdateOperationsInput | string | null
+    altura?: NullableStringFieldUpdateOperationsInput | string | null
+    largura?: NullableStringFieldUpdateOperationsInput | string | null
+    comprimento?: NullableStringFieldUpdateOperationsInput | string | null
+    diametro?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type VolumeUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
+    codigo?: IntFieldUpdateOperationsInput | number
     idServico?: IntFieldUpdateOperationsInput | number
     idOrigem?: NullableStringFieldUpdateOperationsInput | string | null
     servico?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15160,141 +14267,77 @@ export namespace Prisma {
     avisoRecebimento?: NullableBoolFieldUpdateOperationsInput | boolean | null
     maoPropria?: NullableBoolFieldUpdateOperationsInput | boolean | null
     urlRastreamento?: NullableStringFieldUpdateOperationsInput | string | null
-    pedidoNumero?: NullableIntFieldUpdateOperationsInput | number | null
-  }
-
-  export type DimensaoCreateInput = {
-    id: number
-    peso?: string | null
-    altura?: string | null
-    largura?: string | null
-    comprimento?: string | null
-    diametro?: string | null
-    volume: VolumeCreateNestedOneWithoutDimensaoInput
-  }
-
-  export type DimensaoUncheckedCreateInput = {
-    id: number
-    peso?: string | null
-    altura?: string | null
-    largura?: string | null
-    comprimento?: string | null
-    diametro?: string | null
-    volume_id: number
-  }
-
-  export type DimensaoUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
     peso?: NullableStringFieldUpdateOperationsInput | string | null
     altura?: NullableStringFieldUpdateOperationsInput | string | null
     largura?: NullableStringFieldUpdateOperationsInput | string | null
     comprimento?: NullableStringFieldUpdateOperationsInput | string | null
     diametro?: NullableStringFieldUpdateOperationsInput | string | null
-    volume?: VolumeUpdateOneRequiredWithoutDimensaoInput
-  }
-
-  export type DimensaoUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    peso?: NullableStringFieldUpdateOperationsInput | string | null
-    altura?: NullableStringFieldUpdateOperationsInput | string | null
-    largura?: NullableStringFieldUpdateOperationsInput | string | null
-    comprimento?: NullableStringFieldUpdateOperationsInput | string | null
-    diametro?: NullableStringFieldUpdateOperationsInput | string | null
-    volume_id?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type DimensaoCreateManyInput = {
-    id: number
-    peso?: string | null
-    altura?: string | null
-    largura?: string | null
-    comprimento?: string | null
-    diametro?: string | null
-    volume_id: number
-  }
-
-  export type DimensaoUpdateManyMutationInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    peso?: NullableStringFieldUpdateOperationsInput | string | null
-    altura?: NullableStringFieldUpdateOperationsInput | string | null
-    largura?: NullableStringFieldUpdateOperationsInput | string | null
-    comprimento?: NullableStringFieldUpdateOperationsInput | string | null
-    diametro?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type DimensaoUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    peso?: NullableStringFieldUpdateOperationsInput | string | null
-    altura?: NullableStringFieldUpdateOperationsInput | string | null
-    largura?: NullableStringFieldUpdateOperationsInput | string | null
-    comprimento?: NullableStringFieldUpdateOperationsInput | string | null
-    diametro?: NullableStringFieldUpdateOperationsInput | string | null
-    volume_id?: IntFieldUpdateOperationsInput | number
+    pedidoNumero?: IntFieldUpdateOperationsInput | number
   }
 
   export type ParcelaCreateInput = {
     id: number
-    valor: Decimal | number | string
+    valor: number
     dataVencimento: Date | string
     obs?: string | null
     destino?: string | null
     formaPagamento_id: string
     formaPagamentoDescricao?: string | null
     formaPagamentoCodigoFiscal?: string | null
-    Pedido?: PedidoCreateNestedOneWithoutParcelasInput
+    pedido: PedidoCreateNestedOneWithoutParcelasInput
   }
 
   export type ParcelaUncheckedCreateInput = {
     id: number
-    valor: Decimal | number | string
+    valor: number
     dataVencimento: Date | string
     obs?: string | null
     destino?: string | null
     formaPagamento_id: string
     formaPagamentoDescricao?: string | null
     formaPagamentoCodigoFiscal?: string | null
-    pedidoNumero?: number | null
+    pedidoNumero: number
   }
 
   export type ParcelaUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    valor?: DecimalFieldUpdateOperationsInput | Decimal | number | string
+    valor?: FloatFieldUpdateOperationsInput | number
     dataVencimento?: DateTimeFieldUpdateOperationsInput | Date | string
     obs?: NullableStringFieldUpdateOperationsInput | string | null
     destino?: NullableStringFieldUpdateOperationsInput | string | null
     formaPagamento_id?: StringFieldUpdateOperationsInput | string
     formaPagamentoDescricao?: NullableStringFieldUpdateOperationsInput | string | null
     formaPagamentoCodigoFiscal?: NullableStringFieldUpdateOperationsInput | string | null
-    Pedido?: PedidoUpdateOneWithoutParcelasInput
+    pedido?: PedidoUpdateOneRequiredWithoutParcelasInput
   }
 
   export type ParcelaUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    valor?: DecimalFieldUpdateOperationsInput | Decimal | number | string
+    valor?: FloatFieldUpdateOperationsInput | number
     dataVencimento?: DateTimeFieldUpdateOperationsInput | Date | string
     obs?: NullableStringFieldUpdateOperationsInput | string | null
     destino?: NullableStringFieldUpdateOperationsInput | string | null
     formaPagamento_id?: StringFieldUpdateOperationsInput | string
     formaPagamentoDescricao?: NullableStringFieldUpdateOperationsInput | string | null
     formaPagamentoCodigoFiscal?: NullableStringFieldUpdateOperationsInput | string | null
-    pedidoNumero?: NullableIntFieldUpdateOperationsInput | number | null
+    pedidoNumero?: IntFieldUpdateOperationsInput | number
   }
 
   export type ParcelaCreateManyInput = {
     id: number
-    valor: Decimal | number | string
+    valor: number
     dataVencimento: Date | string
     obs?: string | null
     destino?: string | null
     formaPagamento_id: string
     formaPagamentoDescricao?: string | null
     formaPagamentoCodigoFiscal?: string | null
-    pedidoNumero?: number | null
+    pedidoNumero: number
   }
 
   export type ParcelaUpdateManyMutationInput = {
     id?: IntFieldUpdateOperationsInput | number
-    valor?: DecimalFieldUpdateOperationsInput | Decimal | number | string
+    valor?: FloatFieldUpdateOperationsInput | number
     dataVencimento?: DateTimeFieldUpdateOperationsInput | Date | string
     obs?: NullableStringFieldUpdateOperationsInput | string | null
     destino?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15305,14 +14348,14 @@ export namespace Prisma {
 
   export type ParcelaUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    valor?: DecimalFieldUpdateOperationsInput | Decimal | number | string
+    valor?: FloatFieldUpdateOperationsInput | number
     dataVencimento?: DateTimeFieldUpdateOperationsInput | Date | string
     obs?: NullableStringFieldUpdateOperationsInput | string | null
     destino?: NullableStringFieldUpdateOperationsInput | string | null
     formaPagamento_id?: StringFieldUpdateOperationsInput | string
     formaPagamentoDescricao?: NullableStringFieldUpdateOperationsInput | string | null
     formaPagamentoCodigoFiscal?: NullableStringFieldUpdateOperationsInput | string | null
-    pedidoNumero?: NullableIntFieldUpdateOperationsInput | number | null
+    pedidoNumero?: IntFieldUpdateOperationsInput | number
   }
 
   export type NotaCreateInput = {
@@ -15320,7 +14363,7 @@ export namespace Prisma {
     serie?: string | null
     dataEmissao?: Date | string | null
     situacao?: number | null
-    valorNota?: Decimal | number | string | null
+    valorNota?: number | null
     chaveAcesso?: string | null
     pedido: PedidoCreateNestedOneWithoutNotaInput
   }
@@ -15330,7 +14373,7 @@ export namespace Prisma {
     serie?: string | null
     dataEmissao?: Date | string | null
     situacao?: number | null
-    valorNota?: Decimal | number | string | null
+    valorNota?: number | null
     chaveAcesso?: string | null
     pedidoNumero: number
   }
@@ -15340,7 +14383,7 @@ export namespace Prisma {
     serie?: NullableStringFieldUpdateOperationsInput | string | null
     dataEmissao?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     situacao?: NullableIntFieldUpdateOperationsInput | number | null
-    valorNota?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
+    valorNota?: NullableFloatFieldUpdateOperationsInput | number | null
     chaveAcesso?: NullableStringFieldUpdateOperationsInput | string | null
     pedido?: PedidoUpdateOneRequiredWithoutNotaInput
   }
@@ -15350,7 +14393,7 @@ export namespace Prisma {
     serie?: NullableStringFieldUpdateOperationsInput | string | null
     dataEmissao?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     situacao?: NullableIntFieldUpdateOperationsInput | number | null
-    valorNota?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
+    valorNota?: NullableFloatFieldUpdateOperationsInput | number | null
     chaveAcesso?: NullableStringFieldUpdateOperationsInput | string | null
     pedidoNumero?: IntFieldUpdateOperationsInput | number
   }
@@ -15360,7 +14403,7 @@ export namespace Prisma {
     serie?: string | null
     dataEmissao?: Date | string | null
     situacao?: number | null
-    valorNota?: Decimal | number | string | null
+    valorNota?: number | null
     chaveAcesso?: string | null
     pedidoNumero: number
   }
@@ -15370,7 +14413,7 @@ export namespace Prisma {
     serie?: NullableStringFieldUpdateOperationsInput | string | null
     dataEmissao?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     situacao?: NullableIntFieldUpdateOperationsInput | number | null
-    valorNota?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
+    valorNota?: NullableFloatFieldUpdateOperationsInput | number | null
     chaveAcesso?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -15379,7 +14422,7 @@ export namespace Prisma {
     serie?: NullableStringFieldUpdateOperationsInput | string | null
     dataEmissao?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     situacao?: NullableIntFieldUpdateOperationsInput | number | null
-    valorNota?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
+    valorNota?: NullableFloatFieldUpdateOperationsInput | number | null
     chaveAcesso?: NullableStringFieldUpdateOperationsInput | string | null
     pedidoNumero?: IntFieldUpdateOperationsInput | number
   }
@@ -15387,15 +14430,15 @@ export namespace Prisma {
   export type ProdutoNoPedidoCreateInput = {
     codigo?: string | null
     descricao?: string | null
-    quantidade?: Decimal | number | string | null
-    valorunidade?: Decimal | number | string | null
-    precocusto?: Decimal | number | string | null
-    descontoItem?: Decimal | number | string | null
+    quantidade?: number | null
+    valorunidade?: number | null
+    precocusto?: number | null
+    descontoItem?: number | null
     un?: string | null
-    pesoBruto?: Decimal | number | string | null
-    largura?: Decimal | number | string | null
-    altura?: Decimal | number | string | null
-    profundidade?: Decimal | number | string | null
+    pesoBruto?: number | null
+    largura?: number | null
+    altura?: number | null
+    profundidade?: number | null
     unidadeMedida?: string | null
     descricaoDetalhada?: string | null
     pedido?: PedidoCreateNestedOneWithoutProdutosInput
@@ -15405,15 +14448,15 @@ export namespace Prisma {
     id?: number
     codigo?: string | null
     descricao?: string | null
-    quantidade?: Decimal | number | string | null
-    valorunidade?: Decimal | number | string | null
-    precocusto?: Decimal | number | string | null
-    descontoItem?: Decimal | number | string | null
+    quantidade?: number | null
+    valorunidade?: number | null
+    precocusto?: number | null
+    descontoItem?: number | null
     un?: string | null
-    pesoBruto?: Decimal | number | string | null
-    largura?: Decimal | number | string | null
-    altura?: Decimal | number | string | null
-    profundidade?: Decimal | number | string | null
+    pesoBruto?: number | null
+    largura?: number | null
+    altura?: number | null
+    profundidade?: number | null
     unidadeMedida?: string | null
     descricaoDetalhada?: string | null
     pedidoNumero?: number | null
@@ -15422,15 +14465,15 @@ export namespace Prisma {
   export type ProdutoNoPedidoUpdateInput = {
     codigo?: NullableStringFieldUpdateOperationsInput | string | null
     descricao?: NullableStringFieldUpdateOperationsInput | string | null
-    quantidade?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    valorunidade?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    precocusto?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    descontoItem?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
+    quantidade?: NullableFloatFieldUpdateOperationsInput | number | null
+    valorunidade?: NullableFloatFieldUpdateOperationsInput | number | null
+    precocusto?: NullableFloatFieldUpdateOperationsInput | number | null
+    descontoItem?: NullableFloatFieldUpdateOperationsInput | number | null
     un?: NullableStringFieldUpdateOperationsInput | string | null
-    pesoBruto?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    largura?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    altura?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    profundidade?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
+    pesoBruto?: NullableFloatFieldUpdateOperationsInput | number | null
+    largura?: NullableFloatFieldUpdateOperationsInput | number | null
+    altura?: NullableFloatFieldUpdateOperationsInput | number | null
+    profundidade?: NullableFloatFieldUpdateOperationsInput | number | null
     unidadeMedida?: NullableStringFieldUpdateOperationsInput | string | null
     descricaoDetalhada?: NullableStringFieldUpdateOperationsInput | string | null
     pedido?: PedidoUpdateOneWithoutProdutosInput
@@ -15440,15 +14483,15 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     codigo?: NullableStringFieldUpdateOperationsInput | string | null
     descricao?: NullableStringFieldUpdateOperationsInput | string | null
-    quantidade?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    valorunidade?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    precocusto?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    descontoItem?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
+    quantidade?: NullableFloatFieldUpdateOperationsInput | number | null
+    valorunidade?: NullableFloatFieldUpdateOperationsInput | number | null
+    precocusto?: NullableFloatFieldUpdateOperationsInput | number | null
+    descontoItem?: NullableFloatFieldUpdateOperationsInput | number | null
     un?: NullableStringFieldUpdateOperationsInput | string | null
-    pesoBruto?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    largura?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    altura?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    profundidade?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
+    pesoBruto?: NullableFloatFieldUpdateOperationsInput | number | null
+    largura?: NullableFloatFieldUpdateOperationsInput | number | null
+    altura?: NullableFloatFieldUpdateOperationsInput | number | null
+    profundidade?: NullableFloatFieldUpdateOperationsInput | number | null
     unidadeMedida?: NullableStringFieldUpdateOperationsInput | string | null
     descricaoDetalhada?: NullableStringFieldUpdateOperationsInput | string | null
     pedidoNumero?: NullableIntFieldUpdateOperationsInput | number | null
@@ -15458,15 +14501,15 @@ export namespace Prisma {
     id?: number
     codigo?: string | null
     descricao?: string | null
-    quantidade?: Decimal | number | string | null
-    valorunidade?: Decimal | number | string | null
-    precocusto?: Decimal | number | string | null
-    descontoItem?: Decimal | number | string | null
+    quantidade?: number | null
+    valorunidade?: number | null
+    precocusto?: number | null
+    descontoItem?: number | null
     un?: string | null
-    pesoBruto?: Decimal | number | string | null
-    largura?: Decimal | number | string | null
-    altura?: Decimal | number | string | null
-    profundidade?: Decimal | number | string | null
+    pesoBruto?: number | null
+    largura?: number | null
+    altura?: number | null
+    profundidade?: number | null
     unidadeMedida?: string | null
     descricaoDetalhada?: string | null
     pedidoNumero?: number | null
@@ -15475,15 +14518,15 @@ export namespace Prisma {
   export type ProdutoNoPedidoUpdateManyMutationInput = {
     codigo?: NullableStringFieldUpdateOperationsInput | string | null
     descricao?: NullableStringFieldUpdateOperationsInput | string | null
-    quantidade?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    valorunidade?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    precocusto?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    descontoItem?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
+    quantidade?: NullableFloatFieldUpdateOperationsInput | number | null
+    valorunidade?: NullableFloatFieldUpdateOperationsInput | number | null
+    precocusto?: NullableFloatFieldUpdateOperationsInput | number | null
+    descontoItem?: NullableFloatFieldUpdateOperationsInput | number | null
     un?: NullableStringFieldUpdateOperationsInput | string | null
-    pesoBruto?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    largura?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    altura?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    profundidade?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
+    pesoBruto?: NullableFloatFieldUpdateOperationsInput | number | null
+    largura?: NullableFloatFieldUpdateOperationsInput | number | null
+    altura?: NullableFloatFieldUpdateOperationsInput | number | null
+    profundidade?: NullableFloatFieldUpdateOperationsInput | number | null
     unidadeMedida?: NullableStringFieldUpdateOperationsInput | string | null
     descricaoDetalhada?: NullableStringFieldUpdateOperationsInput | string | null
   }
@@ -15492,15 +14535,15 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     codigo?: NullableStringFieldUpdateOperationsInput | string | null
     descricao?: NullableStringFieldUpdateOperationsInput | string | null
-    quantidade?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    valorunidade?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    precocusto?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    descontoItem?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
+    quantidade?: NullableFloatFieldUpdateOperationsInput | number | null
+    valorunidade?: NullableFloatFieldUpdateOperationsInput | number | null
+    precocusto?: NullableFloatFieldUpdateOperationsInput | number | null
+    descontoItem?: NullableFloatFieldUpdateOperationsInput | number | null
     un?: NullableStringFieldUpdateOperationsInput | string | null
-    pesoBruto?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    largura?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    altura?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    profundidade?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
+    pesoBruto?: NullableFloatFieldUpdateOperationsInput | number | null
+    largura?: NullableFloatFieldUpdateOperationsInput | number | null
+    altura?: NullableFloatFieldUpdateOperationsInput | number | null
+    profundidade?: NullableFloatFieldUpdateOperationsInput | number | null
     unidadeMedida?: NullableStringFieldUpdateOperationsInput | string | null
     descricaoDetalhada?: NullableStringFieldUpdateOperationsInput | string | null
     pedidoNumero?: NullableIntFieldUpdateOperationsInput | number | null
@@ -15536,15 +14579,15 @@ export namespace Prisma {
     not?: NestedStringNullableFilter | string | null
   }
 
-  export type DecimalNullableFilter = {
-    equals?: Decimal | number | string | null
-    in?: Enumerable<Decimal> | Enumerable<number> | Enumerable<string> | null
-    notIn?: Enumerable<Decimal> | Enumerable<number> | Enumerable<string> | null
-    lt?: Decimal | number | string
-    lte?: Decimal | number | string
-    gt?: Decimal | number | string
-    gte?: Decimal | number | string
-    not?: NestedDecimalNullableFilter | Decimal | number | string | null
+  export type FloatNullableFilter = {
+    equals?: number | null
+    in?: Enumerable<number> | null
+    notIn?: Enumerable<number> | null
+    lt?: number
+    lte?: number
+    gt?: number
+    gte?: number
+    not?: NestedFloatNullableFilter | number | null
   }
 
   export type DateTimeNullableFilter = {
@@ -15806,20 +14849,20 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter
   }
 
-  export type DecimalNullableWithAggregatesFilter = {
-    equals?: Decimal | number | string | null
-    in?: Enumerable<Decimal> | Enumerable<number> | Enumerable<string> | null
-    notIn?: Enumerable<Decimal> | Enumerable<number> | Enumerable<string> | null
-    lt?: Decimal | number | string
-    lte?: Decimal | number | string
-    gt?: Decimal | number | string
-    gte?: Decimal | number | string
-    not?: NestedDecimalNullableWithAggregatesFilter | Decimal | number | string | null
+  export type FloatNullableWithAggregatesFilter = {
+    equals?: number | null
+    in?: Enumerable<number> | null
+    notIn?: Enumerable<number> | null
+    lt?: number
+    lte?: number
+    gt?: number
+    gte?: number
+    not?: NestedFloatNullableWithAggregatesFilter | number | null
     _count?: NestedIntNullableFilter
-    _avg?: NestedDecimalNullableFilter
-    _sum?: NestedDecimalNullableFilter
-    _min?: NestedDecimalNullableFilter
-    _max?: NestedDecimalNullableFilter
+    _avg?: NestedFloatNullableFilter
+    _sum?: NestedFloatNullableFilter
+    _min?: NestedFloatNullableFilter
+    _max?: NestedFloatNullableFilter
   }
 
   export type DateTimeNullableWithAggregatesFilter = {
@@ -15938,17 +14981,6 @@ export namespace Prisma {
 
   export type CategoriaProdutoSumOrderByAggregateInput = {
     id?: SortOrder
-  }
-
-  export type FloatNullableFilter = {
-    equals?: number | null
-    in?: Enumerable<number> | null
-    notIn?: Enumerable<number> | null
-    lt?: number
-    lte?: number
-    gt?: number
-    gte?: number
-    not?: NestedFloatNullableFilter | number | null
   }
 
   export type ClienteRelationFilter = {
@@ -16087,22 +15119,6 @@ export namespace Prisma {
     totalvenda?: SortOrder
     cliente_id?: SortOrder
     enderecoEntrega_id?: SortOrder
-  }
-
-  export type FloatNullableWithAggregatesFilter = {
-    equals?: number | null
-    in?: Enumerable<number> | null
-    notIn?: Enumerable<number> | null
-    lt?: number
-    lte?: number
-    gt?: number
-    gte?: number
-    not?: NestedFloatNullableWithAggregatesFilter | number | null
-    _count?: NestedIntNullableFilter
-    _avg?: NestedFloatNullableFilter
-    _sum?: NestedFloatNullableFilter
-    _min?: NestedFloatNullableFilter
-    _max?: NestedFloatNullableFilter
   }
 
   export type PedidoListRelationFilter = {
@@ -16248,17 +15264,13 @@ export namespace Prisma {
   }
 
   export type PedidoRelationFilter = {
-    is?: PedidoWhereInput | null
-    isNot?: PedidoWhereInput | null
-  }
-
-  export type DimensaoRelationFilter = {
-    is?: DimensaoWhereInput | null
-    isNot?: DimensaoWhereInput | null
+    is?: PedidoWhereInput
+    isNot?: PedidoWhereInput
   }
 
   export type VolumeCountOrderByAggregateInput = {
     id?: SortOrder
+    codigo?: SortOrder
     idServico?: SortOrder
     idOrigem?: SortOrder
     servico?: SortOrder
@@ -16273,11 +15285,17 @@ export namespace Prisma {
     avisoRecebimento?: SortOrder
     maoPropria?: SortOrder
     urlRastreamento?: SortOrder
+    peso?: SortOrder
+    altura?: SortOrder
+    largura?: SortOrder
+    comprimento?: SortOrder
+    diametro?: SortOrder
     pedidoNumero?: SortOrder
   }
 
   export type VolumeAvgOrderByAggregateInput = {
     id?: SortOrder
+    codigo?: SortOrder
     idServico?: SortOrder
     valorFretePrevisto?: SortOrder
     valorDeclarado?: SortOrder
@@ -16286,6 +15304,7 @@ export namespace Prisma {
 
   export type VolumeMaxOrderByAggregateInput = {
     id?: SortOrder
+    codigo?: SortOrder
     idServico?: SortOrder
     idOrigem?: SortOrder
     servico?: SortOrder
@@ -16300,11 +15319,17 @@ export namespace Prisma {
     avisoRecebimento?: SortOrder
     maoPropria?: SortOrder
     urlRastreamento?: SortOrder
+    peso?: SortOrder
+    altura?: SortOrder
+    largura?: SortOrder
+    comprimento?: SortOrder
+    diametro?: SortOrder
     pedidoNumero?: SortOrder
   }
 
   export type VolumeMinOrderByAggregateInput = {
     id?: SortOrder
+    codigo?: SortOrder
     idServico?: SortOrder
     idOrigem?: SortOrder
     servico?: SortOrder
@@ -16319,11 +15344,17 @@ export namespace Prisma {
     avisoRecebimento?: SortOrder
     maoPropria?: SortOrder
     urlRastreamento?: SortOrder
+    peso?: SortOrder
+    altura?: SortOrder
+    largura?: SortOrder
+    comprimento?: SortOrder
+    diametro?: SortOrder
     pedidoNumero?: SortOrder
   }
 
   export type VolumeSumOrderByAggregateInput = {
     id?: SortOrder
+    codigo?: SortOrder
     idServico?: SortOrder
     valorFretePrevisto?: SortOrder
     valorDeclarado?: SortOrder
@@ -16338,60 +15369,15 @@ export namespace Prisma {
     _max?: NestedBoolNullableFilter
   }
 
-  export type VolumeRelationFilter = {
-    is?: VolumeWhereInput
-    isNot?: VolumeWhereInput
-  }
-
-  export type DimensaoCountOrderByAggregateInput = {
-    id?: SortOrder
-    peso?: SortOrder
-    altura?: SortOrder
-    largura?: SortOrder
-    comprimento?: SortOrder
-    diametro?: SortOrder
-    volume_id?: SortOrder
-  }
-
-  export type DimensaoAvgOrderByAggregateInput = {
-    id?: SortOrder
-    volume_id?: SortOrder
-  }
-
-  export type DimensaoMaxOrderByAggregateInput = {
-    id?: SortOrder
-    peso?: SortOrder
-    altura?: SortOrder
-    largura?: SortOrder
-    comprimento?: SortOrder
-    diametro?: SortOrder
-    volume_id?: SortOrder
-  }
-
-  export type DimensaoMinOrderByAggregateInput = {
-    id?: SortOrder
-    peso?: SortOrder
-    altura?: SortOrder
-    largura?: SortOrder
-    comprimento?: SortOrder
-    diametro?: SortOrder
-    volume_id?: SortOrder
-  }
-
-  export type DimensaoSumOrderByAggregateInput = {
-    id?: SortOrder
-    volume_id?: SortOrder
-  }
-
-  export type DecimalFilter = {
-    equals?: Decimal | number | string
-    in?: Enumerable<Decimal> | Enumerable<number> | Enumerable<string>
-    notIn?: Enumerable<Decimal> | Enumerable<number> | Enumerable<string>
-    lt?: Decimal | number | string
-    lte?: Decimal | number | string
-    gt?: Decimal | number | string
-    gte?: Decimal | number | string
-    not?: NestedDecimalFilter | Decimal | number | string
+  export type FloatFilter = {
+    equals?: number
+    in?: Enumerable<number>
+    notIn?: Enumerable<number>
+    lt?: number
+    lte?: number
+    gt?: number
+    gte?: number
+    not?: NestedFloatFilter | number
   }
 
   export type DateTimeFilter = {
@@ -16403,6 +15389,11 @@ export namespace Prisma {
     gt?: Date | string
     gte?: Date | string
     not?: NestedDateTimeFilter | Date | string
+  }
+
+  export type ParcelaIdPedidoNumeroCompoundUniqueInput = {
+    id: number
+    pedidoNumero: number
   }
 
   export type ParcelaCountOrderByAggregateInput = {
@@ -16453,20 +15444,20 @@ export namespace Prisma {
     pedidoNumero?: SortOrder
   }
 
-  export type DecimalWithAggregatesFilter = {
-    equals?: Decimal | number | string
-    in?: Enumerable<Decimal> | Enumerable<number> | Enumerable<string>
-    notIn?: Enumerable<Decimal> | Enumerable<number> | Enumerable<string>
-    lt?: Decimal | number | string
-    lte?: Decimal | number | string
-    gt?: Decimal | number | string
-    gte?: Decimal | number | string
-    not?: NestedDecimalWithAggregatesFilter | Decimal | number | string
+  export type FloatWithAggregatesFilter = {
+    equals?: number
+    in?: Enumerable<number>
+    notIn?: Enumerable<number>
+    lt?: number
+    lte?: number
+    gt?: number
+    gte?: number
+    not?: NestedFloatWithAggregatesFilter | number
     _count?: NestedIntFilter
-    _avg?: NestedDecimalFilter
-    _sum?: NestedDecimalFilter
-    _min?: NestedDecimalFilter
-    _max?: NestedDecimalFilter
+    _avg?: NestedFloatFilter
+    _sum?: NestedFloatFilter
+    _min?: NestedFloatFilter
+    _max?: NestedFloatFilter
   }
 
   export type DateTimeWithAggregatesFilter = {
@@ -16627,12 +15618,12 @@ export namespace Prisma {
     set?: string | null
   }
 
-  export type NullableDecimalFieldUpdateOperationsInput = {
-    set?: Decimal | number | string | null
-    increment?: Decimal | number | string
-    decrement?: Decimal | number | string
-    multiply?: Decimal | number | string
-    divide?: Decimal | number | string
+  export type NullableFloatFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
@@ -16823,14 +15814,6 @@ export namespace Prisma {
     connectOrCreate?: Enumerable<ProdutoNoPedidoCreateOrConnectWithoutPedidoInput>
     createMany?: ProdutoNoPedidoCreateManyPedidoInputEnvelope
     connect?: Enumerable<ProdutoNoPedidoWhereUniqueInput>
-  }
-
-  export type NullableFloatFieldUpdateOperationsInput = {
-    set?: number | null
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type ClienteUpdateOneRequiredWithoutPedidoInput = {
@@ -17155,64 +16138,16 @@ export namespace Prisma {
     connect?: PedidoWhereUniqueInput
   }
 
-  export type DimensaoCreateNestedOneWithoutVolumeInput = {
-    create?: XOR<DimensaoCreateWithoutVolumeInput, DimensaoUncheckedCreateWithoutVolumeInput>
-    connectOrCreate?: DimensaoCreateOrConnectWithoutVolumeInput
-    connect?: DimensaoWhereUniqueInput
-  }
-
-  export type DimensaoUncheckedCreateNestedOneWithoutVolumeInput = {
-    create?: XOR<DimensaoCreateWithoutVolumeInput, DimensaoUncheckedCreateWithoutVolumeInput>
-    connectOrCreate?: DimensaoCreateOrConnectWithoutVolumeInput
-    connect?: DimensaoWhereUniqueInput
-  }
-
   export type NullableBoolFieldUpdateOperationsInput = {
     set?: boolean | null
   }
 
-  export type PedidoUpdateOneWithoutVolumeInput = {
+  export type PedidoUpdateOneRequiredWithoutVolumeInput = {
     create?: XOR<PedidoCreateWithoutVolumeInput, PedidoUncheckedCreateWithoutVolumeInput>
     connectOrCreate?: PedidoCreateOrConnectWithoutVolumeInput
     upsert?: PedidoUpsertWithoutVolumeInput
-    disconnect?: boolean
-    delete?: boolean
     connect?: PedidoWhereUniqueInput
     update?: XOR<PedidoUpdateWithoutVolumeInput, PedidoUncheckedUpdateWithoutVolumeInput>
-  }
-
-  export type DimensaoUpdateOneWithoutVolumeInput = {
-    create?: XOR<DimensaoCreateWithoutVolumeInput, DimensaoUncheckedCreateWithoutVolumeInput>
-    connectOrCreate?: DimensaoCreateOrConnectWithoutVolumeInput
-    upsert?: DimensaoUpsertWithoutVolumeInput
-    disconnect?: boolean
-    delete?: boolean
-    connect?: DimensaoWhereUniqueInput
-    update?: XOR<DimensaoUpdateWithoutVolumeInput, DimensaoUncheckedUpdateWithoutVolumeInput>
-  }
-
-  export type DimensaoUncheckedUpdateOneWithoutVolumeInput = {
-    create?: XOR<DimensaoCreateWithoutVolumeInput, DimensaoUncheckedCreateWithoutVolumeInput>
-    connectOrCreate?: DimensaoCreateOrConnectWithoutVolumeInput
-    upsert?: DimensaoUpsertWithoutVolumeInput
-    disconnect?: boolean
-    delete?: boolean
-    connect?: DimensaoWhereUniqueInput
-    update?: XOR<DimensaoUpdateWithoutVolumeInput, DimensaoUncheckedUpdateWithoutVolumeInput>
-  }
-
-  export type VolumeCreateNestedOneWithoutDimensaoInput = {
-    create?: XOR<VolumeCreateWithoutDimensaoInput, VolumeUncheckedCreateWithoutDimensaoInput>
-    connectOrCreate?: VolumeCreateOrConnectWithoutDimensaoInput
-    connect?: VolumeWhereUniqueInput
-  }
-
-  export type VolumeUpdateOneRequiredWithoutDimensaoInput = {
-    create?: XOR<VolumeCreateWithoutDimensaoInput, VolumeUncheckedCreateWithoutDimensaoInput>
-    connectOrCreate?: VolumeCreateOrConnectWithoutDimensaoInput
-    upsert?: VolumeUpsertWithoutDimensaoInput
-    connect?: VolumeWhereUniqueInput
-    update?: XOR<VolumeUpdateWithoutDimensaoInput, VolumeUncheckedUpdateWithoutDimensaoInput>
   }
 
   export type PedidoCreateNestedOneWithoutParcelasInput = {
@@ -17221,24 +16156,22 @@ export namespace Prisma {
     connect?: PedidoWhereUniqueInput
   }
 
-  export type DecimalFieldUpdateOperationsInput = {
-    set?: Decimal | number | string
-    increment?: Decimal | number | string
-    decrement?: Decimal | number | string
-    multiply?: Decimal | number | string
-    divide?: Decimal | number | string
+  export type FloatFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
   }
 
-  export type PedidoUpdateOneWithoutParcelasInput = {
+  export type PedidoUpdateOneRequiredWithoutParcelasInput = {
     create?: XOR<PedidoCreateWithoutParcelasInput, PedidoUncheckedCreateWithoutParcelasInput>
     connectOrCreate?: PedidoCreateOrConnectWithoutParcelasInput
     upsert?: PedidoUpsertWithoutParcelasInput
-    disconnect?: boolean
-    delete?: boolean
     connect?: PedidoWhereUniqueInput
     update?: XOR<PedidoUpdateWithoutParcelasInput, PedidoUncheckedUpdateWithoutParcelasInput>
   }
@@ -17301,15 +16234,15 @@ export namespace Prisma {
     not?: NestedStringNullableFilter | string | null
   }
 
-  export type NestedDecimalNullableFilter = {
-    equals?: Decimal | number | string | null
-    in?: Enumerable<Decimal> | Enumerable<number> | Enumerable<string> | null
-    notIn?: Enumerable<Decimal> | Enumerable<number> | Enumerable<string> | null
-    lt?: Decimal | number | string
-    lte?: Decimal | number | string
-    gt?: Decimal | number | string
-    gte?: Decimal | number | string
-    not?: NestedDecimalNullableFilter | Decimal | number | string | null
+  export type NestedFloatNullableFilter = {
+    equals?: number | null
+    in?: Enumerable<number> | null
+    notIn?: Enumerable<number> | null
+    lt?: number
+    lte?: number
+    gt?: number
+    gte?: number
+    not?: NestedFloatNullableFilter | number | null
   }
 
   export type NestedDateTimeNullableFilter = {
@@ -17379,20 +16312,20 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter
   }
 
-  export type NestedDecimalNullableWithAggregatesFilter = {
-    equals?: Decimal | number | string | null
-    in?: Enumerable<Decimal> | Enumerable<number> | Enumerable<string> | null
-    notIn?: Enumerable<Decimal> | Enumerable<number> | Enumerable<string> | null
-    lt?: Decimal | number | string
-    lte?: Decimal | number | string
-    gt?: Decimal | number | string
-    gte?: Decimal | number | string
-    not?: NestedDecimalNullableWithAggregatesFilter | Decimal | number | string | null
+  export type NestedFloatNullableWithAggregatesFilter = {
+    equals?: number | null
+    in?: Enumerable<number> | null
+    notIn?: Enumerable<number> | null
+    lt?: number
+    lte?: number
+    gt?: number
+    gte?: number
+    not?: NestedFloatNullableWithAggregatesFilter | number | null
     _count?: NestedIntNullableFilter
-    _avg?: NestedDecimalNullableFilter
-    _sum?: NestedDecimalNullableFilter
-    _min?: NestedDecimalNullableFilter
-    _max?: NestedDecimalNullableFilter
+    _avg?: NestedFloatNullableFilter
+    _sum?: NestedFloatNullableFilter
+    _min?: NestedFloatNullableFilter
+    _max?: NestedFloatNullableFilter
   }
 
   export type NestedDateTimeNullableWithAggregatesFilter = {
@@ -17425,17 +16358,6 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter
   }
 
-  export type NestedFloatNullableFilter = {
-    equals?: number | null
-    in?: Enumerable<number> | null
-    notIn?: Enumerable<number> | null
-    lt?: number
-    lte?: number
-    gt?: number
-    gte?: number
-    not?: NestedFloatNullableFilter | number | null
-  }
-
   export type NestedIntWithAggregatesFilter = {
     equals?: number
     in?: Enumerable<number>
@@ -17463,22 +16385,6 @@ export namespace Prisma {
     not?: NestedFloatFilter | number
   }
 
-  export type NestedFloatNullableWithAggregatesFilter = {
-    equals?: number | null
-    in?: Enumerable<number> | null
-    notIn?: Enumerable<number> | null
-    lt?: number
-    lte?: number
-    gt?: number
-    gte?: number
-    not?: NestedFloatNullableWithAggregatesFilter | number | null
-    _count?: NestedIntNullableFilter
-    _avg?: NestedFloatNullableFilter
-    _sum?: NestedFloatNullableFilter
-    _min?: NestedFloatNullableFilter
-    _max?: NestedFloatNullableFilter
-  }
-
   export type NestedBoolNullableFilter = {
     equals?: boolean | null
     not?: NestedBoolNullableFilter | boolean | null
@@ -17492,17 +16398,6 @@ export namespace Prisma {
     _max?: NestedBoolNullableFilter
   }
 
-  export type NestedDecimalFilter = {
-    equals?: Decimal | number | string
-    in?: Enumerable<Decimal> | Enumerable<number> | Enumerable<string>
-    notIn?: Enumerable<Decimal> | Enumerable<number> | Enumerable<string>
-    lt?: Decimal | number | string
-    lte?: Decimal | number | string
-    gt?: Decimal | number | string
-    gte?: Decimal | number | string
-    not?: NestedDecimalFilter | Decimal | number | string
-  }
-
   export type NestedDateTimeFilter = {
     equals?: Date | string
     in?: Enumerable<Date> | Enumerable<string>
@@ -17514,20 +16409,20 @@ export namespace Prisma {
     not?: NestedDateTimeFilter | Date | string
   }
 
-  export type NestedDecimalWithAggregatesFilter = {
-    equals?: Decimal | number | string
-    in?: Enumerable<Decimal> | Enumerable<number> | Enumerable<string>
-    notIn?: Enumerable<Decimal> | Enumerable<number> | Enumerable<string>
-    lt?: Decimal | number | string
-    lte?: Decimal | number | string
-    gt?: Decimal | number | string
-    gte?: Decimal | number | string
-    not?: NestedDecimalWithAggregatesFilter | Decimal | number | string
+  export type NestedFloatWithAggregatesFilter = {
+    equals?: number
+    in?: Enumerable<number>
+    notIn?: Enumerable<number>
+    lt?: number
+    lte?: number
+    gt?: number
+    gte?: number
+    not?: NestedFloatWithAggregatesFilter | number
     _count?: NestedIntFilter
-    _avg?: NestedDecimalFilter
-    _sum?: NestedDecimalFilter
-    _min?: NestedDecimalFilter
-    _max?: NestedDecimalFilter
+    _avg?: NestedFloatFilter
+    _sum?: NestedFloatFilter
+    _min?: NestedFloatFilter
+    _max?: NestedFloatFilter
   }
 
   export type NestedDateTimeWithAggregatesFilter = {
@@ -17593,8 +16488,8 @@ export namespace Prisma {
     tipo?: string | null
     situacao?: string | null
     unidade?: string | null
-    preco?: Decimal | number | string | null
-    precoCusto?: Decimal | number | string | null
+    preco?: number | null
+    precoCusto?: number | null
     descricaoCurta?: string | null
     descricaoComplementar?: string | null
     dataInclusao?: Date | string | null
@@ -17614,15 +16509,15 @@ export namespace Prisma {
     garantia?: number | null
     descricaoFornecedor?: string | null
     idFabricante?: number | null
-    pesoLiq?: Decimal | number | string | null
-    pesoBruto?: Decimal | number | string | null
-    estoqueMinimo?: Decimal | number | string | null
-    estoqueMaximo?: Decimal | number | string | null
+    pesoLiq?: number | null
+    pesoBruto?: number | null
+    estoqueMinimo?: number | null
+    estoqueMaximo?: number | null
     gtin?: string | null
     gtinEmbalagem?: string | null
-    larguraProduto?: Decimal | number | string | null
-    alturaProduto?: Decimal | number | string | null
-    profundidadeProduto?: Decimal | number | string | null
+    larguraProduto?: number | null
+    alturaProduto?: number | null
+    profundidadeProduto?: number | null
     unidadeMedida?: string | null
     itensPorCaixa?: number | null
     volumes?: number | null
@@ -17644,8 +16539,8 @@ export namespace Prisma {
     tipo?: string | null
     situacao?: string | null
     unidade?: string | null
-    preco?: Decimal | number | string | null
-    precoCusto?: Decimal | number | string | null
+    preco?: number | null
+    precoCusto?: number | null
     descricaoCurta?: string | null
     descricaoComplementar?: string | null
     dataInclusao?: Date | string | null
@@ -17665,15 +16560,15 @@ export namespace Prisma {
     garantia?: number | null
     descricaoFornecedor?: string | null
     idFabricante?: number | null
-    pesoLiq?: Decimal | number | string | null
-    pesoBruto?: Decimal | number | string | null
-    estoqueMinimo?: Decimal | number | string | null
-    estoqueMaximo?: Decimal | number | string | null
+    pesoLiq?: number | null
+    pesoBruto?: number | null
+    estoqueMinimo?: number | null
+    estoqueMaximo?: number | null
     gtin?: string | null
     gtinEmbalagem?: string | null
-    larguraProduto?: Decimal | number | string | null
-    alturaProduto?: Decimal | number | string | null
-    profundidadeProduto?: Decimal | number | string | null
+    larguraProduto?: number | null
+    alturaProduto?: number | null
+    profundidadeProduto?: number | null
     unidadeMedida?: string | null
     itensPorCaixa?: number | null
     volumes?: number | null
@@ -17720,8 +16615,8 @@ export namespace Prisma {
     tipo?: NullableStringFieldUpdateOperationsInput | string | null
     situacao?: NullableStringFieldUpdateOperationsInput | string | null
     unidade?: NullableStringFieldUpdateOperationsInput | string | null
-    preco?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    precoCusto?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
+    preco?: NullableFloatFieldUpdateOperationsInput | number | null
+    precoCusto?: NullableFloatFieldUpdateOperationsInput | number | null
     descricaoCurta?: NullableStringFieldUpdateOperationsInput | string | null
     descricaoComplementar?: NullableStringFieldUpdateOperationsInput | string | null
     dataInclusao?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -17741,15 +16636,15 @@ export namespace Prisma {
     garantia?: NullableIntFieldUpdateOperationsInput | number | null
     descricaoFornecedor?: NullableStringFieldUpdateOperationsInput | string | null
     idFabricante?: NullableIntFieldUpdateOperationsInput | number | null
-    pesoLiq?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    pesoBruto?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    estoqueMinimo?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    estoqueMaximo?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
+    pesoLiq?: NullableFloatFieldUpdateOperationsInput | number | null
+    pesoBruto?: NullableFloatFieldUpdateOperationsInput | number | null
+    estoqueMinimo?: NullableFloatFieldUpdateOperationsInput | number | null
+    estoqueMaximo?: NullableFloatFieldUpdateOperationsInput | number | null
     gtin?: NullableStringFieldUpdateOperationsInput | string | null
     gtinEmbalagem?: NullableStringFieldUpdateOperationsInput | string | null
-    larguraProduto?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    alturaProduto?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    profundidadeProduto?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
+    larguraProduto?: NullableFloatFieldUpdateOperationsInput | number | null
+    alturaProduto?: NullableFloatFieldUpdateOperationsInput | number | null
+    profundidadeProduto?: NullableFloatFieldUpdateOperationsInput | number | null
     unidadeMedida?: NullableStringFieldUpdateOperationsInput | string | null
     itensPorCaixa?: NullableIntFieldUpdateOperationsInput | number | null
     volumes?: NullableIntFieldUpdateOperationsInput | number | null
@@ -17771,8 +16666,8 @@ export namespace Prisma {
     tipo?: NullableStringFieldUpdateOperationsInput | string | null
     situacao?: NullableStringFieldUpdateOperationsInput | string | null
     unidade?: NullableStringFieldUpdateOperationsInput | string | null
-    preco?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    precoCusto?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
+    preco?: NullableFloatFieldUpdateOperationsInput | number | null
+    precoCusto?: NullableFloatFieldUpdateOperationsInput | number | null
     descricaoCurta?: NullableStringFieldUpdateOperationsInput | string | null
     descricaoComplementar?: NullableStringFieldUpdateOperationsInput | string | null
     dataInclusao?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -17792,15 +16687,15 @@ export namespace Prisma {
     garantia?: NullableIntFieldUpdateOperationsInput | number | null
     descricaoFornecedor?: NullableStringFieldUpdateOperationsInput | string | null
     idFabricante?: NullableIntFieldUpdateOperationsInput | number | null
-    pesoLiq?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    pesoBruto?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    estoqueMinimo?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    estoqueMaximo?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
+    pesoLiq?: NullableFloatFieldUpdateOperationsInput | number | null
+    pesoBruto?: NullableFloatFieldUpdateOperationsInput | number | null
+    estoqueMinimo?: NullableFloatFieldUpdateOperationsInput | number | null
+    estoqueMaximo?: NullableFloatFieldUpdateOperationsInput | number | null
     gtin?: NullableStringFieldUpdateOperationsInput | string | null
     gtinEmbalagem?: NullableStringFieldUpdateOperationsInput | string | null
-    larguraProduto?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    alturaProduto?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    profundidadeProduto?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
+    larguraProduto?: NullableFloatFieldUpdateOperationsInput | number | null
+    alturaProduto?: NullableFloatFieldUpdateOperationsInput | number | null
+    profundidadeProduto?: NullableFloatFieldUpdateOperationsInput | number | null
     unidadeMedida?: NullableStringFieldUpdateOperationsInput | string | null
     itensPorCaixa?: NullableIntFieldUpdateOperationsInput | number | null
     volumes?: NullableIntFieldUpdateOperationsInput | number | null
@@ -17947,7 +16842,7 @@ export namespace Prisma {
   }
 
   export type VolumeCreateWithoutPedidoInput = {
-    id: number
+    codigo: number
     idServico: number
     idOrigem?: string | null
     servico?: string | null
@@ -17962,11 +16857,16 @@ export namespace Prisma {
     avisoRecebimento?: boolean | null
     maoPropria?: boolean | null
     urlRastreamento?: string | null
-    dimensao?: DimensaoCreateNestedOneWithoutVolumeInput
+    peso?: string | null
+    altura?: string | null
+    largura?: string | null
+    comprimento?: string | null
+    diametro?: string | null
   }
 
   export type VolumeUncheckedCreateWithoutPedidoInput = {
-    id: number
+    id?: number
+    codigo: number
     idServico: number
     idOrigem?: string | null
     servico?: string | null
@@ -17981,7 +16881,11 @@ export namespace Prisma {
     avisoRecebimento?: boolean | null
     maoPropria?: boolean | null
     urlRastreamento?: string | null
-    dimensao?: DimensaoUncheckedCreateNestedOneWithoutVolumeInput
+    peso?: string | null
+    altura?: string | null
+    largura?: string | null
+    comprimento?: string | null
+    diametro?: string | null
   }
 
   export type VolumeCreateOrConnectWithoutPedidoInput = {
@@ -17996,7 +16900,7 @@ export namespace Prisma {
 
   export type ParcelaCreateWithoutPedidoInput = {
     id: number
-    valor: Decimal | number | string
+    valor: number
     dataVencimento: Date | string
     obs?: string | null
     destino?: string | null
@@ -18007,7 +16911,7 @@ export namespace Prisma {
 
   export type ParcelaUncheckedCreateWithoutPedidoInput = {
     id: number
-    valor: Decimal | number | string
+    valor: number
     dataVencimento: Date | string
     obs?: string | null
     destino?: string | null
@@ -18031,7 +16935,7 @@ export namespace Prisma {
     serie?: string | null
     dataEmissao?: Date | string | null
     situacao?: number | null
-    valorNota?: Decimal | number | string | null
+    valorNota?: number | null
     chaveAcesso?: string | null
   }
 
@@ -18040,7 +16944,7 @@ export namespace Prisma {
     serie?: string | null
     dataEmissao?: Date | string | null
     situacao?: number | null
-    valorNota?: Decimal | number | string | null
+    valorNota?: number | null
     chaveAcesso?: string | null
   }
 
@@ -18052,15 +16956,15 @@ export namespace Prisma {
   export type ProdutoNoPedidoCreateWithoutPedidoInput = {
     codigo?: string | null
     descricao?: string | null
-    quantidade?: Decimal | number | string | null
-    valorunidade?: Decimal | number | string | null
-    precocusto?: Decimal | number | string | null
-    descontoItem?: Decimal | number | string | null
+    quantidade?: number | null
+    valorunidade?: number | null
+    precocusto?: number | null
+    descontoItem?: number | null
     un?: string | null
-    pesoBruto?: Decimal | number | string | null
-    largura?: Decimal | number | string | null
-    altura?: Decimal | number | string | null
-    profundidade?: Decimal | number | string | null
+    pesoBruto?: number | null
+    largura?: number | null
+    altura?: number | null
+    profundidade?: number | null
     unidadeMedida?: string | null
     descricaoDetalhada?: string | null
   }
@@ -18069,15 +16973,15 @@ export namespace Prisma {
     id?: number
     codigo?: string | null
     descricao?: string | null
-    quantidade?: Decimal | number | string | null
-    valorunidade?: Decimal | number | string | null
-    precocusto?: Decimal | number | string | null
-    descontoItem?: Decimal | number | string | null
+    quantidade?: number | null
+    valorunidade?: number | null
+    precocusto?: number | null
+    descontoItem?: number | null
     un?: string | null
-    pesoBruto?: Decimal | number | string | null
-    largura?: Decimal | number | string | null
-    altura?: Decimal | number | string | null
-    profundidade?: Decimal | number | string | null
+    pesoBruto?: number | null
+    largura?: number | null
+    altura?: number | null
+    profundidade?: number | null
     unidadeMedida?: string | null
     descricaoDetalhada?: string | null
   }
@@ -18195,6 +17099,7 @@ export namespace Prisma {
     OR?: Enumerable<VolumeScalarWhereInput>
     NOT?: Enumerable<VolumeScalarWhereInput>
     id?: IntFilter | number
+    codigo?: IntFilter | number
     idServico?: IntFilter | number
     idOrigem?: StringNullableFilter | string | null
     servico?: StringNullableFilter | string | null
@@ -18209,7 +17114,12 @@ export namespace Prisma {
     avisoRecebimento?: BoolNullableFilter | boolean | null
     maoPropria?: BoolNullableFilter | boolean | null
     urlRastreamento?: StringNullableFilter | string | null
-    pedidoNumero?: IntNullableFilter | number | null
+    peso?: StringNullableFilter | string | null
+    altura?: StringNullableFilter | string | null
+    largura?: StringNullableFilter | string | null
+    comprimento?: StringNullableFilter | string | null
+    diametro?: StringNullableFilter | string | null
+    pedidoNumero?: IntFilter | number
   }
 
   export type ParcelaUpsertWithWhereUniqueWithoutPedidoInput = {
@@ -18233,14 +17143,14 @@ export namespace Prisma {
     OR?: Enumerable<ParcelaScalarWhereInput>
     NOT?: Enumerable<ParcelaScalarWhereInput>
     id?: IntFilter | number
-    valor?: DecimalFilter | Decimal | number | string
+    valor?: FloatFilter | number
     dataVencimento?: DateTimeFilter | Date | string
     obs?: StringNullableFilter | string | null
     destino?: StringNullableFilter | string | null
     formaPagamento_id?: StringFilter | string
     formaPagamentoDescricao?: StringNullableFilter | string | null
     formaPagamentoCodigoFiscal?: StringNullableFilter | string | null
-    pedidoNumero?: IntNullableFilter | number | null
+    pedidoNumero?: IntFilter | number
   }
 
   export type NotaUpsertWithoutPedidoInput = {
@@ -18253,7 +17163,7 @@ export namespace Prisma {
     serie?: NullableStringFieldUpdateOperationsInput | string | null
     dataEmissao?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     situacao?: NullableIntFieldUpdateOperationsInput | number | null
-    valorNota?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
+    valorNota?: NullableFloatFieldUpdateOperationsInput | number | null
     chaveAcesso?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -18262,7 +17172,7 @@ export namespace Prisma {
     serie?: NullableStringFieldUpdateOperationsInput | string | null
     dataEmissao?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     situacao?: NullableIntFieldUpdateOperationsInput | number | null
-    valorNota?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
+    valorNota?: NullableFloatFieldUpdateOperationsInput | number | null
     chaveAcesso?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -18289,15 +17199,15 @@ export namespace Prisma {
     id?: IntFilter | number
     codigo?: StringNullableFilter | string | null
     descricao?: StringNullableFilter | string | null
-    quantidade?: DecimalNullableFilter | Decimal | number | string | null
-    valorunidade?: DecimalNullableFilter | Decimal | number | string | null
-    precocusto?: DecimalNullableFilter | Decimal | number | string | null
-    descontoItem?: DecimalNullableFilter | Decimal | number | string | null
+    quantidade?: FloatNullableFilter | number | null
+    valorunidade?: FloatNullableFilter | number | null
+    precocusto?: FloatNullableFilter | number | null
+    descontoItem?: FloatNullableFilter | number | null
     un?: StringNullableFilter | string | null
-    pesoBruto?: DecimalNullableFilter | Decimal | number | string | null
-    largura?: DecimalNullableFilter | Decimal | number | string | null
-    altura?: DecimalNullableFilter | Decimal | number | string | null
-    profundidade?: DecimalNullableFilter | Decimal | number | string | null
+    pesoBruto?: FloatNullableFilter | number | null
+    largura?: FloatNullableFilter | number | null
+    altura?: FloatNullableFilter | number | null
+    profundidade?: FloatNullableFilter | number | null
     unidadeMedida?: StringNullableFilter | string | null
     descricaoDetalhada?: StringNullableFilter | string | null
     pedidoNumero?: IntNullableFilter | number | null
@@ -18742,29 +17652,6 @@ export namespace Prisma {
     create: XOR<PedidoCreateWithoutVolumeInput, PedidoUncheckedCreateWithoutVolumeInput>
   }
 
-  export type DimensaoCreateWithoutVolumeInput = {
-    id: number
-    peso?: string | null
-    altura?: string | null
-    largura?: string | null
-    comprimento?: string | null
-    diametro?: string | null
-  }
-
-  export type DimensaoUncheckedCreateWithoutVolumeInput = {
-    id: number
-    peso?: string | null
-    altura?: string | null
-    largura?: string | null
-    comprimento?: string | null
-    diametro?: string | null
-  }
-
-  export type DimensaoCreateOrConnectWithoutVolumeInput = {
-    where: DimensaoWhereUniqueInput
-    create: XOR<DimensaoCreateWithoutVolumeInput, DimensaoUncheckedCreateWithoutVolumeInput>
-  }
-
   export type PedidoUpsertWithoutVolumeInput = {
     update: XOR<PedidoUpdateWithoutVolumeInput, PedidoUncheckedUpdateWithoutVolumeInput>
     create: XOR<PedidoCreateWithoutVolumeInput, PedidoUncheckedCreateWithoutVolumeInput>
@@ -18818,115 +17705,6 @@ export namespace Prisma {
     parcelas?: ParcelaUncheckedUpdateManyWithoutPedidoInput
     nota?: NotaUncheckedUpdateOneWithoutPedidoInput
     produtos?: ProdutoNoPedidoUncheckedUpdateManyWithoutPedidoInput
-  }
-
-  export type DimensaoUpsertWithoutVolumeInput = {
-    update: XOR<DimensaoUpdateWithoutVolumeInput, DimensaoUncheckedUpdateWithoutVolumeInput>
-    create: XOR<DimensaoCreateWithoutVolumeInput, DimensaoUncheckedCreateWithoutVolumeInput>
-  }
-
-  export type DimensaoUpdateWithoutVolumeInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    peso?: NullableStringFieldUpdateOperationsInput | string | null
-    altura?: NullableStringFieldUpdateOperationsInput | string | null
-    largura?: NullableStringFieldUpdateOperationsInput | string | null
-    comprimento?: NullableStringFieldUpdateOperationsInput | string | null
-    diametro?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type DimensaoUncheckedUpdateWithoutVolumeInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    peso?: NullableStringFieldUpdateOperationsInput | string | null
-    altura?: NullableStringFieldUpdateOperationsInput | string | null
-    largura?: NullableStringFieldUpdateOperationsInput | string | null
-    comprimento?: NullableStringFieldUpdateOperationsInput | string | null
-    diametro?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type VolumeCreateWithoutDimensaoInput = {
-    id: number
-    idServico: number
-    idOrigem?: string | null
-    servico?: string | null
-    codigoServico?: string | null
-    codigoRastreamento?: string | null
-    valorFretePrevisto?: number | null
-    remessaNumero?: string | null
-    remessaDataCriacao?: Date | string | null
-    dataSaida?: Date | string | null
-    prazoEntregaPrevisto?: string | null
-    valorDeclarado?: number | null
-    avisoRecebimento?: boolean | null
-    maoPropria?: boolean | null
-    urlRastreamento?: string | null
-    pedido?: PedidoCreateNestedOneWithoutVolumeInput
-  }
-
-  export type VolumeUncheckedCreateWithoutDimensaoInput = {
-    id: number
-    idServico: number
-    idOrigem?: string | null
-    servico?: string | null
-    codigoServico?: string | null
-    codigoRastreamento?: string | null
-    valorFretePrevisto?: number | null
-    remessaNumero?: string | null
-    remessaDataCriacao?: Date | string | null
-    dataSaida?: Date | string | null
-    prazoEntregaPrevisto?: string | null
-    valorDeclarado?: number | null
-    avisoRecebimento?: boolean | null
-    maoPropria?: boolean | null
-    urlRastreamento?: string | null
-    pedidoNumero?: number | null
-  }
-
-  export type VolumeCreateOrConnectWithoutDimensaoInput = {
-    where: VolumeWhereUniqueInput
-    create: XOR<VolumeCreateWithoutDimensaoInput, VolumeUncheckedCreateWithoutDimensaoInput>
-  }
-
-  export type VolumeUpsertWithoutDimensaoInput = {
-    update: XOR<VolumeUpdateWithoutDimensaoInput, VolumeUncheckedUpdateWithoutDimensaoInput>
-    create: XOR<VolumeCreateWithoutDimensaoInput, VolumeUncheckedCreateWithoutDimensaoInput>
-  }
-
-  export type VolumeUpdateWithoutDimensaoInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    idServico?: IntFieldUpdateOperationsInput | number
-    idOrigem?: NullableStringFieldUpdateOperationsInput | string | null
-    servico?: NullableStringFieldUpdateOperationsInput | string | null
-    codigoServico?: NullableStringFieldUpdateOperationsInput | string | null
-    codigoRastreamento?: NullableStringFieldUpdateOperationsInput | string | null
-    valorFretePrevisto?: NullableFloatFieldUpdateOperationsInput | number | null
-    remessaNumero?: NullableStringFieldUpdateOperationsInput | string | null
-    remessaDataCriacao?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dataSaida?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    prazoEntregaPrevisto?: NullableStringFieldUpdateOperationsInput | string | null
-    valorDeclarado?: NullableFloatFieldUpdateOperationsInput | number | null
-    avisoRecebimento?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    maoPropria?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    urlRastreamento?: NullableStringFieldUpdateOperationsInput | string | null
-    pedido?: PedidoUpdateOneWithoutVolumeInput
-  }
-
-  export type VolumeUncheckedUpdateWithoutDimensaoInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    idServico?: IntFieldUpdateOperationsInput | number
-    idOrigem?: NullableStringFieldUpdateOperationsInput | string | null
-    servico?: NullableStringFieldUpdateOperationsInput | string | null
-    codigoServico?: NullableStringFieldUpdateOperationsInput | string | null
-    codigoRastreamento?: NullableStringFieldUpdateOperationsInput | string | null
-    valorFretePrevisto?: NullableFloatFieldUpdateOperationsInput | number | null
-    remessaNumero?: NullableStringFieldUpdateOperationsInput | string | null
-    remessaDataCriacao?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dataSaida?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    prazoEntregaPrevisto?: NullableStringFieldUpdateOperationsInput | string | null
-    valorDeclarado?: NullableFloatFieldUpdateOperationsInput | number | null
-    avisoRecebimento?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    maoPropria?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    urlRastreamento?: NullableStringFieldUpdateOperationsInput | string | null
-    pedidoNumero?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type PedidoCreateWithoutParcelasInput = {
@@ -19292,7 +18070,8 @@ export namespace Prisma {
   }
 
   export type VolumeCreateManyPedidoInput = {
-    id: number
+    id?: number
+    codigo: number
     idServico: number
     idOrigem?: string | null
     servico?: string | null
@@ -19307,11 +18086,16 @@ export namespace Prisma {
     avisoRecebimento?: boolean | null
     maoPropria?: boolean | null
     urlRastreamento?: string | null
+    peso?: string | null
+    altura?: string | null
+    largura?: string | null
+    comprimento?: string | null
+    diametro?: string | null
   }
 
   export type ParcelaCreateManyPedidoInput = {
     id: number
-    valor: Decimal | number | string
+    valor: number
     dataVencimento: Date | string
     obs?: string | null
     destino?: string | null
@@ -19324,21 +18108,21 @@ export namespace Prisma {
     id?: number
     codigo?: string | null
     descricao?: string | null
-    quantidade?: Decimal | number | string | null
-    valorunidade?: Decimal | number | string | null
-    precocusto?: Decimal | number | string | null
-    descontoItem?: Decimal | number | string | null
+    quantidade?: number | null
+    valorunidade?: number | null
+    precocusto?: number | null
+    descontoItem?: number | null
     un?: string | null
-    pesoBruto?: Decimal | number | string | null
-    largura?: Decimal | number | string | null
-    altura?: Decimal | number | string | null
-    profundidade?: Decimal | number | string | null
+    pesoBruto?: number | null
+    largura?: number | null
+    altura?: number | null
+    profundidade?: number | null
     unidadeMedida?: string | null
     descricaoDetalhada?: string | null
   }
 
   export type VolumeUpdateWithoutPedidoInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    codigo?: IntFieldUpdateOperationsInput | number
     idServico?: IntFieldUpdateOperationsInput | number
     idOrigem?: NullableStringFieldUpdateOperationsInput | string | null
     servico?: NullableStringFieldUpdateOperationsInput | string | null
@@ -19353,11 +18137,16 @@ export namespace Prisma {
     avisoRecebimento?: NullableBoolFieldUpdateOperationsInput | boolean | null
     maoPropria?: NullableBoolFieldUpdateOperationsInput | boolean | null
     urlRastreamento?: NullableStringFieldUpdateOperationsInput | string | null
-    dimensao?: DimensaoUpdateOneWithoutVolumeInput
+    peso?: NullableStringFieldUpdateOperationsInput | string | null
+    altura?: NullableStringFieldUpdateOperationsInput | string | null
+    largura?: NullableStringFieldUpdateOperationsInput | string | null
+    comprimento?: NullableStringFieldUpdateOperationsInput | string | null
+    diametro?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type VolumeUncheckedUpdateWithoutPedidoInput = {
     id?: IntFieldUpdateOperationsInput | number
+    codigo?: IntFieldUpdateOperationsInput | number
     idServico?: IntFieldUpdateOperationsInput | number
     idOrigem?: NullableStringFieldUpdateOperationsInput | string | null
     servico?: NullableStringFieldUpdateOperationsInput | string | null
@@ -19372,11 +18161,16 @@ export namespace Prisma {
     avisoRecebimento?: NullableBoolFieldUpdateOperationsInput | boolean | null
     maoPropria?: NullableBoolFieldUpdateOperationsInput | boolean | null
     urlRastreamento?: NullableStringFieldUpdateOperationsInput | string | null
-    dimensao?: DimensaoUncheckedUpdateOneWithoutVolumeInput
+    peso?: NullableStringFieldUpdateOperationsInput | string | null
+    altura?: NullableStringFieldUpdateOperationsInput | string | null
+    largura?: NullableStringFieldUpdateOperationsInput | string | null
+    comprimento?: NullableStringFieldUpdateOperationsInput | string | null
+    diametro?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type VolumeUncheckedUpdateManyWithoutVolumeInput = {
     id?: IntFieldUpdateOperationsInput | number
+    codigo?: IntFieldUpdateOperationsInput | number
     idServico?: IntFieldUpdateOperationsInput | number
     idOrigem?: NullableStringFieldUpdateOperationsInput | string | null
     servico?: NullableStringFieldUpdateOperationsInput | string | null
@@ -19391,11 +18185,16 @@ export namespace Prisma {
     avisoRecebimento?: NullableBoolFieldUpdateOperationsInput | boolean | null
     maoPropria?: NullableBoolFieldUpdateOperationsInput | boolean | null
     urlRastreamento?: NullableStringFieldUpdateOperationsInput | string | null
+    peso?: NullableStringFieldUpdateOperationsInput | string | null
+    altura?: NullableStringFieldUpdateOperationsInput | string | null
+    largura?: NullableStringFieldUpdateOperationsInput | string | null
+    comprimento?: NullableStringFieldUpdateOperationsInput | string | null
+    diametro?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ParcelaUpdateWithoutPedidoInput = {
     id?: IntFieldUpdateOperationsInput | number
-    valor?: DecimalFieldUpdateOperationsInput | Decimal | number | string
+    valor?: FloatFieldUpdateOperationsInput | number
     dataVencimento?: DateTimeFieldUpdateOperationsInput | Date | string
     obs?: NullableStringFieldUpdateOperationsInput | string | null
     destino?: NullableStringFieldUpdateOperationsInput | string | null
@@ -19406,7 +18205,7 @@ export namespace Prisma {
 
   export type ParcelaUncheckedUpdateWithoutPedidoInput = {
     id?: IntFieldUpdateOperationsInput | number
-    valor?: DecimalFieldUpdateOperationsInput | Decimal | number | string
+    valor?: FloatFieldUpdateOperationsInput | number
     dataVencimento?: DateTimeFieldUpdateOperationsInput | Date | string
     obs?: NullableStringFieldUpdateOperationsInput | string | null
     destino?: NullableStringFieldUpdateOperationsInput | string | null
@@ -19417,7 +18216,7 @@ export namespace Prisma {
 
   export type ParcelaUncheckedUpdateManyWithoutParcelasInput = {
     id?: IntFieldUpdateOperationsInput | number
-    valor?: DecimalFieldUpdateOperationsInput | Decimal | number | string
+    valor?: FloatFieldUpdateOperationsInput | number
     dataVencimento?: DateTimeFieldUpdateOperationsInput | Date | string
     obs?: NullableStringFieldUpdateOperationsInput | string | null
     destino?: NullableStringFieldUpdateOperationsInput | string | null
@@ -19429,15 +18228,15 @@ export namespace Prisma {
   export type ProdutoNoPedidoUpdateWithoutPedidoInput = {
     codigo?: NullableStringFieldUpdateOperationsInput | string | null
     descricao?: NullableStringFieldUpdateOperationsInput | string | null
-    quantidade?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    valorunidade?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    precocusto?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    descontoItem?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
+    quantidade?: NullableFloatFieldUpdateOperationsInput | number | null
+    valorunidade?: NullableFloatFieldUpdateOperationsInput | number | null
+    precocusto?: NullableFloatFieldUpdateOperationsInput | number | null
+    descontoItem?: NullableFloatFieldUpdateOperationsInput | number | null
     un?: NullableStringFieldUpdateOperationsInput | string | null
-    pesoBruto?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    largura?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    altura?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    profundidade?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
+    pesoBruto?: NullableFloatFieldUpdateOperationsInput | number | null
+    largura?: NullableFloatFieldUpdateOperationsInput | number | null
+    altura?: NullableFloatFieldUpdateOperationsInput | number | null
+    profundidade?: NullableFloatFieldUpdateOperationsInput | number | null
     unidadeMedida?: NullableStringFieldUpdateOperationsInput | string | null
     descricaoDetalhada?: NullableStringFieldUpdateOperationsInput | string | null
   }
@@ -19446,15 +18245,15 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     codigo?: NullableStringFieldUpdateOperationsInput | string | null
     descricao?: NullableStringFieldUpdateOperationsInput | string | null
-    quantidade?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    valorunidade?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    precocusto?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    descontoItem?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
+    quantidade?: NullableFloatFieldUpdateOperationsInput | number | null
+    valorunidade?: NullableFloatFieldUpdateOperationsInput | number | null
+    precocusto?: NullableFloatFieldUpdateOperationsInput | number | null
+    descontoItem?: NullableFloatFieldUpdateOperationsInput | number | null
     un?: NullableStringFieldUpdateOperationsInput | string | null
-    pesoBruto?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    largura?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    altura?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    profundidade?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
+    pesoBruto?: NullableFloatFieldUpdateOperationsInput | number | null
+    largura?: NullableFloatFieldUpdateOperationsInput | number | null
+    altura?: NullableFloatFieldUpdateOperationsInput | number | null
+    profundidade?: NullableFloatFieldUpdateOperationsInput | number | null
     unidadeMedida?: NullableStringFieldUpdateOperationsInput | string | null
     descricaoDetalhada?: NullableStringFieldUpdateOperationsInput | string | null
   }
@@ -19463,15 +18262,15 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     codigo?: NullableStringFieldUpdateOperationsInput | string | null
     descricao?: NullableStringFieldUpdateOperationsInput | string | null
-    quantidade?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    valorunidade?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    precocusto?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    descontoItem?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
+    quantidade?: NullableFloatFieldUpdateOperationsInput | number | null
+    valorunidade?: NullableFloatFieldUpdateOperationsInput | number | null
+    precocusto?: NullableFloatFieldUpdateOperationsInput | number | null
+    descontoItem?: NullableFloatFieldUpdateOperationsInput | number | null
     un?: NullableStringFieldUpdateOperationsInput | string | null
-    pesoBruto?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    largura?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    altura?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
-    profundidade?: NullableDecimalFieldUpdateOperationsInput | Decimal | number | string | null
+    pesoBruto?: NullableFloatFieldUpdateOperationsInput | number | null
+    largura?: NullableFloatFieldUpdateOperationsInput | number | null
+    altura?: NullableFloatFieldUpdateOperationsInput | number | null
+    profundidade?: NullableFloatFieldUpdateOperationsInput | number | null
     unidadeMedida?: NullableStringFieldUpdateOperationsInput | string | null
     descricaoDetalhada?: NullableStringFieldUpdateOperationsInput | string | null
   }
