@@ -1,4 +1,4 @@
-import { PrismaClient, Prisma, Pedido } from '@database/prisma/prisma-client-js'
+import { PrismaClient, Prisma } from '@prisma/client'
 
 class OrderRepository {
     private prisma: PrismaClient

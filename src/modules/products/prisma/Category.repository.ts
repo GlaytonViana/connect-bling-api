@@ -1,4 +1,4 @@
-import { PrismaClient, Prisma } from '@database/prisma/prisma-client-js'
+import { PrismaClient, Prisma } from '@prisma/client'
 
 class CategoryRepository {
     private prisma: PrismaClient
