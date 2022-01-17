@@ -1,12 +1,10 @@
-import { PrismaClient, Prisma } from '@database/prisma/prisma-client-js'
+import { PrismaClient, Prisma, Pedido } from '@database/prisma/prisma-client-js'
 
 class OrderRepository {
     private prisma: PrismaClient
 
     constructor() {
-        this.prisma = new PrismaClient({
-            log: ['error'],
-        })
+        this.prisma = new PrismaClient()
     }
 
     async createMany(orders: Prisma.PedidoCreateInput[]) {
@@ -33,12 +31,22 @@ class OrderRepository {
 
         try {
             // const createdOrders = await Promise.all(createOrders)
-            const createdOrders = await this.prisma.$transaction(createOrders)
+            // const createdOrders = await this.prisma.$transaction(createOrders)
+
+            let createdOrders: any = []
+
+            while (createOrders.length > 0) {
+                let result = await this.prisma.$transaction(createOrders.splice(0, 100))
+                createdOrders.push(...result)
+            }
+
             return createdOrders
         } catch (error) {
             console.log(error)
             process.exit()
         }
+
+        return orders
     }
 }
 

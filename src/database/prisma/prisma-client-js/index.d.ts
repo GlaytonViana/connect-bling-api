@@ -237,6 +237,99 @@ export type ProdutoNoPedido = {
   pedidoNumero: number | null
 }
 
+/**
+ * Model ContaReceber
+ * 
+ */
+export type ContaReceber = {
+  id: string
+  situacao: string | null
+  dataEmissao: Date | null
+  vencimentoOriginal: Date | null
+  vencimento: Date | null
+  competencia: Date | null
+  nroDocumento: string | null
+  valor: number | null
+  saldo: number | null
+  historico: string | null
+  categoria: string | null
+  idFormaPagamento: string | null
+  portador: string | null
+  linkBoleto: string | null
+  vendedor: string | null
+  ocorrencia: string | null
+  cliente_id: number
+}
+
+/**
+ * Model ClienteContaReceber
+ * 
+ */
+export type ClienteContaReceber = {
+  id: number
+  nome: string | null
+  tipoPessoa: string | null
+  cpf: string | null
+  rg: string | null
+  cnpj: string | null
+  ie: string | null
+  endereco: string | null
+  numero: number | null
+  complemento: string | null
+  cidade: string | null
+  bairro: string | null
+  cep: string | null
+  uf: string | null
+  email: string | null
+  fone: string | null
+  celular: string | null
+}
+
+/**
+ * Model ContaPagar
+ * 
+ */
+export type ContaPagar = {
+  id: string
+  situacao: string | null
+  dataEmissao: Date | null
+  vencimentoOriginal: Date | null
+  vencimento: Date | null
+  competencia: Date | null
+  nroDocumento: string | null
+  valor: number | null
+  saldo: number | null
+  historico: string | null
+  categoria: string | null
+  portador: string | null
+  ocorrencia: string | null
+  fornecedor_id: number
+}
+
+/**
+ * Model FornecedorContaPagar
+ * 
+ */
+export type FornecedorContaPagar = {
+  id: number
+  nome: string | null
+  tipoPessoa: string | null
+  cnpj: string | null
+  ie: string | null
+  cpf: string | null
+  rg: string | null
+  endereco: string | null
+  numero: number | null
+  complemento: string | null
+  cidade: string | null
+  bairro: string | null
+  cep: string | null
+  uf: string | null
+  email: string | null
+  fone: string | null
+  celular: string | null
+}
+
 
 /**
  * ##  Prisma Client ʲˢ
@@ -488,6 +581,46 @@ export class PrismaClient<
     * ```
     */
   get produtoNoPedido(): Prisma.ProdutoNoPedidoDelegate<GlobalReject>;
+
+  /**
+   * `prisma.contaReceber`: Exposes CRUD operations for the **ContaReceber** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ContaRecebers
+    * const contaRecebers = await prisma.contaReceber.findMany()
+    * ```
+    */
+  get contaReceber(): Prisma.ContaReceberDelegate<GlobalReject>;
+
+  /**
+   * `prisma.clienteContaReceber`: Exposes CRUD operations for the **ClienteContaReceber** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ClienteContaRecebers
+    * const clienteContaRecebers = await prisma.clienteContaReceber.findMany()
+    * ```
+    */
+  get clienteContaReceber(): Prisma.ClienteContaReceberDelegate<GlobalReject>;
+
+  /**
+   * `prisma.contaPagar`: Exposes CRUD operations for the **ContaPagar** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ContaPagars
+    * const contaPagars = await prisma.contaPagar.findMany()
+    * ```
+    */
+  get contaPagar(): Prisma.ContaPagarDelegate<GlobalReject>;
+
+  /**
+   * `prisma.fornecedorContaPagar`: Exposes CRUD operations for the **FornecedorContaPagar** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more FornecedorContaPagars
+    * const fornecedorContaPagars = await prisma.fornecedorContaPagar.findMany()
+    * ```
+    */
+  get fornecedorContaPagar(): Prisma.FornecedorContaPagarDelegate<GlobalReject>;
 }
 
 export namespace Prisma {
@@ -517,8 +650,8 @@ export namespace Prisma {
   export import Decimal = runtime.Decimal
 
   /**
-   * Prisma Client JS version: 3.6.0
-   * Query Engine version: dc520b92b1ebb2d28dc3161f9f82e875bd35d727
+   * Prisma Client JS version: 3.8.0
+   * Query Engine version: 34df67547cf5598f5a6cd3eb45f14ee70c3fb86f
    */
   export type PrismaVersion = {
     client: string
@@ -908,7 +1041,11 @@ export namespace Prisma {
     Volume: 'Volume',
     Parcela: 'Parcela',
     Nota: 'Nota',
-    ProdutoNoPedido: 'ProdutoNoPedido'
+    ProdutoNoPedido: 'ProdutoNoPedido',
+    ContaReceber: 'ContaReceber',
+    ClienteContaReceber: 'ClienteContaReceber',
+    ContaPagar: 'ContaPagar',
+    FornecedorContaPagar: 'FornecedorContaPagar'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1365,6 +1502,106 @@ export namespace Prisma {
      * 
     **/
     select?: EnderecoCountOutputTypeSelect | null
+  }
+
+
+
+  /**
+   * Count Type ClienteContaReceberCountOutputType
+   */
+
+
+  export type ClienteContaReceberCountOutputType = {
+    ContaReceber: number
+  }
+
+  export type ClienteContaReceberCountOutputTypeSelect = {
+    ContaReceber?: boolean
+  }
+
+  export type ClienteContaReceberCountOutputTypeGetPayload<
+    S extends boolean | null | undefined | ClienteContaReceberCountOutputTypeArgs,
+    U = keyof S
+      > = S extends true
+        ? ClienteContaReceberCountOutputType
+    : S extends undefined
+    ? never
+    : S extends ClienteContaReceberCountOutputTypeArgs
+    ?'include' extends U
+    ? ClienteContaReceberCountOutputType 
+    : 'select' extends U
+    ? {
+    [P in TrueKeys<S['select']>]: P extends keyof ClienteContaReceberCountOutputType ?ClienteContaReceberCountOutputType [P]
+  : 
+     never
+  } 
+    : ClienteContaReceberCountOutputType
+  : ClienteContaReceberCountOutputType
+
+
+
+
+  // Custom InputTypes
+
+  /**
+   * ClienteContaReceberCountOutputType without action
+   */
+  export type ClienteContaReceberCountOutputTypeArgs = {
+    /**
+     * Select specific fields to fetch from the ClienteContaReceberCountOutputType
+     * 
+    **/
+    select?: ClienteContaReceberCountOutputTypeSelect | null
+  }
+
+
+
+  /**
+   * Count Type FornecedorContaPagarCountOutputType
+   */
+
+
+  export type FornecedorContaPagarCountOutputType = {
+    ContaPagar: number
+  }
+
+  export type FornecedorContaPagarCountOutputTypeSelect = {
+    ContaPagar?: boolean
+  }
+
+  export type FornecedorContaPagarCountOutputTypeGetPayload<
+    S extends boolean | null | undefined | FornecedorContaPagarCountOutputTypeArgs,
+    U = keyof S
+      > = S extends true
+        ? FornecedorContaPagarCountOutputType
+    : S extends undefined
+    ? never
+    : S extends FornecedorContaPagarCountOutputTypeArgs
+    ?'include' extends U
+    ? FornecedorContaPagarCountOutputType 
+    : 'select' extends U
+    ? {
+    [P in TrueKeys<S['select']>]: P extends keyof FornecedorContaPagarCountOutputType ?FornecedorContaPagarCountOutputType [P]
+  : 
+     never
+  } 
+    : FornecedorContaPagarCountOutputType
+  : FornecedorContaPagarCountOutputType
+
+
+
+
+  // Custom InputTypes
+
+  /**
+   * FornecedorContaPagarCountOutputType without action
+   */
+  export type FornecedorContaPagarCountOutputTypeArgs = {
+    /**
+     * Select specific fields to fetch from the FornecedorContaPagarCountOutputType
+     * 
+    **/
+    select?: FornecedorContaPagarCountOutputTypeSelect | null
   }
 
 
@@ -12091,6 +12328,3942 @@ export namespace Prisma {
 
 
   /**
+   * Model ContaReceber
+   */
+
+
+  export type AggregateContaReceber = {
+    _count: ContaReceberCountAggregateOutputType | null
+    _avg: ContaReceberAvgAggregateOutputType | null
+    _sum: ContaReceberSumAggregateOutputType | null
+    _min: ContaReceberMinAggregateOutputType | null
+    _max: ContaReceberMaxAggregateOutputType | null
+  }
+
+  export type ContaReceberAvgAggregateOutputType = {
+    valor: number | null
+    saldo: number | null
+    cliente_id: number | null
+  }
+
+  export type ContaReceberSumAggregateOutputType = {
+    valor: number | null
+    saldo: number | null
+    cliente_id: number | null
+  }
+
+  export type ContaReceberMinAggregateOutputType = {
+    id: string | null
+    situacao: string | null
+    dataEmissao: Date | null
+    vencimentoOriginal: Date | null
+    vencimento: Date | null
+    competencia: Date | null
+    nroDocumento: string | null
+    valor: number | null
+    saldo: number | null
+    historico: string | null
+    categoria: string | null
+    idFormaPagamento: string | null
+    portador: string | null
+    linkBoleto: string | null
+    vendedor: string | null
+    ocorrencia: string | null
+    cliente_id: number | null
+  }
+
+  export type ContaReceberMaxAggregateOutputType = {
+    id: string | null
+    situacao: string | null
+    dataEmissao: Date | null
+    vencimentoOriginal: Date | null
+    vencimento: Date | null
+    competencia: Date | null
+    nroDocumento: string | null
+    valor: number | null
+    saldo: number | null
+    historico: string | null
+    categoria: string | null
+    idFormaPagamento: string | null
+    portador: string | null
+    linkBoleto: string | null
+    vendedor: string | null
+    ocorrencia: string | null
+    cliente_id: number | null
+  }
+
+  export type ContaReceberCountAggregateOutputType = {
+    id: number
+    situacao: number
+    dataEmissao: number
+    vencimentoOriginal: number
+    vencimento: number
+    competencia: number
+    nroDocumento: number
+    valor: number
+    saldo: number
+    historico: number
+    categoria: number
+    idFormaPagamento: number
+    portador: number
+    linkBoleto: number
+    vendedor: number
+    ocorrencia: number
+    cliente_id: number
+    _all: number
+  }
+
+
+  export type ContaReceberAvgAggregateInputType = {
+    valor?: true
+    saldo?: true
+    cliente_id?: true
+  }
+
+  export type ContaReceberSumAggregateInputType = {
+    valor?: true
+    saldo?: true
+    cliente_id?: true
+  }
+
+  export type ContaReceberMinAggregateInputType = {
+    id?: true
+    situacao?: true
+    dataEmissao?: true
+    vencimentoOriginal?: true
+    vencimento?: true
+    competencia?: true
+    nroDocumento?: true
+    valor?: true
+    saldo?: true
+    historico?: true
+    categoria?: true
+    idFormaPagamento?: true
+    portador?: true
+    linkBoleto?: true
+    vendedor?: true
+    ocorrencia?: true
+    cliente_id?: true
+  }
+
+  export type ContaReceberMaxAggregateInputType = {
+    id?: true
+    situacao?: true
+    dataEmissao?: true
+    vencimentoOriginal?: true
+    vencimento?: true
+    competencia?: true
+    nroDocumento?: true
+    valor?: true
+    saldo?: true
+    historico?: true
+    categoria?: true
+    idFormaPagamento?: true
+    portador?: true
+    linkBoleto?: true
+    vendedor?: true
+    ocorrencia?: true
+    cliente_id?: true
+  }
+
+  export type ContaReceberCountAggregateInputType = {
+    id?: true
+    situacao?: true
+    dataEmissao?: true
+    vencimentoOriginal?: true
+    vencimento?: true
+    competencia?: true
+    nroDocumento?: true
+    valor?: true
+    saldo?: true
+    historico?: true
+    categoria?: true
+    idFormaPagamento?: true
+    portador?: true
+    linkBoleto?: true
+    vendedor?: true
+    ocorrencia?: true
+    cliente_id?: true
+    _all?: true
+  }
+
+  export type ContaReceberAggregateArgs = {
+    /**
+     * Filter which ContaReceber to aggregate.
+     * 
+    **/
+    where?: ContaReceberWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ContaRecebers to fetch.
+     * 
+    **/
+    orderBy?: Enumerable<ContaReceberOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     * 
+    **/
+    cursor?: ContaReceberWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ContaRecebers from the position of the cursor.
+     * 
+    **/
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ContaRecebers.
+     * 
+    **/
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ContaRecebers
+    **/
+    _count?: true | ContaReceberCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ContaReceberAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ContaReceberSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ContaReceberMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ContaReceberMaxAggregateInputType
+  }
+
+  export type GetContaReceberAggregateType<T extends ContaReceberAggregateArgs> = {
+        [P in keyof T & keyof AggregateContaReceber]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateContaReceber[P]>
+      : GetScalarType<T[P], AggregateContaReceber[P]>
+  }
+
+
+
+
+  export type ContaReceberGroupByArgs = {
+    where?: ContaReceberWhereInput
+    orderBy?: Enumerable<ContaReceberOrderByWithAggregationInput>
+    by: Array<ContaReceberScalarFieldEnum>
+    having?: ContaReceberScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ContaReceberCountAggregateInputType | true
+    _avg?: ContaReceberAvgAggregateInputType
+    _sum?: ContaReceberSumAggregateInputType
+    _min?: ContaReceberMinAggregateInputType
+    _max?: ContaReceberMaxAggregateInputType
+  }
+
+
+  export type ContaReceberGroupByOutputType = {
+    id: string
+    situacao: string | null
+    dataEmissao: Date | null
+    vencimentoOriginal: Date | null
+    vencimento: Date | null
+    competencia: Date | null
+    nroDocumento: string | null
+    valor: number | null
+    saldo: number | null
+    historico: string | null
+    categoria: string | null
+    idFormaPagamento: string | null
+    portador: string | null
+    linkBoleto: string | null
+    vendedor: string | null
+    ocorrencia: string | null
+    cliente_id: number
+    _count: ContaReceberCountAggregateOutputType | null
+    _avg: ContaReceberAvgAggregateOutputType | null
+    _sum: ContaReceberSumAggregateOutputType | null
+    _min: ContaReceberMinAggregateOutputType | null
+    _max: ContaReceberMaxAggregateOutputType | null
+  }
+
+  type GetContaReceberGroupByPayload<T extends ContaReceberGroupByArgs> = Promise<
+    Array<
+      PickArray<ContaReceberGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ContaReceberGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ContaReceberGroupByOutputType[P]>
+            : GetScalarType<T[P], ContaReceberGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ContaReceberSelect = {
+    id?: boolean
+    situacao?: boolean
+    dataEmissao?: boolean
+    vencimentoOriginal?: boolean
+    vencimento?: boolean
+    competencia?: boolean
+    nroDocumento?: boolean
+    valor?: boolean
+    saldo?: boolean
+    historico?: boolean
+    categoria?: boolean
+    idFormaPagamento?: boolean
+    portador?: boolean
+    linkBoleto?: boolean
+    vendedor?: boolean
+    ocorrencia?: boolean
+    cliente_id?: boolean
+    cliente?: boolean | ClienteContaReceberArgs
+  }
+
+  export type ContaReceberInclude = {
+    cliente?: boolean | ClienteContaReceberArgs
+  }
+
+  export type ContaReceberGetPayload<
+    S extends boolean | null | undefined | ContaReceberArgs,
+    U = keyof S
+      > = S extends true
+        ? ContaReceber
+    : S extends undefined
+    ? never
+    : S extends ContaReceberArgs | ContaReceberFindManyArgs
+    ?'include' extends U
+    ? ContaReceber  & {
+    [P in TrueKeys<S['include']>]: 
+          P extends 'cliente'
+        ? ClienteContaReceberGetPayload<S['include'][P]> : never
+  } 
+    : 'select' extends U
+    ? {
+    [P in TrueKeys<S['select']>]: P extends keyof ContaReceber ?ContaReceber [P]
+  : 
+          P extends 'cliente'
+        ? ClienteContaReceberGetPayload<S['select'][P]> : never
+  } 
+    : ContaReceber
+  : ContaReceber
+
+
+  type ContaReceberCountArgs = Merge<
+    Omit<ContaReceberFindManyArgs, 'select' | 'include'> & {
+      select?: ContaReceberCountAggregateInputType | true
+    }
+  >
+
+  export interface ContaReceberDelegate<GlobalRejectSettings> {
+    /**
+     * Find zero or one ContaReceber that matches the filter.
+     * @param {ContaReceberFindUniqueArgs} args - Arguments to find a ContaReceber
+     * @example
+     * // Get one ContaReceber
+     * const contaReceber = await prisma.contaReceber.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends ContaReceberFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, ContaReceberFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'ContaReceber'> extends True ? CheckSelect<T, Prisma__ContaReceberClient<ContaReceber>, Prisma__ContaReceberClient<ContaReceberGetPayload<T>>> : CheckSelect<T, Prisma__ContaReceberClient<ContaReceber | null >, Prisma__ContaReceberClient<ContaReceberGetPayload<T> | null >>
+
+    /**
+     * Find the first ContaReceber that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContaReceberFindFirstArgs} args - Arguments to find a ContaReceber
+     * @example
+     * // Get one ContaReceber
+     * const contaReceber = await prisma.contaReceber.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends ContaReceberFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, ContaReceberFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'ContaReceber'> extends True ? CheckSelect<T, Prisma__ContaReceberClient<ContaReceber>, Prisma__ContaReceberClient<ContaReceberGetPayload<T>>> : CheckSelect<T, Prisma__ContaReceberClient<ContaReceber | null >, Prisma__ContaReceberClient<ContaReceberGetPayload<T> | null >>
+
+    /**
+     * Find zero or more ContaRecebers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContaReceberFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ContaRecebers
+     * const contaRecebers = await prisma.contaReceber.findMany()
+     * 
+     * // Get first 10 ContaRecebers
+     * const contaRecebers = await prisma.contaReceber.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const contaReceberWithIdOnly = await prisma.contaReceber.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends ContaReceberFindManyArgs>(
+      args?: SelectSubset<T, ContaReceberFindManyArgs>
+    ): CheckSelect<T, PrismaPromise<Array<ContaReceber>>, PrismaPromise<Array<ContaReceberGetPayload<T>>>>
+
+    /**
+     * Create a ContaReceber.
+     * @param {ContaReceberCreateArgs} args - Arguments to create a ContaReceber.
+     * @example
+     * // Create one ContaReceber
+     * const ContaReceber = await prisma.contaReceber.create({
+     *   data: {
+     *     // ... data to create a ContaReceber
+     *   }
+     * })
+     * 
+    **/
+    create<T extends ContaReceberCreateArgs>(
+      args: SelectSubset<T, ContaReceberCreateArgs>
+    ): CheckSelect<T, Prisma__ContaReceberClient<ContaReceber>, Prisma__ContaReceberClient<ContaReceberGetPayload<T>>>
+
+    /**
+     * Create many ContaRecebers.
+     *     @param {ContaReceberCreateManyArgs} args - Arguments to create many ContaRecebers.
+     *     @example
+     *     // Create many ContaRecebers
+     *     const contaReceber = await prisma.contaReceber.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends ContaReceberCreateManyArgs>(
+      args?: SelectSubset<T, ContaReceberCreateManyArgs>
+    ): PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a ContaReceber.
+     * @param {ContaReceberDeleteArgs} args - Arguments to delete one ContaReceber.
+     * @example
+     * // Delete one ContaReceber
+     * const ContaReceber = await prisma.contaReceber.delete({
+     *   where: {
+     *     // ... filter to delete one ContaReceber
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends ContaReceberDeleteArgs>(
+      args: SelectSubset<T, ContaReceberDeleteArgs>
+    ): CheckSelect<T, Prisma__ContaReceberClient<ContaReceber>, Prisma__ContaReceberClient<ContaReceberGetPayload<T>>>
+
+    /**
+     * Update one ContaReceber.
+     * @param {ContaReceberUpdateArgs} args - Arguments to update one ContaReceber.
+     * @example
+     * // Update one ContaReceber
+     * const contaReceber = await prisma.contaReceber.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends ContaReceberUpdateArgs>(
+      args: SelectSubset<T, ContaReceberUpdateArgs>
+    ): CheckSelect<T, Prisma__ContaReceberClient<ContaReceber>, Prisma__ContaReceberClient<ContaReceberGetPayload<T>>>
+
+    /**
+     * Delete zero or more ContaRecebers.
+     * @param {ContaReceberDeleteManyArgs} args - Arguments to filter ContaRecebers to delete.
+     * @example
+     * // Delete a few ContaRecebers
+     * const { count } = await prisma.contaReceber.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends ContaReceberDeleteManyArgs>(
+      args?: SelectSubset<T, ContaReceberDeleteManyArgs>
+    ): PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ContaRecebers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContaReceberUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ContaRecebers
+     * const contaReceber = await prisma.contaReceber.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends ContaReceberUpdateManyArgs>(
+      args: SelectSubset<T, ContaReceberUpdateManyArgs>
+    ): PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one ContaReceber.
+     * @param {ContaReceberUpsertArgs} args - Arguments to update or create a ContaReceber.
+     * @example
+     * // Update or create a ContaReceber
+     * const contaReceber = await prisma.contaReceber.upsert({
+     *   create: {
+     *     // ... data to create a ContaReceber
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ContaReceber we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends ContaReceberUpsertArgs>(
+      args: SelectSubset<T, ContaReceberUpsertArgs>
+    ): CheckSelect<T, Prisma__ContaReceberClient<ContaReceber>, Prisma__ContaReceberClient<ContaReceberGetPayload<T>>>
+
+    /**
+     * Count the number of ContaRecebers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContaReceberCountArgs} args - Arguments to filter ContaRecebers to count.
+     * @example
+     * // Count the number of ContaRecebers
+     * const count = await prisma.contaReceber.count({
+     *   where: {
+     *     // ... the filter for the ContaRecebers we want to count
+     *   }
+     * })
+    **/
+    count<T extends ContaReceberCountArgs>(
+      args?: Subset<T, ContaReceberCountArgs>,
+    ): PrismaPromise<
+      T extends _Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ContaReceberCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ContaReceber.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContaReceberAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ContaReceberAggregateArgs>(args: Subset<T, ContaReceberAggregateArgs>): PrismaPromise<GetContaReceberAggregateType<T>>
+
+    /**
+     * Group by ContaReceber.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContaReceberGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ContaReceberGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ContaReceberGroupByArgs['orderBy'] }
+        : { orderBy?: ContaReceberGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends TupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ContaReceberGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetContaReceberGroupByPayload<T> : Promise<InputErrors>
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ContaReceber.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__ContaReceberClient<T> implements PrismaPromise<T> {
+    [prisma]: true;
+    private readonly _dmmf;
+    private readonly _fetcher;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    constructor(_dmmf: runtime.DMMFClass, _fetcher: PrismaClientFetcher, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+    readonly [Symbol.toStringTag]: 'PrismaClientPromise';
+
+    cliente<T extends ClienteContaReceberArgs = {}>(args?: Subset<T, ClienteContaReceberArgs>): CheckSelect<T, Prisma__ClienteContaReceberClient<ClienteContaReceber | null >, Prisma__ClienteContaReceberClient<ClienteContaReceberGetPayload<T> | null >>;
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+  // Custom InputTypes
+
+  /**
+   * ContaReceber findUnique
+   */
+  export type ContaReceberFindUniqueArgs = {
+    /**
+     * Select specific fields to fetch from the ContaReceber
+     * 
+    **/
+    select?: ContaReceberSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: ContaReceberInclude | null
+    /**
+     * Throw an Error if a ContaReceber can't be found
+     * 
+    **/
+    rejectOnNotFound?: RejectOnNotFound
+    /**
+     * Filter, which ContaReceber to fetch.
+     * 
+    **/
+    where: ContaReceberWhereUniqueInput
+  }
+
+
+  /**
+   * ContaReceber findFirst
+   */
+  export type ContaReceberFindFirstArgs = {
+    /**
+     * Select specific fields to fetch from the ContaReceber
+     * 
+    **/
+    select?: ContaReceberSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: ContaReceberInclude | null
+    /**
+     * Throw an Error if a ContaReceber can't be found
+     * 
+    **/
+    rejectOnNotFound?: RejectOnNotFound
+    /**
+     * Filter, which ContaReceber to fetch.
+     * 
+    **/
+    where?: ContaReceberWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ContaRecebers to fetch.
+     * 
+    **/
+    orderBy?: Enumerable<ContaReceberOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ContaRecebers.
+     * 
+    **/
+    cursor?: ContaReceberWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ContaRecebers from the position of the cursor.
+     * 
+    **/
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ContaRecebers.
+     * 
+    **/
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ContaRecebers.
+     * 
+    **/
+    distinct?: Enumerable<ContaReceberScalarFieldEnum>
+  }
+
+
+  /**
+   * ContaReceber findMany
+   */
+  export type ContaReceberFindManyArgs = {
+    /**
+     * Select specific fields to fetch from the ContaReceber
+     * 
+    **/
+    select?: ContaReceberSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: ContaReceberInclude | null
+    /**
+     * Filter, which ContaRecebers to fetch.
+     * 
+    **/
+    where?: ContaReceberWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ContaRecebers to fetch.
+     * 
+    **/
+    orderBy?: Enumerable<ContaReceberOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ContaRecebers.
+     * 
+    **/
+    cursor?: ContaReceberWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ContaRecebers from the position of the cursor.
+     * 
+    **/
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ContaRecebers.
+     * 
+    **/
+    skip?: number
+    distinct?: Enumerable<ContaReceberScalarFieldEnum>
+  }
+
+
+  /**
+   * ContaReceber create
+   */
+  export type ContaReceberCreateArgs = {
+    /**
+     * Select specific fields to fetch from the ContaReceber
+     * 
+    **/
+    select?: ContaReceberSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: ContaReceberInclude | null
+    /**
+     * The data needed to create a ContaReceber.
+     * 
+    **/
+    data: XOR<ContaReceberCreateInput, ContaReceberUncheckedCreateInput>
+  }
+
+
+  /**
+   * ContaReceber createMany
+   */
+  export type ContaReceberCreateManyArgs = {
+    data: Enumerable<ContaReceberCreateManyInput>
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * ContaReceber update
+   */
+  export type ContaReceberUpdateArgs = {
+    /**
+     * Select specific fields to fetch from the ContaReceber
+     * 
+    **/
+    select?: ContaReceberSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: ContaReceberInclude | null
+    /**
+     * The data needed to update a ContaReceber.
+     * 
+    **/
+    data: XOR<ContaReceberUpdateInput, ContaReceberUncheckedUpdateInput>
+    /**
+     * Choose, which ContaReceber to update.
+     * 
+    **/
+    where: ContaReceberWhereUniqueInput
+  }
+
+
+  /**
+   * ContaReceber updateMany
+   */
+  export type ContaReceberUpdateManyArgs = {
+    data: XOR<ContaReceberUpdateManyMutationInput, ContaReceberUncheckedUpdateManyInput>
+    where?: ContaReceberWhereInput
+  }
+
+
+  /**
+   * ContaReceber upsert
+   */
+  export type ContaReceberUpsertArgs = {
+    /**
+     * Select specific fields to fetch from the ContaReceber
+     * 
+    **/
+    select?: ContaReceberSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: ContaReceberInclude | null
+    /**
+     * The filter to search for the ContaReceber to update in case it exists.
+     * 
+    **/
+    where: ContaReceberWhereUniqueInput
+    /**
+     * In case the ContaReceber found by the `where` argument doesn't exist, create a new ContaReceber with this data.
+     * 
+    **/
+    create: XOR<ContaReceberCreateInput, ContaReceberUncheckedCreateInput>
+    /**
+     * In case the ContaReceber was found with the provided `where` argument, update it with this data.
+     * 
+    **/
+    update: XOR<ContaReceberUpdateInput, ContaReceberUncheckedUpdateInput>
+  }
+
+
+  /**
+   * ContaReceber delete
+   */
+  export type ContaReceberDeleteArgs = {
+    /**
+     * Select specific fields to fetch from the ContaReceber
+     * 
+    **/
+    select?: ContaReceberSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: ContaReceberInclude | null
+    /**
+     * Filter which ContaReceber to delete.
+     * 
+    **/
+    where: ContaReceberWhereUniqueInput
+  }
+
+
+  /**
+   * ContaReceber deleteMany
+   */
+  export type ContaReceberDeleteManyArgs = {
+    where?: ContaReceberWhereInput
+  }
+
+
+  /**
+   * ContaReceber without action
+   */
+  export type ContaReceberArgs = {
+    /**
+     * Select specific fields to fetch from the ContaReceber
+     * 
+    **/
+    select?: ContaReceberSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: ContaReceberInclude | null
+  }
+
+
+
+  /**
+   * Model ClienteContaReceber
+   */
+
+
+  export type AggregateClienteContaReceber = {
+    _count: ClienteContaReceberCountAggregateOutputType | null
+    _avg: ClienteContaReceberAvgAggregateOutputType | null
+    _sum: ClienteContaReceberSumAggregateOutputType | null
+    _min: ClienteContaReceberMinAggregateOutputType | null
+    _max: ClienteContaReceberMaxAggregateOutputType | null
+  }
+
+  export type ClienteContaReceberAvgAggregateOutputType = {
+    id: number | null
+    numero: number | null
+  }
+
+  export type ClienteContaReceberSumAggregateOutputType = {
+    id: number | null
+    numero: number | null
+  }
+
+  export type ClienteContaReceberMinAggregateOutputType = {
+    id: number | null
+    nome: string | null
+    tipoPessoa: string | null
+    cpf: string | null
+    rg: string | null
+    cnpj: string | null
+    ie: string | null
+    endereco: string | null
+    numero: number | null
+    complemento: string | null
+    cidade: string | null
+    bairro: string | null
+    cep: string | null
+    uf: string | null
+    email: string | null
+    fone: string | null
+    celular: string | null
+  }
+
+  export type ClienteContaReceberMaxAggregateOutputType = {
+    id: number | null
+    nome: string | null
+    tipoPessoa: string | null
+    cpf: string | null
+    rg: string | null
+    cnpj: string | null
+    ie: string | null
+    endereco: string | null
+    numero: number | null
+    complemento: string | null
+    cidade: string | null
+    bairro: string | null
+    cep: string | null
+    uf: string | null
+    email: string | null
+    fone: string | null
+    celular: string | null
+  }
+
+  export type ClienteContaReceberCountAggregateOutputType = {
+    id: number
+    nome: number
+    tipoPessoa: number
+    cpf: number
+    rg: number
+    cnpj: number
+    ie: number
+    endereco: number
+    numero: number
+    complemento: number
+    cidade: number
+    bairro: number
+    cep: number
+    uf: number
+    email: number
+    fone: number
+    celular: number
+    _all: number
+  }
+
+
+  export type ClienteContaReceberAvgAggregateInputType = {
+    id?: true
+    numero?: true
+  }
+
+  export type ClienteContaReceberSumAggregateInputType = {
+    id?: true
+    numero?: true
+  }
+
+  export type ClienteContaReceberMinAggregateInputType = {
+    id?: true
+    nome?: true
+    tipoPessoa?: true
+    cpf?: true
+    rg?: true
+    cnpj?: true
+    ie?: true
+    endereco?: true
+    numero?: true
+    complemento?: true
+    cidade?: true
+    bairro?: true
+    cep?: true
+    uf?: true
+    email?: true
+    fone?: true
+    celular?: true
+  }
+
+  export type ClienteContaReceberMaxAggregateInputType = {
+    id?: true
+    nome?: true
+    tipoPessoa?: true
+    cpf?: true
+    rg?: true
+    cnpj?: true
+    ie?: true
+    endereco?: true
+    numero?: true
+    complemento?: true
+    cidade?: true
+    bairro?: true
+    cep?: true
+    uf?: true
+    email?: true
+    fone?: true
+    celular?: true
+  }
+
+  export type ClienteContaReceberCountAggregateInputType = {
+    id?: true
+    nome?: true
+    tipoPessoa?: true
+    cpf?: true
+    rg?: true
+    cnpj?: true
+    ie?: true
+    endereco?: true
+    numero?: true
+    complemento?: true
+    cidade?: true
+    bairro?: true
+    cep?: true
+    uf?: true
+    email?: true
+    fone?: true
+    celular?: true
+    _all?: true
+  }
+
+  export type ClienteContaReceberAggregateArgs = {
+    /**
+     * Filter which ClienteContaReceber to aggregate.
+     * 
+    **/
+    where?: ClienteContaReceberWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ClienteContaRecebers to fetch.
+     * 
+    **/
+    orderBy?: Enumerable<ClienteContaReceberOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     * 
+    **/
+    cursor?: ClienteContaReceberWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ClienteContaRecebers from the position of the cursor.
+     * 
+    **/
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ClienteContaRecebers.
+     * 
+    **/
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ClienteContaRecebers
+    **/
+    _count?: true | ClienteContaReceberCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ClienteContaReceberAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ClienteContaReceberSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ClienteContaReceberMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ClienteContaReceberMaxAggregateInputType
+  }
+
+  export type GetClienteContaReceberAggregateType<T extends ClienteContaReceberAggregateArgs> = {
+        [P in keyof T & keyof AggregateClienteContaReceber]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateClienteContaReceber[P]>
+      : GetScalarType<T[P], AggregateClienteContaReceber[P]>
+  }
+
+
+
+
+  export type ClienteContaReceberGroupByArgs = {
+    where?: ClienteContaReceberWhereInput
+    orderBy?: Enumerable<ClienteContaReceberOrderByWithAggregationInput>
+    by: Array<ClienteContaReceberScalarFieldEnum>
+    having?: ClienteContaReceberScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ClienteContaReceberCountAggregateInputType | true
+    _avg?: ClienteContaReceberAvgAggregateInputType
+    _sum?: ClienteContaReceberSumAggregateInputType
+    _min?: ClienteContaReceberMinAggregateInputType
+    _max?: ClienteContaReceberMaxAggregateInputType
+  }
+
+
+  export type ClienteContaReceberGroupByOutputType = {
+    id: number
+    nome: string | null
+    tipoPessoa: string | null
+    cpf: string | null
+    rg: string | null
+    cnpj: string | null
+    ie: string | null
+    endereco: string | null
+    numero: number | null
+    complemento: string | null
+    cidade: string | null
+    bairro: string | null
+    cep: string | null
+    uf: string | null
+    email: string | null
+    fone: string | null
+    celular: string | null
+    _count: ClienteContaReceberCountAggregateOutputType | null
+    _avg: ClienteContaReceberAvgAggregateOutputType | null
+    _sum: ClienteContaReceberSumAggregateOutputType | null
+    _min: ClienteContaReceberMinAggregateOutputType | null
+    _max: ClienteContaReceberMaxAggregateOutputType | null
+  }
+
+  type GetClienteContaReceberGroupByPayload<T extends ClienteContaReceberGroupByArgs> = Promise<
+    Array<
+      PickArray<ClienteContaReceberGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ClienteContaReceberGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ClienteContaReceberGroupByOutputType[P]>
+            : GetScalarType<T[P], ClienteContaReceberGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ClienteContaReceberSelect = {
+    id?: boolean
+    nome?: boolean
+    tipoPessoa?: boolean
+    cpf?: boolean
+    rg?: boolean
+    cnpj?: boolean
+    ie?: boolean
+    endereco?: boolean
+    numero?: boolean
+    complemento?: boolean
+    cidade?: boolean
+    bairro?: boolean
+    cep?: boolean
+    uf?: boolean
+    email?: boolean
+    fone?: boolean
+    celular?: boolean
+    ContaReceber?: boolean | ContaReceberFindManyArgs
+    _count?: boolean | ClienteContaReceberCountOutputTypeArgs
+  }
+
+  export type ClienteContaReceberInclude = {
+    ContaReceber?: boolean | ContaReceberFindManyArgs
+    _count?: boolean | ClienteContaReceberCountOutputTypeArgs
+  }
+
+  export type ClienteContaReceberGetPayload<
+    S extends boolean | null | undefined | ClienteContaReceberArgs,
+    U = keyof S
+      > = S extends true
+        ? ClienteContaReceber
+    : S extends undefined
+    ? never
+    : S extends ClienteContaReceberArgs | ClienteContaReceberFindManyArgs
+    ?'include' extends U
+    ? ClienteContaReceber  & {
+    [P in TrueKeys<S['include']>]: 
+          P extends 'ContaReceber'
+        ? Array < ContaReceberGetPayload<S['include'][P]>>  :
+        P extends '_count'
+        ? ClienteContaReceberCountOutputTypeGetPayload<S['include'][P]> : never
+  } 
+    : 'select' extends U
+    ? {
+    [P in TrueKeys<S['select']>]: P extends keyof ClienteContaReceber ?ClienteContaReceber [P]
+  : 
+          P extends 'ContaReceber'
+        ? Array < ContaReceberGetPayload<S['select'][P]>>  :
+        P extends '_count'
+        ? ClienteContaReceberCountOutputTypeGetPayload<S['select'][P]> : never
+  } 
+    : ClienteContaReceber
+  : ClienteContaReceber
+
+
+  type ClienteContaReceberCountArgs = Merge<
+    Omit<ClienteContaReceberFindManyArgs, 'select' | 'include'> & {
+      select?: ClienteContaReceberCountAggregateInputType | true
+    }
+  >
+
+  export interface ClienteContaReceberDelegate<GlobalRejectSettings> {
+    /**
+     * Find zero or one ClienteContaReceber that matches the filter.
+     * @param {ClienteContaReceberFindUniqueArgs} args - Arguments to find a ClienteContaReceber
+     * @example
+     * // Get one ClienteContaReceber
+     * const clienteContaReceber = await prisma.clienteContaReceber.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends ClienteContaReceberFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, ClienteContaReceberFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'ClienteContaReceber'> extends True ? CheckSelect<T, Prisma__ClienteContaReceberClient<ClienteContaReceber>, Prisma__ClienteContaReceberClient<ClienteContaReceberGetPayload<T>>> : CheckSelect<T, Prisma__ClienteContaReceberClient<ClienteContaReceber | null >, Prisma__ClienteContaReceberClient<ClienteContaReceberGetPayload<T> | null >>
+
+    /**
+     * Find the first ClienteContaReceber that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClienteContaReceberFindFirstArgs} args - Arguments to find a ClienteContaReceber
+     * @example
+     * // Get one ClienteContaReceber
+     * const clienteContaReceber = await prisma.clienteContaReceber.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends ClienteContaReceberFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, ClienteContaReceberFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'ClienteContaReceber'> extends True ? CheckSelect<T, Prisma__ClienteContaReceberClient<ClienteContaReceber>, Prisma__ClienteContaReceberClient<ClienteContaReceberGetPayload<T>>> : CheckSelect<T, Prisma__ClienteContaReceberClient<ClienteContaReceber | null >, Prisma__ClienteContaReceberClient<ClienteContaReceberGetPayload<T> | null >>
+
+    /**
+     * Find zero or more ClienteContaRecebers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClienteContaReceberFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ClienteContaRecebers
+     * const clienteContaRecebers = await prisma.clienteContaReceber.findMany()
+     * 
+     * // Get first 10 ClienteContaRecebers
+     * const clienteContaRecebers = await prisma.clienteContaReceber.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const clienteContaReceberWithIdOnly = await prisma.clienteContaReceber.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends ClienteContaReceberFindManyArgs>(
+      args?: SelectSubset<T, ClienteContaReceberFindManyArgs>
+    ): CheckSelect<T, PrismaPromise<Array<ClienteContaReceber>>, PrismaPromise<Array<ClienteContaReceberGetPayload<T>>>>
+
+    /**
+     * Create a ClienteContaReceber.
+     * @param {ClienteContaReceberCreateArgs} args - Arguments to create a ClienteContaReceber.
+     * @example
+     * // Create one ClienteContaReceber
+     * const ClienteContaReceber = await prisma.clienteContaReceber.create({
+     *   data: {
+     *     // ... data to create a ClienteContaReceber
+     *   }
+     * })
+     * 
+    **/
+    create<T extends ClienteContaReceberCreateArgs>(
+      args: SelectSubset<T, ClienteContaReceberCreateArgs>
+    ): CheckSelect<T, Prisma__ClienteContaReceberClient<ClienteContaReceber>, Prisma__ClienteContaReceberClient<ClienteContaReceberGetPayload<T>>>
+
+    /**
+     * Create many ClienteContaRecebers.
+     *     @param {ClienteContaReceberCreateManyArgs} args - Arguments to create many ClienteContaRecebers.
+     *     @example
+     *     // Create many ClienteContaRecebers
+     *     const clienteContaReceber = await prisma.clienteContaReceber.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends ClienteContaReceberCreateManyArgs>(
+      args?: SelectSubset<T, ClienteContaReceberCreateManyArgs>
+    ): PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a ClienteContaReceber.
+     * @param {ClienteContaReceberDeleteArgs} args - Arguments to delete one ClienteContaReceber.
+     * @example
+     * // Delete one ClienteContaReceber
+     * const ClienteContaReceber = await prisma.clienteContaReceber.delete({
+     *   where: {
+     *     // ... filter to delete one ClienteContaReceber
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends ClienteContaReceberDeleteArgs>(
+      args: SelectSubset<T, ClienteContaReceberDeleteArgs>
+    ): CheckSelect<T, Prisma__ClienteContaReceberClient<ClienteContaReceber>, Prisma__ClienteContaReceberClient<ClienteContaReceberGetPayload<T>>>
+
+    /**
+     * Update one ClienteContaReceber.
+     * @param {ClienteContaReceberUpdateArgs} args - Arguments to update one ClienteContaReceber.
+     * @example
+     * // Update one ClienteContaReceber
+     * const clienteContaReceber = await prisma.clienteContaReceber.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends ClienteContaReceberUpdateArgs>(
+      args: SelectSubset<T, ClienteContaReceberUpdateArgs>
+    ): CheckSelect<T, Prisma__ClienteContaReceberClient<ClienteContaReceber>, Prisma__ClienteContaReceberClient<ClienteContaReceberGetPayload<T>>>
+
+    /**
+     * Delete zero or more ClienteContaRecebers.
+     * @param {ClienteContaReceberDeleteManyArgs} args - Arguments to filter ClienteContaRecebers to delete.
+     * @example
+     * // Delete a few ClienteContaRecebers
+     * const { count } = await prisma.clienteContaReceber.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends ClienteContaReceberDeleteManyArgs>(
+      args?: SelectSubset<T, ClienteContaReceberDeleteManyArgs>
+    ): PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ClienteContaRecebers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClienteContaReceberUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ClienteContaRecebers
+     * const clienteContaReceber = await prisma.clienteContaReceber.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends ClienteContaReceberUpdateManyArgs>(
+      args: SelectSubset<T, ClienteContaReceberUpdateManyArgs>
+    ): PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one ClienteContaReceber.
+     * @param {ClienteContaReceberUpsertArgs} args - Arguments to update or create a ClienteContaReceber.
+     * @example
+     * // Update or create a ClienteContaReceber
+     * const clienteContaReceber = await prisma.clienteContaReceber.upsert({
+     *   create: {
+     *     // ... data to create a ClienteContaReceber
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ClienteContaReceber we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends ClienteContaReceberUpsertArgs>(
+      args: SelectSubset<T, ClienteContaReceberUpsertArgs>
+    ): CheckSelect<T, Prisma__ClienteContaReceberClient<ClienteContaReceber>, Prisma__ClienteContaReceberClient<ClienteContaReceberGetPayload<T>>>
+
+    /**
+     * Count the number of ClienteContaRecebers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClienteContaReceberCountArgs} args - Arguments to filter ClienteContaRecebers to count.
+     * @example
+     * // Count the number of ClienteContaRecebers
+     * const count = await prisma.clienteContaReceber.count({
+     *   where: {
+     *     // ... the filter for the ClienteContaRecebers we want to count
+     *   }
+     * })
+    **/
+    count<T extends ClienteContaReceberCountArgs>(
+      args?: Subset<T, ClienteContaReceberCountArgs>,
+    ): PrismaPromise<
+      T extends _Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ClienteContaReceberCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ClienteContaReceber.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClienteContaReceberAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ClienteContaReceberAggregateArgs>(args: Subset<T, ClienteContaReceberAggregateArgs>): PrismaPromise<GetClienteContaReceberAggregateType<T>>
+
+    /**
+     * Group by ClienteContaReceber.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClienteContaReceberGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ClienteContaReceberGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ClienteContaReceberGroupByArgs['orderBy'] }
+        : { orderBy?: ClienteContaReceberGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends TupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ClienteContaReceberGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetClienteContaReceberGroupByPayload<T> : Promise<InputErrors>
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ClienteContaReceber.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__ClienteContaReceberClient<T> implements PrismaPromise<T> {
+    [prisma]: true;
+    private readonly _dmmf;
+    private readonly _fetcher;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    constructor(_dmmf: runtime.DMMFClass, _fetcher: PrismaClientFetcher, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+    readonly [Symbol.toStringTag]: 'PrismaClientPromise';
+
+    ContaReceber<T extends ContaReceberFindManyArgs = {}>(args?: Subset<T, ContaReceberFindManyArgs>): CheckSelect<T, PrismaPromise<Array<ContaReceber>>, PrismaPromise<Array<ContaReceberGetPayload<T>>>>;
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+  // Custom InputTypes
+
+  /**
+   * ClienteContaReceber findUnique
+   */
+  export type ClienteContaReceberFindUniqueArgs = {
+    /**
+     * Select specific fields to fetch from the ClienteContaReceber
+     * 
+    **/
+    select?: ClienteContaReceberSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: ClienteContaReceberInclude | null
+    /**
+     * Throw an Error if a ClienteContaReceber can't be found
+     * 
+    **/
+    rejectOnNotFound?: RejectOnNotFound
+    /**
+     * Filter, which ClienteContaReceber to fetch.
+     * 
+    **/
+    where: ClienteContaReceberWhereUniqueInput
+  }
+
+
+  /**
+   * ClienteContaReceber findFirst
+   */
+  export type ClienteContaReceberFindFirstArgs = {
+    /**
+     * Select specific fields to fetch from the ClienteContaReceber
+     * 
+    **/
+    select?: ClienteContaReceberSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: ClienteContaReceberInclude | null
+    /**
+     * Throw an Error if a ClienteContaReceber can't be found
+     * 
+    **/
+    rejectOnNotFound?: RejectOnNotFound
+    /**
+     * Filter, which ClienteContaReceber to fetch.
+     * 
+    **/
+    where?: ClienteContaReceberWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ClienteContaRecebers to fetch.
+     * 
+    **/
+    orderBy?: Enumerable<ClienteContaReceberOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ClienteContaRecebers.
+     * 
+    **/
+    cursor?: ClienteContaReceberWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ClienteContaRecebers from the position of the cursor.
+     * 
+    **/
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ClienteContaRecebers.
+     * 
+    **/
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ClienteContaRecebers.
+     * 
+    **/
+    distinct?: Enumerable<ClienteContaReceberScalarFieldEnum>
+  }
+
+
+  /**
+   * ClienteContaReceber findMany
+   */
+  export type ClienteContaReceberFindManyArgs = {
+    /**
+     * Select specific fields to fetch from the ClienteContaReceber
+     * 
+    **/
+    select?: ClienteContaReceberSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: ClienteContaReceberInclude | null
+    /**
+     * Filter, which ClienteContaRecebers to fetch.
+     * 
+    **/
+    where?: ClienteContaReceberWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ClienteContaRecebers to fetch.
+     * 
+    **/
+    orderBy?: Enumerable<ClienteContaReceberOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ClienteContaRecebers.
+     * 
+    **/
+    cursor?: ClienteContaReceberWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ClienteContaRecebers from the position of the cursor.
+     * 
+    **/
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ClienteContaRecebers.
+     * 
+    **/
+    skip?: number
+    distinct?: Enumerable<ClienteContaReceberScalarFieldEnum>
+  }
+
+
+  /**
+   * ClienteContaReceber create
+   */
+  export type ClienteContaReceberCreateArgs = {
+    /**
+     * Select specific fields to fetch from the ClienteContaReceber
+     * 
+    **/
+    select?: ClienteContaReceberSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: ClienteContaReceberInclude | null
+    /**
+     * The data needed to create a ClienteContaReceber.
+     * 
+    **/
+    data: XOR<ClienteContaReceberCreateInput, ClienteContaReceberUncheckedCreateInput>
+  }
+
+
+  /**
+   * ClienteContaReceber createMany
+   */
+  export type ClienteContaReceberCreateManyArgs = {
+    data: Enumerable<ClienteContaReceberCreateManyInput>
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * ClienteContaReceber update
+   */
+  export type ClienteContaReceberUpdateArgs = {
+    /**
+     * Select specific fields to fetch from the ClienteContaReceber
+     * 
+    **/
+    select?: ClienteContaReceberSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: ClienteContaReceberInclude | null
+    /**
+     * The data needed to update a ClienteContaReceber.
+     * 
+    **/
+    data: XOR<ClienteContaReceberUpdateInput, ClienteContaReceberUncheckedUpdateInput>
+    /**
+     * Choose, which ClienteContaReceber to update.
+     * 
+    **/
+    where: ClienteContaReceberWhereUniqueInput
+  }
+
+
+  /**
+   * ClienteContaReceber updateMany
+   */
+  export type ClienteContaReceberUpdateManyArgs = {
+    data: XOR<ClienteContaReceberUpdateManyMutationInput, ClienteContaReceberUncheckedUpdateManyInput>
+    where?: ClienteContaReceberWhereInput
+  }
+
+
+  /**
+   * ClienteContaReceber upsert
+   */
+  export type ClienteContaReceberUpsertArgs = {
+    /**
+     * Select specific fields to fetch from the ClienteContaReceber
+     * 
+    **/
+    select?: ClienteContaReceberSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: ClienteContaReceberInclude | null
+    /**
+     * The filter to search for the ClienteContaReceber to update in case it exists.
+     * 
+    **/
+    where: ClienteContaReceberWhereUniqueInput
+    /**
+     * In case the ClienteContaReceber found by the `where` argument doesn't exist, create a new ClienteContaReceber with this data.
+     * 
+    **/
+    create: XOR<ClienteContaReceberCreateInput, ClienteContaReceberUncheckedCreateInput>
+    /**
+     * In case the ClienteContaReceber was found with the provided `where` argument, update it with this data.
+     * 
+    **/
+    update: XOR<ClienteContaReceberUpdateInput, ClienteContaReceberUncheckedUpdateInput>
+  }
+
+
+  /**
+   * ClienteContaReceber delete
+   */
+  export type ClienteContaReceberDeleteArgs = {
+    /**
+     * Select specific fields to fetch from the ClienteContaReceber
+     * 
+    **/
+    select?: ClienteContaReceberSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: ClienteContaReceberInclude | null
+    /**
+     * Filter which ClienteContaReceber to delete.
+     * 
+    **/
+    where: ClienteContaReceberWhereUniqueInput
+  }
+
+
+  /**
+   * ClienteContaReceber deleteMany
+   */
+  export type ClienteContaReceberDeleteManyArgs = {
+    where?: ClienteContaReceberWhereInput
+  }
+
+
+  /**
+   * ClienteContaReceber without action
+   */
+  export type ClienteContaReceberArgs = {
+    /**
+     * Select specific fields to fetch from the ClienteContaReceber
+     * 
+    **/
+    select?: ClienteContaReceberSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: ClienteContaReceberInclude | null
+  }
+
+
+
+  /**
+   * Model ContaPagar
+   */
+
+
+  export type AggregateContaPagar = {
+    _count: ContaPagarCountAggregateOutputType | null
+    _avg: ContaPagarAvgAggregateOutputType | null
+    _sum: ContaPagarSumAggregateOutputType | null
+    _min: ContaPagarMinAggregateOutputType | null
+    _max: ContaPagarMaxAggregateOutputType | null
+  }
+
+  export type ContaPagarAvgAggregateOutputType = {
+    valor: number | null
+    saldo: number | null
+    fornecedor_id: number | null
+  }
+
+  export type ContaPagarSumAggregateOutputType = {
+    valor: number | null
+    saldo: number | null
+    fornecedor_id: number | null
+  }
+
+  export type ContaPagarMinAggregateOutputType = {
+    id: string | null
+    situacao: string | null
+    dataEmissao: Date | null
+    vencimentoOriginal: Date | null
+    vencimento: Date | null
+    competencia: Date | null
+    nroDocumento: string | null
+    valor: number | null
+    saldo: number | null
+    historico: string | null
+    categoria: string | null
+    portador: string | null
+    ocorrencia: string | null
+    fornecedor_id: number | null
+  }
+
+  export type ContaPagarMaxAggregateOutputType = {
+    id: string | null
+    situacao: string | null
+    dataEmissao: Date | null
+    vencimentoOriginal: Date | null
+    vencimento: Date | null
+    competencia: Date | null
+    nroDocumento: string | null
+    valor: number | null
+    saldo: number | null
+    historico: string | null
+    categoria: string | null
+    portador: string | null
+    ocorrencia: string | null
+    fornecedor_id: number | null
+  }
+
+  export type ContaPagarCountAggregateOutputType = {
+    id: number
+    situacao: number
+    dataEmissao: number
+    vencimentoOriginal: number
+    vencimento: number
+    competencia: number
+    nroDocumento: number
+    valor: number
+    saldo: number
+    historico: number
+    categoria: number
+    portador: number
+    ocorrencia: number
+    fornecedor_id: number
+    _all: number
+  }
+
+
+  export type ContaPagarAvgAggregateInputType = {
+    valor?: true
+    saldo?: true
+    fornecedor_id?: true
+  }
+
+  export type ContaPagarSumAggregateInputType = {
+    valor?: true
+    saldo?: true
+    fornecedor_id?: true
+  }
+
+  export type ContaPagarMinAggregateInputType = {
+    id?: true
+    situacao?: true
+    dataEmissao?: true
+    vencimentoOriginal?: true
+    vencimento?: true
+    competencia?: true
+    nroDocumento?: true
+    valor?: true
+    saldo?: true
+    historico?: true
+    categoria?: true
+    portador?: true
+    ocorrencia?: true
+    fornecedor_id?: true
+  }
+
+  export type ContaPagarMaxAggregateInputType = {
+    id?: true
+    situacao?: true
+    dataEmissao?: true
+    vencimentoOriginal?: true
+    vencimento?: true
+    competencia?: true
+    nroDocumento?: true
+    valor?: true
+    saldo?: true
+    historico?: true
+    categoria?: true
+    portador?: true
+    ocorrencia?: true
+    fornecedor_id?: true
+  }
+
+  export type ContaPagarCountAggregateInputType = {
+    id?: true
+    situacao?: true
+    dataEmissao?: true
+    vencimentoOriginal?: true
+    vencimento?: true
+    competencia?: true
+    nroDocumento?: true
+    valor?: true
+    saldo?: true
+    historico?: true
+    categoria?: true
+    portador?: true
+    ocorrencia?: true
+    fornecedor_id?: true
+    _all?: true
+  }
+
+  export type ContaPagarAggregateArgs = {
+    /**
+     * Filter which ContaPagar to aggregate.
+     * 
+    **/
+    where?: ContaPagarWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ContaPagars to fetch.
+     * 
+    **/
+    orderBy?: Enumerable<ContaPagarOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     * 
+    **/
+    cursor?: ContaPagarWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ContaPagars from the position of the cursor.
+     * 
+    **/
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ContaPagars.
+     * 
+    **/
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ContaPagars
+    **/
+    _count?: true | ContaPagarCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ContaPagarAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ContaPagarSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ContaPagarMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ContaPagarMaxAggregateInputType
+  }
+
+  export type GetContaPagarAggregateType<T extends ContaPagarAggregateArgs> = {
+        [P in keyof T & keyof AggregateContaPagar]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateContaPagar[P]>
+      : GetScalarType<T[P], AggregateContaPagar[P]>
+  }
+
+
+
+
+  export type ContaPagarGroupByArgs = {
+    where?: ContaPagarWhereInput
+    orderBy?: Enumerable<ContaPagarOrderByWithAggregationInput>
+    by: Array<ContaPagarScalarFieldEnum>
+    having?: ContaPagarScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ContaPagarCountAggregateInputType | true
+    _avg?: ContaPagarAvgAggregateInputType
+    _sum?: ContaPagarSumAggregateInputType
+    _min?: ContaPagarMinAggregateInputType
+    _max?: ContaPagarMaxAggregateInputType
+  }
+
+
+  export type ContaPagarGroupByOutputType = {
+    id: string
+    situacao: string | null
+    dataEmissao: Date | null
+    vencimentoOriginal: Date | null
+    vencimento: Date | null
+    competencia: Date | null
+    nroDocumento: string | null
+    valor: number | null
+    saldo: number | null
+    historico: string | null
+    categoria: string | null
+    portador: string | null
+    ocorrencia: string | null
+    fornecedor_id: number
+    _count: ContaPagarCountAggregateOutputType | null
+    _avg: ContaPagarAvgAggregateOutputType | null
+    _sum: ContaPagarSumAggregateOutputType | null
+    _min: ContaPagarMinAggregateOutputType | null
+    _max: ContaPagarMaxAggregateOutputType | null
+  }
+
+  type GetContaPagarGroupByPayload<T extends ContaPagarGroupByArgs> = Promise<
+    Array<
+      PickArray<ContaPagarGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ContaPagarGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ContaPagarGroupByOutputType[P]>
+            : GetScalarType<T[P], ContaPagarGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ContaPagarSelect = {
+    id?: boolean
+    situacao?: boolean
+    dataEmissao?: boolean
+    vencimentoOriginal?: boolean
+    vencimento?: boolean
+    competencia?: boolean
+    nroDocumento?: boolean
+    valor?: boolean
+    saldo?: boolean
+    historico?: boolean
+    categoria?: boolean
+    portador?: boolean
+    ocorrencia?: boolean
+    fornecedor_id?: boolean
+    fornecedor?: boolean | FornecedorContaPagarArgs
+  }
+
+  export type ContaPagarInclude = {
+    fornecedor?: boolean | FornecedorContaPagarArgs
+  }
+
+  export type ContaPagarGetPayload<
+    S extends boolean | null | undefined | ContaPagarArgs,
+    U = keyof S
+      > = S extends true
+        ? ContaPagar
+    : S extends undefined
+    ? never
+    : S extends ContaPagarArgs | ContaPagarFindManyArgs
+    ?'include' extends U
+    ? ContaPagar  & {
+    [P in TrueKeys<S['include']>]: 
+          P extends 'fornecedor'
+        ? FornecedorContaPagarGetPayload<S['include'][P]> : never
+  } 
+    : 'select' extends U
+    ? {
+    [P in TrueKeys<S['select']>]: P extends keyof ContaPagar ?ContaPagar [P]
+  : 
+          P extends 'fornecedor'
+        ? FornecedorContaPagarGetPayload<S['select'][P]> : never
+  } 
+    : ContaPagar
+  : ContaPagar
+
+
+  type ContaPagarCountArgs = Merge<
+    Omit<ContaPagarFindManyArgs, 'select' | 'include'> & {
+      select?: ContaPagarCountAggregateInputType | true
+    }
+  >
+
+  export interface ContaPagarDelegate<GlobalRejectSettings> {
+    /**
+     * Find zero or one ContaPagar that matches the filter.
+     * @param {ContaPagarFindUniqueArgs} args - Arguments to find a ContaPagar
+     * @example
+     * // Get one ContaPagar
+     * const contaPagar = await prisma.contaPagar.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends ContaPagarFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, ContaPagarFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'ContaPagar'> extends True ? CheckSelect<T, Prisma__ContaPagarClient<ContaPagar>, Prisma__ContaPagarClient<ContaPagarGetPayload<T>>> : CheckSelect<T, Prisma__ContaPagarClient<ContaPagar | null >, Prisma__ContaPagarClient<ContaPagarGetPayload<T> | null >>
+
+    /**
+     * Find the first ContaPagar that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContaPagarFindFirstArgs} args - Arguments to find a ContaPagar
+     * @example
+     * // Get one ContaPagar
+     * const contaPagar = await prisma.contaPagar.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends ContaPagarFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, ContaPagarFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'ContaPagar'> extends True ? CheckSelect<T, Prisma__ContaPagarClient<ContaPagar>, Prisma__ContaPagarClient<ContaPagarGetPayload<T>>> : CheckSelect<T, Prisma__ContaPagarClient<ContaPagar | null >, Prisma__ContaPagarClient<ContaPagarGetPayload<T> | null >>
+
+    /**
+     * Find zero or more ContaPagars that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContaPagarFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ContaPagars
+     * const contaPagars = await prisma.contaPagar.findMany()
+     * 
+     * // Get first 10 ContaPagars
+     * const contaPagars = await prisma.contaPagar.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const contaPagarWithIdOnly = await prisma.contaPagar.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends ContaPagarFindManyArgs>(
+      args?: SelectSubset<T, ContaPagarFindManyArgs>
+    ): CheckSelect<T, PrismaPromise<Array<ContaPagar>>, PrismaPromise<Array<ContaPagarGetPayload<T>>>>
+
+    /**
+     * Create a ContaPagar.
+     * @param {ContaPagarCreateArgs} args - Arguments to create a ContaPagar.
+     * @example
+     * // Create one ContaPagar
+     * const ContaPagar = await prisma.contaPagar.create({
+     *   data: {
+     *     // ... data to create a ContaPagar
+     *   }
+     * })
+     * 
+    **/
+    create<T extends ContaPagarCreateArgs>(
+      args: SelectSubset<T, ContaPagarCreateArgs>
+    ): CheckSelect<T, Prisma__ContaPagarClient<ContaPagar>, Prisma__ContaPagarClient<ContaPagarGetPayload<T>>>
+
+    /**
+     * Create many ContaPagars.
+     *     @param {ContaPagarCreateManyArgs} args - Arguments to create many ContaPagars.
+     *     @example
+     *     // Create many ContaPagars
+     *     const contaPagar = await prisma.contaPagar.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends ContaPagarCreateManyArgs>(
+      args?: SelectSubset<T, ContaPagarCreateManyArgs>
+    ): PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a ContaPagar.
+     * @param {ContaPagarDeleteArgs} args - Arguments to delete one ContaPagar.
+     * @example
+     * // Delete one ContaPagar
+     * const ContaPagar = await prisma.contaPagar.delete({
+     *   where: {
+     *     // ... filter to delete one ContaPagar
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends ContaPagarDeleteArgs>(
+      args: SelectSubset<T, ContaPagarDeleteArgs>
+    ): CheckSelect<T, Prisma__ContaPagarClient<ContaPagar>, Prisma__ContaPagarClient<ContaPagarGetPayload<T>>>
+
+    /**
+     * Update one ContaPagar.
+     * @param {ContaPagarUpdateArgs} args - Arguments to update one ContaPagar.
+     * @example
+     * // Update one ContaPagar
+     * const contaPagar = await prisma.contaPagar.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends ContaPagarUpdateArgs>(
+      args: SelectSubset<T, ContaPagarUpdateArgs>
+    ): CheckSelect<T, Prisma__ContaPagarClient<ContaPagar>, Prisma__ContaPagarClient<ContaPagarGetPayload<T>>>
+
+    /**
+     * Delete zero or more ContaPagars.
+     * @param {ContaPagarDeleteManyArgs} args - Arguments to filter ContaPagars to delete.
+     * @example
+     * // Delete a few ContaPagars
+     * const { count } = await prisma.contaPagar.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends ContaPagarDeleteManyArgs>(
+      args?: SelectSubset<T, ContaPagarDeleteManyArgs>
+    ): PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ContaPagars.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContaPagarUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ContaPagars
+     * const contaPagar = await prisma.contaPagar.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends ContaPagarUpdateManyArgs>(
+      args: SelectSubset<T, ContaPagarUpdateManyArgs>
+    ): PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one ContaPagar.
+     * @param {ContaPagarUpsertArgs} args - Arguments to update or create a ContaPagar.
+     * @example
+     * // Update or create a ContaPagar
+     * const contaPagar = await prisma.contaPagar.upsert({
+     *   create: {
+     *     // ... data to create a ContaPagar
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ContaPagar we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends ContaPagarUpsertArgs>(
+      args: SelectSubset<T, ContaPagarUpsertArgs>
+    ): CheckSelect<T, Prisma__ContaPagarClient<ContaPagar>, Prisma__ContaPagarClient<ContaPagarGetPayload<T>>>
+
+    /**
+     * Count the number of ContaPagars.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContaPagarCountArgs} args - Arguments to filter ContaPagars to count.
+     * @example
+     * // Count the number of ContaPagars
+     * const count = await prisma.contaPagar.count({
+     *   where: {
+     *     // ... the filter for the ContaPagars we want to count
+     *   }
+     * })
+    **/
+    count<T extends ContaPagarCountArgs>(
+      args?: Subset<T, ContaPagarCountArgs>,
+    ): PrismaPromise<
+      T extends _Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ContaPagarCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ContaPagar.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContaPagarAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ContaPagarAggregateArgs>(args: Subset<T, ContaPagarAggregateArgs>): PrismaPromise<GetContaPagarAggregateType<T>>
+
+    /**
+     * Group by ContaPagar.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContaPagarGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ContaPagarGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ContaPagarGroupByArgs['orderBy'] }
+        : { orderBy?: ContaPagarGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends TupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ContaPagarGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetContaPagarGroupByPayload<T> : Promise<InputErrors>
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ContaPagar.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__ContaPagarClient<T> implements PrismaPromise<T> {
+    [prisma]: true;
+    private readonly _dmmf;
+    private readonly _fetcher;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    constructor(_dmmf: runtime.DMMFClass, _fetcher: PrismaClientFetcher, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+    readonly [Symbol.toStringTag]: 'PrismaClientPromise';
+
+    fornecedor<T extends FornecedorContaPagarArgs = {}>(args?: Subset<T, FornecedorContaPagarArgs>): CheckSelect<T, Prisma__FornecedorContaPagarClient<FornecedorContaPagar | null >, Prisma__FornecedorContaPagarClient<FornecedorContaPagarGetPayload<T> | null >>;
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+  // Custom InputTypes
+
+  /**
+   * ContaPagar findUnique
+   */
+  export type ContaPagarFindUniqueArgs = {
+    /**
+     * Select specific fields to fetch from the ContaPagar
+     * 
+    **/
+    select?: ContaPagarSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: ContaPagarInclude | null
+    /**
+     * Throw an Error if a ContaPagar can't be found
+     * 
+    **/
+    rejectOnNotFound?: RejectOnNotFound
+    /**
+     * Filter, which ContaPagar to fetch.
+     * 
+    **/
+    where: ContaPagarWhereUniqueInput
+  }
+
+
+  /**
+   * ContaPagar findFirst
+   */
+  export type ContaPagarFindFirstArgs = {
+    /**
+     * Select specific fields to fetch from the ContaPagar
+     * 
+    **/
+    select?: ContaPagarSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: ContaPagarInclude | null
+    /**
+     * Throw an Error if a ContaPagar can't be found
+     * 
+    **/
+    rejectOnNotFound?: RejectOnNotFound
+    /**
+     * Filter, which ContaPagar to fetch.
+     * 
+    **/
+    where?: ContaPagarWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ContaPagars to fetch.
+     * 
+    **/
+    orderBy?: Enumerable<ContaPagarOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ContaPagars.
+     * 
+    **/
+    cursor?: ContaPagarWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ContaPagars from the position of the cursor.
+     * 
+    **/
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ContaPagars.
+     * 
+    **/
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ContaPagars.
+     * 
+    **/
+    distinct?: Enumerable<ContaPagarScalarFieldEnum>
+  }
+
+
+  /**
+   * ContaPagar findMany
+   */
+  export type ContaPagarFindManyArgs = {
+    /**
+     * Select specific fields to fetch from the ContaPagar
+     * 
+    **/
+    select?: ContaPagarSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: ContaPagarInclude | null
+    /**
+     * Filter, which ContaPagars to fetch.
+     * 
+    **/
+    where?: ContaPagarWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ContaPagars to fetch.
+     * 
+    **/
+    orderBy?: Enumerable<ContaPagarOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ContaPagars.
+     * 
+    **/
+    cursor?: ContaPagarWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ContaPagars from the position of the cursor.
+     * 
+    **/
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ContaPagars.
+     * 
+    **/
+    skip?: number
+    distinct?: Enumerable<ContaPagarScalarFieldEnum>
+  }
+
+
+  /**
+   * ContaPagar create
+   */
+  export type ContaPagarCreateArgs = {
+    /**
+     * Select specific fields to fetch from the ContaPagar
+     * 
+    **/
+    select?: ContaPagarSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: ContaPagarInclude | null
+    /**
+     * The data needed to create a ContaPagar.
+     * 
+    **/
+    data: XOR<ContaPagarCreateInput, ContaPagarUncheckedCreateInput>
+  }
+
+
+  /**
+   * ContaPagar createMany
+   */
+  export type ContaPagarCreateManyArgs = {
+    data: Enumerable<ContaPagarCreateManyInput>
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * ContaPagar update
+   */
+  export type ContaPagarUpdateArgs = {
+    /**
+     * Select specific fields to fetch from the ContaPagar
+     * 
+    **/
+    select?: ContaPagarSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: ContaPagarInclude | null
+    /**
+     * The data needed to update a ContaPagar.
+     * 
+    **/
+    data: XOR<ContaPagarUpdateInput, ContaPagarUncheckedUpdateInput>
+    /**
+     * Choose, which ContaPagar to update.
+     * 
+    **/
+    where: ContaPagarWhereUniqueInput
+  }
+
+
+  /**
+   * ContaPagar updateMany
+   */
+  export type ContaPagarUpdateManyArgs = {
+    data: XOR<ContaPagarUpdateManyMutationInput, ContaPagarUncheckedUpdateManyInput>
+    where?: ContaPagarWhereInput
+  }
+
+
+  /**
+   * ContaPagar upsert
+   */
+  export type ContaPagarUpsertArgs = {
+    /**
+     * Select specific fields to fetch from the ContaPagar
+     * 
+    **/
+    select?: ContaPagarSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: ContaPagarInclude | null
+    /**
+     * The filter to search for the ContaPagar to update in case it exists.
+     * 
+    **/
+    where: ContaPagarWhereUniqueInput
+    /**
+     * In case the ContaPagar found by the `where` argument doesn't exist, create a new ContaPagar with this data.
+     * 
+    **/
+    create: XOR<ContaPagarCreateInput, ContaPagarUncheckedCreateInput>
+    /**
+     * In case the ContaPagar was found with the provided `where` argument, update it with this data.
+     * 
+    **/
+    update: XOR<ContaPagarUpdateInput, ContaPagarUncheckedUpdateInput>
+  }
+
+
+  /**
+   * ContaPagar delete
+   */
+  export type ContaPagarDeleteArgs = {
+    /**
+     * Select specific fields to fetch from the ContaPagar
+     * 
+    **/
+    select?: ContaPagarSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: ContaPagarInclude | null
+    /**
+     * Filter which ContaPagar to delete.
+     * 
+    **/
+    where: ContaPagarWhereUniqueInput
+  }
+
+
+  /**
+   * ContaPagar deleteMany
+   */
+  export type ContaPagarDeleteManyArgs = {
+    where?: ContaPagarWhereInput
+  }
+
+
+  /**
+   * ContaPagar without action
+   */
+  export type ContaPagarArgs = {
+    /**
+     * Select specific fields to fetch from the ContaPagar
+     * 
+    **/
+    select?: ContaPagarSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: ContaPagarInclude | null
+  }
+
+
+
+  /**
+   * Model FornecedorContaPagar
+   */
+
+
+  export type AggregateFornecedorContaPagar = {
+    _count: FornecedorContaPagarCountAggregateOutputType | null
+    _avg: FornecedorContaPagarAvgAggregateOutputType | null
+    _sum: FornecedorContaPagarSumAggregateOutputType | null
+    _min: FornecedorContaPagarMinAggregateOutputType | null
+    _max: FornecedorContaPagarMaxAggregateOutputType | null
+  }
+
+  export type FornecedorContaPagarAvgAggregateOutputType = {
+    id: number | null
+    numero: number | null
+  }
+
+  export type FornecedorContaPagarSumAggregateOutputType = {
+    id: number | null
+    numero: number | null
+  }
+
+  export type FornecedorContaPagarMinAggregateOutputType = {
+    id: number | null
+    nome: string | null
+    tipoPessoa: string | null
+    cnpj: string | null
+    ie: string | null
+    cpf: string | null
+    rg: string | null
+    endereco: string | null
+    numero: number | null
+    complemento: string | null
+    cidade: string | null
+    bairro: string | null
+    cep: string | null
+    uf: string | null
+    email: string | null
+    fone: string | null
+    celular: string | null
+  }
+
+  export type FornecedorContaPagarMaxAggregateOutputType = {
+    id: number | null
+    nome: string | null
+    tipoPessoa: string | null
+    cnpj: string | null
+    ie: string | null
+    cpf: string | null
+    rg: string | null
+    endereco: string | null
+    numero: number | null
+    complemento: string | null
+    cidade: string | null
+    bairro: string | null
+    cep: string | null
+    uf: string | null
+    email: string | null
+    fone: string | null
+    celular: string | null
+  }
+
+  export type FornecedorContaPagarCountAggregateOutputType = {
+    id: number
+    nome: number
+    tipoPessoa: number
+    cnpj: number
+    ie: number
+    cpf: number
+    rg: number
+    endereco: number
+    numero: number
+    complemento: number
+    cidade: number
+    bairro: number
+    cep: number
+    uf: number
+    email: number
+    fone: number
+    celular: number
+    _all: number
+  }
+
+
+  export type FornecedorContaPagarAvgAggregateInputType = {
+    id?: true
+    numero?: true
+  }
+
+  export type FornecedorContaPagarSumAggregateInputType = {
+    id?: true
+    numero?: true
+  }
+
+  export type FornecedorContaPagarMinAggregateInputType = {
+    id?: true
+    nome?: true
+    tipoPessoa?: true
+    cnpj?: true
+    ie?: true
+    cpf?: true
+    rg?: true
+    endereco?: true
+    numero?: true
+    complemento?: true
+    cidade?: true
+    bairro?: true
+    cep?: true
+    uf?: true
+    email?: true
+    fone?: true
+    celular?: true
+  }
+
+  export type FornecedorContaPagarMaxAggregateInputType = {
+    id?: true
+    nome?: true
+    tipoPessoa?: true
+    cnpj?: true
+    ie?: true
+    cpf?: true
+    rg?: true
+    endereco?: true
+    numero?: true
+    complemento?: true
+    cidade?: true
+    bairro?: true
+    cep?: true
+    uf?: true
+    email?: true
+    fone?: true
+    celular?: true
+  }
+
+  export type FornecedorContaPagarCountAggregateInputType = {
+    id?: true
+    nome?: true
+    tipoPessoa?: true
+    cnpj?: true
+    ie?: true
+    cpf?: true
+    rg?: true
+    endereco?: true
+    numero?: true
+    complemento?: true
+    cidade?: true
+    bairro?: true
+    cep?: true
+    uf?: true
+    email?: true
+    fone?: true
+    celular?: true
+    _all?: true
+  }
+
+  export type FornecedorContaPagarAggregateArgs = {
+    /**
+     * Filter which FornecedorContaPagar to aggregate.
+     * 
+    **/
+    where?: FornecedorContaPagarWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FornecedorContaPagars to fetch.
+     * 
+    **/
+    orderBy?: Enumerable<FornecedorContaPagarOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     * 
+    **/
+    cursor?: FornecedorContaPagarWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FornecedorContaPagars from the position of the cursor.
+     * 
+    **/
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FornecedorContaPagars.
+     * 
+    **/
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned FornecedorContaPagars
+    **/
+    _count?: true | FornecedorContaPagarCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: FornecedorContaPagarAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: FornecedorContaPagarSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: FornecedorContaPagarMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: FornecedorContaPagarMaxAggregateInputType
+  }
+
+  export type GetFornecedorContaPagarAggregateType<T extends FornecedorContaPagarAggregateArgs> = {
+        [P in keyof T & keyof AggregateFornecedorContaPagar]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateFornecedorContaPagar[P]>
+      : GetScalarType<T[P], AggregateFornecedorContaPagar[P]>
+  }
+
+
+
+
+  export type FornecedorContaPagarGroupByArgs = {
+    where?: FornecedorContaPagarWhereInput
+    orderBy?: Enumerable<FornecedorContaPagarOrderByWithAggregationInput>
+    by: Array<FornecedorContaPagarScalarFieldEnum>
+    having?: FornecedorContaPagarScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: FornecedorContaPagarCountAggregateInputType | true
+    _avg?: FornecedorContaPagarAvgAggregateInputType
+    _sum?: FornecedorContaPagarSumAggregateInputType
+    _min?: FornecedorContaPagarMinAggregateInputType
+    _max?: FornecedorContaPagarMaxAggregateInputType
+  }
+
+
+  export type FornecedorContaPagarGroupByOutputType = {
+    id: number
+    nome: string | null
+    tipoPessoa: string | null
+    cnpj: string | null
+    ie: string | null
+    cpf: string | null
+    rg: string | null
+    endereco: string | null
+    numero: number | null
+    complemento: string | null
+    cidade: string | null
+    bairro: string | null
+    cep: string | null
+    uf: string | null
+    email: string | null
+    fone: string | null
+    celular: string | null
+    _count: FornecedorContaPagarCountAggregateOutputType | null
+    _avg: FornecedorContaPagarAvgAggregateOutputType | null
+    _sum: FornecedorContaPagarSumAggregateOutputType | null
+    _min: FornecedorContaPagarMinAggregateOutputType | null
+    _max: FornecedorContaPagarMaxAggregateOutputType | null
+  }
+
+  type GetFornecedorContaPagarGroupByPayload<T extends FornecedorContaPagarGroupByArgs> = Promise<
+    Array<
+      PickArray<FornecedorContaPagarGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof FornecedorContaPagarGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], FornecedorContaPagarGroupByOutputType[P]>
+            : GetScalarType<T[P], FornecedorContaPagarGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type FornecedorContaPagarSelect = {
+    id?: boolean
+    nome?: boolean
+    tipoPessoa?: boolean
+    cnpj?: boolean
+    ie?: boolean
+    cpf?: boolean
+    rg?: boolean
+    endereco?: boolean
+    numero?: boolean
+    complemento?: boolean
+    cidade?: boolean
+    bairro?: boolean
+    cep?: boolean
+    uf?: boolean
+    email?: boolean
+    fone?: boolean
+    celular?: boolean
+    ContaPagar?: boolean | ContaPagarFindManyArgs
+    _count?: boolean | FornecedorContaPagarCountOutputTypeArgs
+  }
+
+  export type FornecedorContaPagarInclude = {
+    ContaPagar?: boolean | ContaPagarFindManyArgs
+    _count?: boolean | FornecedorContaPagarCountOutputTypeArgs
+  }
+
+  export type FornecedorContaPagarGetPayload<
+    S extends boolean | null | undefined | FornecedorContaPagarArgs,
+    U = keyof S
+      > = S extends true
+        ? FornecedorContaPagar
+    : S extends undefined
+    ? never
+    : S extends FornecedorContaPagarArgs | FornecedorContaPagarFindManyArgs
+    ?'include' extends U
+    ? FornecedorContaPagar  & {
+    [P in TrueKeys<S['include']>]: 
+          P extends 'ContaPagar'
+        ? Array < ContaPagarGetPayload<S['include'][P]>>  :
+        P extends '_count'
+        ? FornecedorContaPagarCountOutputTypeGetPayload<S['include'][P]> : never
+  } 
+    : 'select' extends U
+    ? {
+    [P in TrueKeys<S['select']>]: P extends keyof FornecedorContaPagar ?FornecedorContaPagar [P]
+  : 
+          P extends 'ContaPagar'
+        ? Array < ContaPagarGetPayload<S['select'][P]>>  :
+        P extends '_count'
+        ? FornecedorContaPagarCountOutputTypeGetPayload<S['select'][P]> : never
+  } 
+    : FornecedorContaPagar
+  : FornecedorContaPagar
+
+
+  type FornecedorContaPagarCountArgs = Merge<
+    Omit<FornecedorContaPagarFindManyArgs, 'select' | 'include'> & {
+      select?: FornecedorContaPagarCountAggregateInputType | true
+    }
+  >
+
+  export interface FornecedorContaPagarDelegate<GlobalRejectSettings> {
+    /**
+     * Find zero or one FornecedorContaPagar that matches the filter.
+     * @param {FornecedorContaPagarFindUniqueArgs} args - Arguments to find a FornecedorContaPagar
+     * @example
+     * // Get one FornecedorContaPagar
+     * const fornecedorContaPagar = await prisma.fornecedorContaPagar.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends FornecedorContaPagarFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, FornecedorContaPagarFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'FornecedorContaPagar'> extends True ? CheckSelect<T, Prisma__FornecedorContaPagarClient<FornecedorContaPagar>, Prisma__FornecedorContaPagarClient<FornecedorContaPagarGetPayload<T>>> : CheckSelect<T, Prisma__FornecedorContaPagarClient<FornecedorContaPagar | null >, Prisma__FornecedorContaPagarClient<FornecedorContaPagarGetPayload<T> | null >>
+
+    /**
+     * Find the first FornecedorContaPagar that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FornecedorContaPagarFindFirstArgs} args - Arguments to find a FornecedorContaPagar
+     * @example
+     * // Get one FornecedorContaPagar
+     * const fornecedorContaPagar = await prisma.fornecedorContaPagar.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends FornecedorContaPagarFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, FornecedorContaPagarFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'FornecedorContaPagar'> extends True ? CheckSelect<T, Prisma__FornecedorContaPagarClient<FornecedorContaPagar>, Prisma__FornecedorContaPagarClient<FornecedorContaPagarGetPayload<T>>> : CheckSelect<T, Prisma__FornecedorContaPagarClient<FornecedorContaPagar | null >, Prisma__FornecedorContaPagarClient<FornecedorContaPagarGetPayload<T> | null >>
+
+    /**
+     * Find zero or more FornecedorContaPagars that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FornecedorContaPagarFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all FornecedorContaPagars
+     * const fornecedorContaPagars = await prisma.fornecedorContaPagar.findMany()
+     * 
+     * // Get first 10 FornecedorContaPagars
+     * const fornecedorContaPagars = await prisma.fornecedorContaPagar.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const fornecedorContaPagarWithIdOnly = await prisma.fornecedorContaPagar.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends FornecedorContaPagarFindManyArgs>(
+      args?: SelectSubset<T, FornecedorContaPagarFindManyArgs>
+    ): CheckSelect<T, PrismaPromise<Array<FornecedorContaPagar>>, PrismaPromise<Array<FornecedorContaPagarGetPayload<T>>>>
+
+    /**
+     * Create a FornecedorContaPagar.
+     * @param {FornecedorContaPagarCreateArgs} args - Arguments to create a FornecedorContaPagar.
+     * @example
+     * // Create one FornecedorContaPagar
+     * const FornecedorContaPagar = await prisma.fornecedorContaPagar.create({
+     *   data: {
+     *     // ... data to create a FornecedorContaPagar
+     *   }
+     * })
+     * 
+    **/
+    create<T extends FornecedorContaPagarCreateArgs>(
+      args: SelectSubset<T, FornecedorContaPagarCreateArgs>
+    ): CheckSelect<T, Prisma__FornecedorContaPagarClient<FornecedorContaPagar>, Prisma__FornecedorContaPagarClient<FornecedorContaPagarGetPayload<T>>>
+
+    /**
+     * Create many FornecedorContaPagars.
+     *     @param {FornecedorContaPagarCreateManyArgs} args - Arguments to create many FornecedorContaPagars.
+     *     @example
+     *     // Create many FornecedorContaPagars
+     *     const fornecedorContaPagar = await prisma.fornecedorContaPagar.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends FornecedorContaPagarCreateManyArgs>(
+      args?: SelectSubset<T, FornecedorContaPagarCreateManyArgs>
+    ): PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a FornecedorContaPagar.
+     * @param {FornecedorContaPagarDeleteArgs} args - Arguments to delete one FornecedorContaPagar.
+     * @example
+     * // Delete one FornecedorContaPagar
+     * const FornecedorContaPagar = await prisma.fornecedorContaPagar.delete({
+     *   where: {
+     *     // ... filter to delete one FornecedorContaPagar
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends FornecedorContaPagarDeleteArgs>(
+      args: SelectSubset<T, FornecedorContaPagarDeleteArgs>
+    ): CheckSelect<T, Prisma__FornecedorContaPagarClient<FornecedorContaPagar>, Prisma__FornecedorContaPagarClient<FornecedorContaPagarGetPayload<T>>>
+
+    /**
+     * Update one FornecedorContaPagar.
+     * @param {FornecedorContaPagarUpdateArgs} args - Arguments to update one FornecedorContaPagar.
+     * @example
+     * // Update one FornecedorContaPagar
+     * const fornecedorContaPagar = await prisma.fornecedorContaPagar.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends FornecedorContaPagarUpdateArgs>(
+      args: SelectSubset<T, FornecedorContaPagarUpdateArgs>
+    ): CheckSelect<T, Prisma__FornecedorContaPagarClient<FornecedorContaPagar>, Prisma__FornecedorContaPagarClient<FornecedorContaPagarGetPayload<T>>>
+
+    /**
+     * Delete zero or more FornecedorContaPagars.
+     * @param {FornecedorContaPagarDeleteManyArgs} args - Arguments to filter FornecedorContaPagars to delete.
+     * @example
+     * // Delete a few FornecedorContaPagars
+     * const { count } = await prisma.fornecedorContaPagar.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends FornecedorContaPagarDeleteManyArgs>(
+      args?: SelectSubset<T, FornecedorContaPagarDeleteManyArgs>
+    ): PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more FornecedorContaPagars.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FornecedorContaPagarUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many FornecedorContaPagars
+     * const fornecedorContaPagar = await prisma.fornecedorContaPagar.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends FornecedorContaPagarUpdateManyArgs>(
+      args: SelectSubset<T, FornecedorContaPagarUpdateManyArgs>
+    ): PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one FornecedorContaPagar.
+     * @param {FornecedorContaPagarUpsertArgs} args - Arguments to update or create a FornecedorContaPagar.
+     * @example
+     * // Update or create a FornecedorContaPagar
+     * const fornecedorContaPagar = await prisma.fornecedorContaPagar.upsert({
+     *   create: {
+     *     // ... data to create a FornecedorContaPagar
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the FornecedorContaPagar we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends FornecedorContaPagarUpsertArgs>(
+      args: SelectSubset<T, FornecedorContaPagarUpsertArgs>
+    ): CheckSelect<T, Prisma__FornecedorContaPagarClient<FornecedorContaPagar>, Prisma__FornecedorContaPagarClient<FornecedorContaPagarGetPayload<T>>>
+
+    /**
+     * Count the number of FornecedorContaPagars.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FornecedorContaPagarCountArgs} args - Arguments to filter FornecedorContaPagars to count.
+     * @example
+     * // Count the number of FornecedorContaPagars
+     * const count = await prisma.fornecedorContaPagar.count({
+     *   where: {
+     *     // ... the filter for the FornecedorContaPagars we want to count
+     *   }
+     * })
+    **/
+    count<T extends FornecedorContaPagarCountArgs>(
+      args?: Subset<T, FornecedorContaPagarCountArgs>,
+    ): PrismaPromise<
+      T extends _Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], FornecedorContaPagarCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a FornecedorContaPagar.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FornecedorContaPagarAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends FornecedorContaPagarAggregateArgs>(args: Subset<T, FornecedorContaPagarAggregateArgs>): PrismaPromise<GetFornecedorContaPagarAggregateType<T>>
+
+    /**
+     * Group by FornecedorContaPagar.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FornecedorContaPagarGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends FornecedorContaPagarGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: FornecedorContaPagarGroupByArgs['orderBy'] }
+        : { orderBy?: FornecedorContaPagarGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends TupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, FornecedorContaPagarGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetFornecedorContaPagarGroupByPayload<T> : Promise<InputErrors>
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for FornecedorContaPagar.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__FornecedorContaPagarClient<T> implements PrismaPromise<T> {
+    [prisma]: true;
+    private readonly _dmmf;
+    private readonly _fetcher;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    constructor(_dmmf: runtime.DMMFClass, _fetcher: PrismaClientFetcher, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+    readonly [Symbol.toStringTag]: 'PrismaClientPromise';
+
+    ContaPagar<T extends ContaPagarFindManyArgs = {}>(args?: Subset<T, ContaPagarFindManyArgs>): CheckSelect<T, PrismaPromise<Array<ContaPagar>>, PrismaPromise<Array<ContaPagarGetPayload<T>>>>;
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+  // Custom InputTypes
+
+  /**
+   * FornecedorContaPagar findUnique
+   */
+  export type FornecedorContaPagarFindUniqueArgs = {
+    /**
+     * Select specific fields to fetch from the FornecedorContaPagar
+     * 
+    **/
+    select?: FornecedorContaPagarSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: FornecedorContaPagarInclude | null
+    /**
+     * Throw an Error if a FornecedorContaPagar can't be found
+     * 
+    **/
+    rejectOnNotFound?: RejectOnNotFound
+    /**
+     * Filter, which FornecedorContaPagar to fetch.
+     * 
+    **/
+    where: FornecedorContaPagarWhereUniqueInput
+  }
+
+
+  /**
+   * FornecedorContaPagar findFirst
+   */
+  export type FornecedorContaPagarFindFirstArgs = {
+    /**
+     * Select specific fields to fetch from the FornecedorContaPagar
+     * 
+    **/
+    select?: FornecedorContaPagarSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: FornecedorContaPagarInclude | null
+    /**
+     * Throw an Error if a FornecedorContaPagar can't be found
+     * 
+    **/
+    rejectOnNotFound?: RejectOnNotFound
+    /**
+     * Filter, which FornecedorContaPagar to fetch.
+     * 
+    **/
+    where?: FornecedorContaPagarWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FornecedorContaPagars to fetch.
+     * 
+    **/
+    orderBy?: Enumerable<FornecedorContaPagarOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FornecedorContaPagars.
+     * 
+    **/
+    cursor?: FornecedorContaPagarWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FornecedorContaPagars from the position of the cursor.
+     * 
+    **/
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FornecedorContaPagars.
+     * 
+    **/
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FornecedorContaPagars.
+     * 
+    **/
+    distinct?: Enumerable<FornecedorContaPagarScalarFieldEnum>
+  }
+
+
+  /**
+   * FornecedorContaPagar findMany
+   */
+  export type FornecedorContaPagarFindManyArgs = {
+    /**
+     * Select specific fields to fetch from the FornecedorContaPagar
+     * 
+    **/
+    select?: FornecedorContaPagarSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: FornecedorContaPagarInclude | null
+    /**
+     * Filter, which FornecedorContaPagars to fetch.
+     * 
+    **/
+    where?: FornecedorContaPagarWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FornecedorContaPagars to fetch.
+     * 
+    **/
+    orderBy?: Enumerable<FornecedorContaPagarOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing FornecedorContaPagars.
+     * 
+    **/
+    cursor?: FornecedorContaPagarWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FornecedorContaPagars from the position of the cursor.
+     * 
+    **/
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FornecedorContaPagars.
+     * 
+    **/
+    skip?: number
+    distinct?: Enumerable<FornecedorContaPagarScalarFieldEnum>
+  }
+
+
+  /**
+   * FornecedorContaPagar create
+   */
+  export type FornecedorContaPagarCreateArgs = {
+    /**
+     * Select specific fields to fetch from the FornecedorContaPagar
+     * 
+    **/
+    select?: FornecedorContaPagarSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: FornecedorContaPagarInclude | null
+    /**
+     * The data needed to create a FornecedorContaPagar.
+     * 
+    **/
+    data: XOR<FornecedorContaPagarCreateInput, FornecedorContaPagarUncheckedCreateInput>
+  }
+
+
+  /**
+   * FornecedorContaPagar createMany
+   */
+  export type FornecedorContaPagarCreateManyArgs = {
+    data: Enumerable<FornecedorContaPagarCreateManyInput>
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * FornecedorContaPagar update
+   */
+  export type FornecedorContaPagarUpdateArgs = {
+    /**
+     * Select specific fields to fetch from the FornecedorContaPagar
+     * 
+    **/
+    select?: FornecedorContaPagarSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: FornecedorContaPagarInclude | null
+    /**
+     * The data needed to update a FornecedorContaPagar.
+     * 
+    **/
+    data: XOR<FornecedorContaPagarUpdateInput, FornecedorContaPagarUncheckedUpdateInput>
+    /**
+     * Choose, which FornecedorContaPagar to update.
+     * 
+    **/
+    where: FornecedorContaPagarWhereUniqueInput
+  }
+
+
+  /**
+   * FornecedorContaPagar updateMany
+   */
+  export type FornecedorContaPagarUpdateManyArgs = {
+    data: XOR<FornecedorContaPagarUpdateManyMutationInput, FornecedorContaPagarUncheckedUpdateManyInput>
+    where?: FornecedorContaPagarWhereInput
+  }
+
+
+  /**
+   * FornecedorContaPagar upsert
+   */
+  export type FornecedorContaPagarUpsertArgs = {
+    /**
+     * Select specific fields to fetch from the FornecedorContaPagar
+     * 
+    **/
+    select?: FornecedorContaPagarSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: FornecedorContaPagarInclude | null
+    /**
+     * The filter to search for the FornecedorContaPagar to update in case it exists.
+     * 
+    **/
+    where: FornecedorContaPagarWhereUniqueInput
+    /**
+     * In case the FornecedorContaPagar found by the `where` argument doesn't exist, create a new FornecedorContaPagar with this data.
+     * 
+    **/
+    create: XOR<FornecedorContaPagarCreateInput, FornecedorContaPagarUncheckedCreateInput>
+    /**
+     * In case the FornecedorContaPagar was found with the provided `where` argument, update it with this data.
+     * 
+    **/
+    update: XOR<FornecedorContaPagarUpdateInput, FornecedorContaPagarUncheckedUpdateInput>
+  }
+
+
+  /**
+   * FornecedorContaPagar delete
+   */
+  export type FornecedorContaPagarDeleteArgs = {
+    /**
+     * Select specific fields to fetch from the FornecedorContaPagar
+     * 
+    **/
+    select?: FornecedorContaPagarSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: FornecedorContaPagarInclude | null
+    /**
+     * Filter which FornecedorContaPagar to delete.
+     * 
+    **/
+    where: FornecedorContaPagarWhereUniqueInput
+  }
+
+
+  /**
+   * FornecedorContaPagar deleteMany
+   */
+  export type FornecedorContaPagarDeleteManyArgs = {
+    where?: FornecedorContaPagarWhereInput
+  }
+
+
+  /**
+   * FornecedorContaPagar without action
+   */
+  export type FornecedorContaPagarArgs = {
+    /**
+     * Select specific fields to fetch from the FornecedorContaPagar
+     * 
+    **/
+    select?: FornecedorContaPagarSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: FornecedorContaPagarInclude | null
+  }
+
+
+
+  /**
    * Enums
    */
 
@@ -12309,6 +16482,95 @@ export namespace Prisma {
   };
 
   export type ProdutoNoPedidoScalarFieldEnum = (typeof ProdutoNoPedidoScalarFieldEnum)[keyof typeof ProdutoNoPedidoScalarFieldEnum]
+
+
+  export const ContaReceberScalarFieldEnum: {
+    id: 'id',
+    situacao: 'situacao',
+    dataEmissao: 'dataEmissao',
+    vencimentoOriginal: 'vencimentoOriginal',
+    vencimento: 'vencimento',
+    competencia: 'competencia',
+    nroDocumento: 'nroDocumento',
+    valor: 'valor',
+    saldo: 'saldo',
+    historico: 'historico',
+    categoria: 'categoria',
+    idFormaPagamento: 'idFormaPagamento',
+    portador: 'portador',
+    linkBoleto: 'linkBoleto',
+    vendedor: 'vendedor',
+    ocorrencia: 'ocorrencia',
+    cliente_id: 'cliente_id'
+  };
+
+  export type ContaReceberScalarFieldEnum = (typeof ContaReceberScalarFieldEnum)[keyof typeof ContaReceberScalarFieldEnum]
+
+
+  export const ClienteContaReceberScalarFieldEnum: {
+    id: 'id',
+    nome: 'nome',
+    tipoPessoa: 'tipoPessoa',
+    cpf: 'cpf',
+    rg: 'rg',
+    cnpj: 'cnpj',
+    ie: 'ie',
+    endereco: 'endereco',
+    numero: 'numero',
+    complemento: 'complemento',
+    cidade: 'cidade',
+    bairro: 'bairro',
+    cep: 'cep',
+    uf: 'uf',
+    email: 'email',
+    fone: 'fone',
+    celular: 'celular'
+  };
+
+  export type ClienteContaReceberScalarFieldEnum = (typeof ClienteContaReceberScalarFieldEnum)[keyof typeof ClienteContaReceberScalarFieldEnum]
+
+
+  export const ContaPagarScalarFieldEnum: {
+    id: 'id',
+    situacao: 'situacao',
+    dataEmissao: 'dataEmissao',
+    vencimentoOriginal: 'vencimentoOriginal',
+    vencimento: 'vencimento',
+    competencia: 'competencia',
+    nroDocumento: 'nroDocumento',
+    valor: 'valor',
+    saldo: 'saldo',
+    historico: 'historico',
+    categoria: 'categoria',
+    portador: 'portador',
+    ocorrencia: 'ocorrencia',
+    fornecedor_id: 'fornecedor_id'
+  };
+
+  export type ContaPagarScalarFieldEnum = (typeof ContaPagarScalarFieldEnum)[keyof typeof ContaPagarScalarFieldEnum]
+
+
+  export const FornecedorContaPagarScalarFieldEnum: {
+    id: 'id',
+    nome: 'nome',
+    tipoPessoa: 'tipoPessoa',
+    cnpj: 'cnpj',
+    ie: 'ie',
+    cpf: 'cpf',
+    rg: 'rg',
+    endereco: 'endereco',
+    numero: 'numero',
+    complemento: 'complemento',
+    cidade: 'cidade',
+    bairro: 'bairro',
+    cep: 'cep',
+    uf: 'uf',
+    email: 'email',
+    fone: 'fone',
+    celular: 'celular'
+  };
+
+  export type FornecedorContaPagarScalarFieldEnum = (typeof FornecedorContaPagarScalarFieldEnum)[keyof typeof FornecedorContaPagarScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -13258,6 +17520,382 @@ export namespace Prisma {
     unidadeMedida?: StringNullableWithAggregatesFilter | string | null
     descricaoDetalhada?: StringNullableWithAggregatesFilter | string | null
     pedidoNumero?: IntNullableWithAggregatesFilter | number | null
+  }
+
+  export type ContaReceberWhereInput = {
+    AND?: Enumerable<ContaReceberWhereInput>
+    OR?: Enumerable<ContaReceberWhereInput>
+    NOT?: Enumerable<ContaReceberWhereInput>
+    id?: StringFilter | string
+    situacao?: StringNullableFilter | string | null
+    dataEmissao?: DateTimeNullableFilter | Date | string | null
+    vencimentoOriginal?: DateTimeNullableFilter | Date | string | null
+    vencimento?: DateTimeNullableFilter | Date | string | null
+    competencia?: DateTimeNullableFilter | Date | string | null
+    nroDocumento?: StringNullableFilter | string | null
+    valor?: FloatNullableFilter | number | null
+    saldo?: FloatNullableFilter | number | null
+    historico?: StringNullableFilter | string | null
+    categoria?: StringNullableFilter | string | null
+    idFormaPagamento?: StringNullableFilter | string | null
+    portador?: StringNullableFilter | string | null
+    linkBoleto?: StringNullableFilter | string | null
+    vendedor?: StringNullableFilter | string | null
+    ocorrencia?: StringNullableFilter | string | null
+    cliente_id?: IntFilter | number
+    cliente?: XOR<ClienteContaReceberRelationFilter, ClienteContaReceberWhereInput>
+  }
+
+  export type ContaReceberOrderByWithRelationInput = {
+    id?: SortOrder
+    situacao?: SortOrder
+    dataEmissao?: SortOrder
+    vencimentoOriginal?: SortOrder
+    vencimento?: SortOrder
+    competencia?: SortOrder
+    nroDocumento?: SortOrder
+    valor?: SortOrder
+    saldo?: SortOrder
+    historico?: SortOrder
+    categoria?: SortOrder
+    idFormaPagamento?: SortOrder
+    portador?: SortOrder
+    linkBoleto?: SortOrder
+    vendedor?: SortOrder
+    ocorrencia?: SortOrder
+    cliente_id?: SortOrder
+    cliente?: ClienteContaReceberOrderByWithRelationInput
+  }
+
+  export type ContaReceberWhereUniqueInput = {
+    id?: string
+  }
+
+  export type ContaReceberOrderByWithAggregationInput = {
+    id?: SortOrder
+    situacao?: SortOrder
+    dataEmissao?: SortOrder
+    vencimentoOriginal?: SortOrder
+    vencimento?: SortOrder
+    competencia?: SortOrder
+    nroDocumento?: SortOrder
+    valor?: SortOrder
+    saldo?: SortOrder
+    historico?: SortOrder
+    categoria?: SortOrder
+    idFormaPagamento?: SortOrder
+    portador?: SortOrder
+    linkBoleto?: SortOrder
+    vendedor?: SortOrder
+    ocorrencia?: SortOrder
+    cliente_id?: SortOrder
+    _count?: ContaReceberCountOrderByAggregateInput
+    _avg?: ContaReceberAvgOrderByAggregateInput
+    _max?: ContaReceberMaxOrderByAggregateInput
+    _min?: ContaReceberMinOrderByAggregateInput
+    _sum?: ContaReceberSumOrderByAggregateInput
+  }
+
+  export type ContaReceberScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<ContaReceberScalarWhereWithAggregatesInput>
+    OR?: Enumerable<ContaReceberScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<ContaReceberScalarWhereWithAggregatesInput>
+    id?: StringWithAggregatesFilter | string
+    situacao?: StringNullableWithAggregatesFilter | string | null
+    dataEmissao?: DateTimeNullableWithAggregatesFilter | Date | string | null
+    vencimentoOriginal?: DateTimeNullableWithAggregatesFilter | Date | string | null
+    vencimento?: DateTimeNullableWithAggregatesFilter | Date | string | null
+    competencia?: DateTimeNullableWithAggregatesFilter | Date | string | null
+    nroDocumento?: StringNullableWithAggregatesFilter | string | null
+    valor?: FloatNullableWithAggregatesFilter | number | null
+    saldo?: FloatNullableWithAggregatesFilter | number | null
+    historico?: StringNullableWithAggregatesFilter | string | null
+    categoria?: StringNullableWithAggregatesFilter | string | null
+    idFormaPagamento?: StringNullableWithAggregatesFilter | string | null
+    portador?: StringNullableWithAggregatesFilter | string | null
+    linkBoleto?: StringNullableWithAggregatesFilter | string | null
+    vendedor?: StringNullableWithAggregatesFilter | string | null
+    ocorrencia?: StringNullableWithAggregatesFilter | string | null
+    cliente_id?: IntWithAggregatesFilter | number
+  }
+
+  export type ClienteContaReceberWhereInput = {
+    AND?: Enumerable<ClienteContaReceberWhereInput>
+    OR?: Enumerable<ClienteContaReceberWhereInput>
+    NOT?: Enumerable<ClienteContaReceberWhereInput>
+    id?: IntFilter | number
+    nome?: StringNullableFilter | string | null
+    tipoPessoa?: StringNullableFilter | string | null
+    cpf?: StringNullableFilter | string | null
+    rg?: StringNullableFilter | string | null
+    cnpj?: StringNullableFilter | string | null
+    ie?: StringNullableFilter | string | null
+    endereco?: StringNullableFilter | string | null
+    numero?: IntNullableFilter | number | null
+    complemento?: StringNullableFilter | string | null
+    cidade?: StringNullableFilter | string | null
+    bairro?: StringNullableFilter | string | null
+    cep?: StringNullableFilter | string | null
+    uf?: StringNullableFilter | string | null
+    email?: StringNullableFilter | string | null
+    fone?: StringNullableFilter | string | null
+    celular?: StringNullableFilter | string | null
+    ContaReceber?: ContaReceberListRelationFilter
+  }
+
+  export type ClienteContaReceberOrderByWithRelationInput = {
+    id?: SortOrder
+    nome?: SortOrder
+    tipoPessoa?: SortOrder
+    cpf?: SortOrder
+    rg?: SortOrder
+    cnpj?: SortOrder
+    ie?: SortOrder
+    endereco?: SortOrder
+    numero?: SortOrder
+    complemento?: SortOrder
+    cidade?: SortOrder
+    bairro?: SortOrder
+    cep?: SortOrder
+    uf?: SortOrder
+    email?: SortOrder
+    fone?: SortOrder
+    celular?: SortOrder
+    ContaReceber?: ContaReceberOrderByRelationAggregateInput
+  }
+
+  export type ClienteContaReceberWhereUniqueInput = {
+    id?: number
+  }
+
+  export type ClienteContaReceberOrderByWithAggregationInput = {
+    id?: SortOrder
+    nome?: SortOrder
+    tipoPessoa?: SortOrder
+    cpf?: SortOrder
+    rg?: SortOrder
+    cnpj?: SortOrder
+    ie?: SortOrder
+    endereco?: SortOrder
+    numero?: SortOrder
+    complemento?: SortOrder
+    cidade?: SortOrder
+    bairro?: SortOrder
+    cep?: SortOrder
+    uf?: SortOrder
+    email?: SortOrder
+    fone?: SortOrder
+    celular?: SortOrder
+    _count?: ClienteContaReceberCountOrderByAggregateInput
+    _avg?: ClienteContaReceberAvgOrderByAggregateInput
+    _max?: ClienteContaReceberMaxOrderByAggregateInput
+    _min?: ClienteContaReceberMinOrderByAggregateInput
+    _sum?: ClienteContaReceberSumOrderByAggregateInput
+  }
+
+  export type ClienteContaReceberScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<ClienteContaReceberScalarWhereWithAggregatesInput>
+    OR?: Enumerable<ClienteContaReceberScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<ClienteContaReceberScalarWhereWithAggregatesInput>
+    id?: IntWithAggregatesFilter | number
+    nome?: StringNullableWithAggregatesFilter | string | null
+    tipoPessoa?: StringNullableWithAggregatesFilter | string | null
+    cpf?: StringNullableWithAggregatesFilter | string | null
+    rg?: StringNullableWithAggregatesFilter | string | null
+    cnpj?: StringNullableWithAggregatesFilter | string | null
+    ie?: StringNullableWithAggregatesFilter | string | null
+    endereco?: StringNullableWithAggregatesFilter | string | null
+    numero?: IntNullableWithAggregatesFilter | number | null
+    complemento?: StringNullableWithAggregatesFilter | string | null
+    cidade?: StringNullableWithAggregatesFilter | string | null
+    bairro?: StringNullableWithAggregatesFilter | string | null
+    cep?: StringNullableWithAggregatesFilter | string | null
+    uf?: StringNullableWithAggregatesFilter | string | null
+    email?: StringNullableWithAggregatesFilter | string | null
+    fone?: StringNullableWithAggregatesFilter | string | null
+    celular?: StringNullableWithAggregatesFilter | string | null
+  }
+
+  export type ContaPagarWhereInput = {
+    AND?: Enumerable<ContaPagarWhereInput>
+    OR?: Enumerable<ContaPagarWhereInput>
+    NOT?: Enumerable<ContaPagarWhereInput>
+    id?: StringFilter | string
+    situacao?: StringNullableFilter | string | null
+    dataEmissao?: DateTimeNullableFilter | Date | string | null
+    vencimentoOriginal?: DateTimeNullableFilter | Date | string | null
+    vencimento?: DateTimeNullableFilter | Date | string | null
+    competencia?: DateTimeNullableFilter | Date | string | null
+    nroDocumento?: StringNullableFilter | string | null
+    valor?: FloatNullableFilter | number | null
+    saldo?: FloatNullableFilter | number | null
+    historico?: StringNullableFilter | string | null
+    categoria?: StringNullableFilter | string | null
+    portador?: StringNullableFilter | string | null
+    ocorrencia?: StringNullableFilter | string | null
+    fornecedor_id?: IntFilter | number
+    fornecedor?: XOR<FornecedorContaPagarRelationFilter, FornecedorContaPagarWhereInput>
+  }
+
+  export type ContaPagarOrderByWithRelationInput = {
+    id?: SortOrder
+    situacao?: SortOrder
+    dataEmissao?: SortOrder
+    vencimentoOriginal?: SortOrder
+    vencimento?: SortOrder
+    competencia?: SortOrder
+    nroDocumento?: SortOrder
+    valor?: SortOrder
+    saldo?: SortOrder
+    historico?: SortOrder
+    categoria?: SortOrder
+    portador?: SortOrder
+    ocorrencia?: SortOrder
+    fornecedor_id?: SortOrder
+    fornecedor?: FornecedorContaPagarOrderByWithRelationInput
+  }
+
+  export type ContaPagarWhereUniqueInput = {
+    id?: string
+  }
+
+  export type ContaPagarOrderByWithAggregationInput = {
+    id?: SortOrder
+    situacao?: SortOrder
+    dataEmissao?: SortOrder
+    vencimentoOriginal?: SortOrder
+    vencimento?: SortOrder
+    competencia?: SortOrder
+    nroDocumento?: SortOrder
+    valor?: SortOrder
+    saldo?: SortOrder
+    historico?: SortOrder
+    categoria?: SortOrder
+    portador?: SortOrder
+    ocorrencia?: SortOrder
+    fornecedor_id?: SortOrder
+    _count?: ContaPagarCountOrderByAggregateInput
+    _avg?: ContaPagarAvgOrderByAggregateInput
+    _max?: ContaPagarMaxOrderByAggregateInput
+    _min?: ContaPagarMinOrderByAggregateInput
+    _sum?: ContaPagarSumOrderByAggregateInput
+  }
+
+  export type ContaPagarScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<ContaPagarScalarWhereWithAggregatesInput>
+    OR?: Enumerable<ContaPagarScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<ContaPagarScalarWhereWithAggregatesInput>
+    id?: StringWithAggregatesFilter | string
+    situacao?: StringNullableWithAggregatesFilter | string | null
+    dataEmissao?: DateTimeNullableWithAggregatesFilter | Date | string | null
+    vencimentoOriginal?: DateTimeNullableWithAggregatesFilter | Date | string | null
+    vencimento?: DateTimeNullableWithAggregatesFilter | Date | string | null
+    competencia?: DateTimeNullableWithAggregatesFilter | Date | string | null
+    nroDocumento?: StringNullableWithAggregatesFilter | string | null
+    valor?: FloatNullableWithAggregatesFilter | number | null
+    saldo?: FloatNullableWithAggregatesFilter | number | null
+    historico?: StringNullableWithAggregatesFilter | string | null
+    categoria?: StringNullableWithAggregatesFilter | string | null
+    portador?: StringNullableWithAggregatesFilter | string | null
+    ocorrencia?: StringNullableWithAggregatesFilter | string | null
+    fornecedor_id?: IntWithAggregatesFilter | number
+  }
+
+  export type FornecedorContaPagarWhereInput = {
+    AND?: Enumerable<FornecedorContaPagarWhereInput>
+    OR?: Enumerable<FornecedorContaPagarWhereInput>
+    NOT?: Enumerable<FornecedorContaPagarWhereInput>
+    id?: IntFilter | number
+    nome?: StringNullableFilter | string | null
+    tipoPessoa?: StringNullableFilter | string | null
+    cnpj?: StringNullableFilter | string | null
+    ie?: StringNullableFilter | string | null
+    cpf?: StringNullableFilter | string | null
+    rg?: StringNullableFilter | string | null
+    endereco?: StringNullableFilter | string | null
+    numero?: IntNullableFilter | number | null
+    complemento?: StringNullableFilter | string | null
+    cidade?: StringNullableFilter | string | null
+    bairro?: StringNullableFilter | string | null
+    cep?: StringNullableFilter | string | null
+    uf?: StringNullableFilter | string | null
+    email?: StringNullableFilter | string | null
+    fone?: StringNullableFilter | string | null
+    celular?: StringNullableFilter | string | null
+    ContaPagar?: ContaPagarListRelationFilter
+  }
+
+  export type FornecedorContaPagarOrderByWithRelationInput = {
+    id?: SortOrder
+    nome?: SortOrder
+    tipoPessoa?: SortOrder
+    cnpj?: SortOrder
+    ie?: SortOrder
+    cpf?: SortOrder
+    rg?: SortOrder
+    endereco?: SortOrder
+    numero?: SortOrder
+    complemento?: SortOrder
+    cidade?: SortOrder
+    bairro?: SortOrder
+    cep?: SortOrder
+    uf?: SortOrder
+    email?: SortOrder
+    fone?: SortOrder
+    celular?: SortOrder
+    ContaPagar?: ContaPagarOrderByRelationAggregateInput
+  }
+
+  export type FornecedorContaPagarWhereUniqueInput = {
+    id?: number
+  }
+
+  export type FornecedorContaPagarOrderByWithAggregationInput = {
+    id?: SortOrder
+    nome?: SortOrder
+    tipoPessoa?: SortOrder
+    cnpj?: SortOrder
+    ie?: SortOrder
+    cpf?: SortOrder
+    rg?: SortOrder
+    endereco?: SortOrder
+    numero?: SortOrder
+    complemento?: SortOrder
+    cidade?: SortOrder
+    bairro?: SortOrder
+    cep?: SortOrder
+    uf?: SortOrder
+    email?: SortOrder
+    fone?: SortOrder
+    celular?: SortOrder
+    _count?: FornecedorContaPagarCountOrderByAggregateInput
+    _avg?: FornecedorContaPagarAvgOrderByAggregateInput
+    _max?: FornecedorContaPagarMaxOrderByAggregateInput
+    _min?: FornecedorContaPagarMinOrderByAggregateInput
+    _sum?: FornecedorContaPagarSumOrderByAggregateInput
+  }
+
+  export type FornecedorContaPagarScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<FornecedorContaPagarScalarWhereWithAggregatesInput>
+    OR?: Enumerable<FornecedorContaPagarScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<FornecedorContaPagarScalarWhereWithAggregatesInput>
+    id?: IntWithAggregatesFilter | number
+    nome?: StringNullableWithAggregatesFilter | string | null
+    tipoPessoa?: StringNullableWithAggregatesFilter | string | null
+    cnpj?: StringNullableWithAggregatesFilter | string | null
+    ie?: StringNullableWithAggregatesFilter | string | null
+    cpf?: StringNullableWithAggregatesFilter | string | null
+    rg?: StringNullableWithAggregatesFilter | string | null
+    endereco?: StringNullableWithAggregatesFilter | string | null
+    numero?: IntNullableWithAggregatesFilter | number | null
+    complemento?: StringNullableWithAggregatesFilter | string | null
+    cidade?: StringNullableWithAggregatesFilter | string | null
+    bairro?: StringNullableWithAggregatesFilter | string | null
+    cep?: StringNullableWithAggregatesFilter | string | null
+    uf?: StringNullableWithAggregatesFilter | string | null
+    email?: StringNullableWithAggregatesFilter | string | null
+    fone?: StringNullableWithAggregatesFilter | string | null
+    celular?: StringNullableWithAggregatesFilter | string | null
   }
 
   export type ProdutoCreateInput = {
@@ -14549,6 +19187,545 @@ export namespace Prisma {
     pedidoNumero?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
+  export type ContaReceberCreateInput = {
+    id: string
+    situacao?: string | null
+    dataEmissao?: Date | string | null
+    vencimentoOriginal?: Date | string | null
+    vencimento?: Date | string | null
+    competencia?: Date | string | null
+    nroDocumento?: string | null
+    valor?: number | null
+    saldo?: number | null
+    historico?: string | null
+    categoria?: string | null
+    idFormaPagamento?: string | null
+    portador?: string | null
+    linkBoleto?: string | null
+    vendedor?: string | null
+    ocorrencia?: string | null
+    cliente: ClienteContaReceberCreateNestedOneWithoutContaReceberInput
+  }
+
+  export type ContaReceberUncheckedCreateInput = {
+    id: string
+    situacao?: string | null
+    dataEmissao?: Date | string | null
+    vencimentoOriginal?: Date | string | null
+    vencimento?: Date | string | null
+    competencia?: Date | string | null
+    nroDocumento?: string | null
+    valor?: number | null
+    saldo?: number | null
+    historico?: string | null
+    categoria?: string | null
+    idFormaPagamento?: string | null
+    portador?: string | null
+    linkBoleto?: string | null
+    vendedor?: string | null
+    ocorrencia?: string | null
+    cliente_id: number
+  }
+
+  export type ContaReceberUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    situacao?: NullableStringFieldUpdateOperationsInput | string | null
+    dataEmissao?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    vencimentoOriginal?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    vencimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    competencia?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nroDocumento?: NullableStringFieldUpdateOperationsInput | string | null
+    valor?: NullableFloatFieldUpdateOperationsInput | number | null
+    saldo?: NullableFloatFieldUpdateOperationsInput | number | null
+    historico?: NullableStringFieldUpdateOperationsInput | string | null
+    categoria?: NullableStringFieldUpdateOperationsInput | string | null
+    idFormaPagamento?: NullableStringFieldUpdateOperationsInput | string | null
+    portador?: NullableStringFieldUpdateOperationsInput | string | null
+    linkBoleto?: NullableStringFieldUpdateOperationsInput | string | null
+    vendedor?: NullableStringFieldUpdateOperationsInput | string | null
+    ocorrencia?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente?: ClienteContaReceberUpdateOneRequiredWithoutContaReceberInput
+  }
+
+  export type ContaReceberUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    situacao?: NullableStringFieldUpdateOperationsInput | string | null
+    dataEmissao?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    vencimentoOriginal?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    vencimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    competencia?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nroDocumento?: NullableStringFieldUpdateOperationsInput | string | null
+    valor?: NullableFloatFieldUpdateOperationsInput | number | null
+    saldo?: NullableFloatFieldUpdateOperationsInput | number | null
+    historico?: NullableStringFieldUpdateOperationsInput | string | null
+    categoria?: NullableStringFieldUpdateOperationsInput | string | null
+    idFormaPagamento?: NullableStringFieldUpdateOperationsInput | string | null
+    portador?: NullableStringFieldUpdateOperationsInput | string | null
+    linkBoleto?: NullableStringFieldUpdateOperationsInput | string | null
+    vendedor?: NullableStringFieldUpdateOperationsInput | string | null
+    ocorrencia?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type ContaReceberCreateManyInput = {
+    id: string
+    situacao?: string | null
+    dataEmissao?: Date | string | null
+    vencimentoOriginal?: Date | string | null
+    vencimento?: Date | string | null
+    competencia?: Date | string | null
+    nroDocumento?: string | null
+    valor?: number | null
+    saldo?: number | null
+    historico?: string | null
+    categoria?: string | null
+    idFormaPagamento?: string | null
+    portador?: string | null
+    linkBoleto?: string | null
+    vendedor?: string | null
+    ocorrencia?: string | null
+    cliente_id: number
+  }
+
+  export type ContaReceberUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    situacao?: NullableStringFieldUpdateOperationsInput | string | null
+    dataEmissao?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    vencimentoOriginal?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    vencimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    competencia?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nroDocumento?: NullableStringFieldUpdateOperationsInput | string | null
+    valor?: NullableFloatFieldUpdateOperationsInput | number | null
+    saldo?: NullableFloatFieldUpdateOperationsInput | number | null
+    historico?: NullableStringFieldUpdateOperationsInput | string | null
+    categoria?: NullableStringFieldUpdateOperationsInput | string | null
+    idFormaPagamento?: NullableStringFieldUpdateOperationsInput | string | null
+    portador?: NullableStringFieldUpdateOperationsInput | string | null
+    linkBoleto?: NullableStringFieldUpdateOperationsInput | string | null
+    vendedor?: NullableStringFieldUpdateOperationsInput | string | null
+    ocorrencia?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ContaReceberUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    situacao?: NullableStringFieldUpdateOperationsInput | string | null
+    dataEmissao?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    vencimentoOriginal?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    vencimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    competencia?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nroDocumento?: NullableStringFieldUpdateOperationsInput | string | null
+    valor?: NullableFloatFieldUpdateOperationsInput | number | null
+    saldo?: NullableFloatFieldUpdateOperationsInput | number | null
+    historico?: NullableStringFieldUpdateOperationsInput | string | null
+    categoria?: NullableStringFieldUpdateOperationsInput | string | null
+    idFormaPagamento?: NullableStringFieldUpdateOperationsInput | string | null
+    portador?: NullableStringFieldUpdateOperationsInput | string | null
+    linkBoleto?: NullableStringFieldUpdateOperationsInput | string | null
+    vendedor?: NullableStringFieldUpdateOperationsInput | string | null
+    ocorrencia?: NullableStringFieldUpdateOperationsInput | string | null
+    cliente_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type ClienteContaReceberCreateInput = {
+    nome?: string | null
+    tipoPessoa?: string | null
+    cpf?: string | null
+    rg?: string | null
+    cnpj?: string | null
+    ie?: string | null
+    endereco?: string | null
+    numero?: number | null
+    complemento?: string | null
+    cidade?: string | null
+    bairro?: string | null
+    cep?: string | null
+    uf?: string | null
+    email?: string | null
+    fone?: string | null
+    celular?: string | null
+    ContaReceber?: ContaReceberCreateNestedManyWithoutClienteInput
+  }
+
+  export type ClienteContaReceberUncheckedCreateInput = {
+    id?: number
+    nome?: string | null
+    tipoPessoa?: string | null
+    cpf?: string | null
+    rg?: string | null
+    cnpj?: string | null
+    ie?: string | null
+    endereco?: string | null
+    numero?: number | null
+    complemento?: string | null
+    cidade?: string | null
+    bairro?: string | null
+    cep?: string | null
+    uf?: string | null
+    email?: string | null
+    fone?: string | null
+    celular?: string | null
+    ContaReceber?: ContaReceberUncheckedCreateNestedManyWithoutClienteInput
+  }
+
+  export type ClienteContaReceberUpdateInput = {
+    nome?: NullableStringFieldUpdateOperationsInput | string | null
+    tipoPessoa?: NullableStringFieldUpdateOperationsInput | string | null
+    cpf?: NullableStringFieldUpdateOperationsInput | string | null
+    rg?: NullableStringFieldUpdateOperationsInput | string | null
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
+    ie?: NullableStringFieldUpdateOperationsInput | string | null
+    endereco?: NullableStringFieldUpdateOperationsInput | string | null
+    numero?: NullableIntFieldUpdateOperationsInput | number | null
+    complemento?: NullableStringFieldUpdateOperationsInput | string | null
+    cidade?: NullableStringFieldUpdateOperationsInput | string | null
+    bairro?: NullableStringFieldUpdateOperationsInput | string | null
+    cep?: NullableStringFieldUpdateOperationsInput | string | null
+    uf?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    fone?: NullableStringFieldUpdateOperationsInput | string | null
+    celular?: NullableStringFieldUpdateOperationsInput | string | null
+    ContaReceber?: ContaReceberUpdateManyWithoutClienteInput
+  }
+
+  export type ClienteContaReceberUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    nome?: NullableStringFieldUpdateOperationsInput | string | null
+    tipoPessoa?: NullableStringFieldUpdateOperationsInput | string | null
+    cpf?: NullableStringFieldUpdateOperationsInput | string | null
+    rg?: NullableStringFieldUpdateOperationsInput | string | null
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
+    ie?: NullableStringFieldUpdateOperationsInput | string | null
+    endereco?: NullableStringFieldUpdateOperationsInput | string | null
+    numero?: NullableIntFieldUpdateOperationsInput | number | null
+    complemento?: NullableStringFieldUpdateOperationsInput | string | null
+    cidade?: NullableStringFieldUpdateOperationsInput | string | null
+    bairro?: NullableStringFieldUpdateOperationsInput | string | null
+    cep?: NullableStringFieldUpdateOperationsInput | string | null
+    uf?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    fone?: NullableStringFieldUpdateOperationsInput | string | null
+    celular?: NullableStringFieldUpdateOperationsInput | string | null
+    ContaReceber?: ContaReceberUncheckedUpdateManyWithoutClienteInput
+  }
+
+  export type ClienteContaReceberCreateManyInput = {
+    id?: number
+    nome?: string | null
+    tipoPessoa?: string | null
+    cpf?: string | null
+    rg?: string | null
+    cnpj?: string | null
+    ie?: string | null
+    endereco?: string | null
+    numero?: number | null
+    complemento?: string | null
+    cidade?: string | null
+    bairro?: string | null
+    cep?: string | null
+    uf?: string | null
+    email?: string | null
+    fone?: string | null
+    celular?: string | null
+  }
+
+  export type ClienteContaReceberUpdateManyMutationInput = {
+    nome?: NullableStringFieldUpdateOperationsInput | string | null
+    tipoPessoa?: NullableStringFieldUpdateOperationsInput | string | null
+    cpf?: NullableStringFieldUpdateOperationsInput | string | null
+    rg?: NullableStringFieldUpdateOperationsInput | string | null
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
+    ie?: NullableStringFieldUpdateOperationsInput | string | null
+    endereco?: NullableStringFieldUpdateOperationsInput | string | null
+    numero?: NullableIntFieldUpdateOperationsInput | number | null
+    complemento?: NullableStringFieldUpdateOperationsInput | string | null
+    cidade?: NullableStringFieldUpdateOperationsInput | string | null
+    bairro?: NullableStringFieldUpdateOperationsInput | string | null
+    cep?: NullableStringFieldUpdateOperationsInput | string | null
+    uf?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    fone?: NullableStringFieldUpdateOperationsInput | string | null
+    celular?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ClienteContaReceberUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    nome?: NullableStringFieldUpdateOperationsInput | string | null
+    tipoPessoa?: NullableStringFieldUpdateOperationsInput | string | null
+    cpf?: NullableStringFieldUpdateOperationsInput | string | null
+    rg?: NullableStringFieldUpdateOperationsInput | string | null
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
+    ie?: NullableStringFieldUpdateOperationsInput | string | null
+    endereco?: NullableStringFieldUpdateOperationsInput | string | null
+    numero?: NullableIntFieldUpdateOperationsInput | number | null
+    complemento?: NullableStringFieldUpdateOperationsInput | string | null
+    cidade?: NullableStringFieldUpdateOperationsInput | string | null
+    bairro?: NullableStringFieldUpdateOperationsInput | string | null
+    cep?: NullableStringFieldUpdateOperationsInput | string | null
+    uf?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    fone?: NullableStringFieldUpdateOperationsInput | string | null
+    celular?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ContaPagarCreateInput = {
+    id: string
+    situacao?: string | null
+    dataEmissao?: Date | string | null
+    vencimentoOriginal?: Date | string | null
+    vencimento?: Date | string | null
+    competencia?: Date | string | null
+    nroDocumento?: string | null
+    valor?: number | null
+    saldo?: number | null
+    historico?: string | null
+    categoria?: string | null
+    portador?: string | null
+    ocorrencia?: string | null
+    fornecedor: FornecedorContaPagarCreateNestedOneWithoutContaPagarInput
+  }
+
+  export type ContaPagarUncheckedCreateInput = {
+    id: string
+    situacao?: string | null
+    dataEmissao?: Date | string | null
+    vencimentoOriginal?: Date | string | null
+    vencimento?: Date | string | null
+    competencia?: Date | string | null
+    nroDocumento?: string | null
+    valor?: number | null
+    saldo?: number | null
+    historico?: string | null
+    categoria?: string | null
+    portador?: string | null
+    ocorrencia?: string | null
+    fornecedor_id: number
+  }
+
+  export type ContaPagarUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    situacao?: NullableStringFieldUpdateOperationsInput | string | null
+    dataEmissao?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    vencimentoOriginal?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    vencimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    competencia?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nroDocumento?: NullableStringFieldUpdateOperationsInput | string | null
+    valor?: NullableFloatFieldUpdateOperationsInput | number | null
+    saldo?: NullableFloatFieldUpdateOperationsInput | number | null
+    historico?: NullableStringFieldUpdateOperationsInput | string | null
+    categoria?: NullableStringFieldUpdateOperationsInput | string | null
+    portador?: NullableStringFieldUpdateOperationsInput | string | null
+    ocorrencia?: NullableStringFieldUpdateOperationsInput | string | null
+    fornecedor?: FornecedorContaPagarUpdateOneRequiredWithoutContaPagarInput
+  }
+
+  export type ContaPagarUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    situacao?: NullableStringFieldUpdateOperationsInput | string | null
+    dataEmissao?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    vencimentoOriginal?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    vencimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    competencia?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nroDocumento?: NullableStringFieldUpdateOperationsInput | string | null
+    valor?: NullableFloatFieldUpdateOperationsInput | number | null
+    saldo?: NullableFloatFieldUpdateOperationsInput | number | null
+    historico?: NullableStringFieldUpdateOperationsInput | string | null
+    categoria?: NullableStringFieldUpdateOperationsInput | string | null
+    portador?: NullableStringFieldUpdateOperationsInput | string | null
+    ocorrencia?: NullableStringFieldUpdateOperationsInput | string | null
+    fornecedor_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type ContaPagarCreateManyInput = {
+    id: string
+    situacao?: string | null
+    dataEmissao?: Date | string | null
+    vencimentoOriginal?: Date | string | null
+    vencimento?: Date | string | null
+    competencia?: Date | string | null
+    nroDocumento?: string | null
+    valor?: number | null
+    saldo?: number | null
+    historico?: string | null
+    categoria?: string | null
+    portador?: string | null
+    ocorrencia?: string | null
+    fornecedor_id: number
+  }
+
+  export type ContaPagarUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    situacao?: NullableStringFieldUpdateOperationsInput | string | null
+    dataEmissao?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    vencimentoOriginal?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    vencimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    competencia?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nroDocumento?: NullableStringFieldUpdateOperationsInput | string | null
+    valor?: NullableFloatFieldUpdateOperationsInput | number | null
+    saldo?: NullableFloatFieldUpdateOperationsInput | number | null
+    historico?: NullableStringFieldUpdateOperationsInput | string | null
+    categoria?: NullableStringFieldUpdateOperationsInput | string | null
+    portador?: NullableStringFieldUpdateOperationsInput | string | null
+    ocorrencia?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ContaPagarUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    situacao?: NullableStringFieldUpdateOperationsInput | string | null
+    dataEmissao?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    vencimentoOriginal?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    vencimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    competencia?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nroDocumento?: NullableStringFieldUpdateOperationsInput | string | null
+    valor?: NullableFloatFieldUpdateOperationsInput | number | null
+    saldo?: NullableFloatFieldUpdateOperationsInput | number | null
+    historico?: NullableStringFieldUpdateOperationsInput | string | null
+    categoria?: NullableStringFieldUpdateOperationsInput | string | null
+    portador?: NullableStringFieldUpdateOperationsInput | string | null
+    ocorrencia?: NullableStringFieldUpdateOperationsInput | string | null
+    fornecedor_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type FornecedorContaPagarCreateInput = {
+    nome?: string | null
+    tipoPessoa?: string | null
+    cnpj?: string | null
+    ie?: string | null
+    cpf?: string | null
+    rg?: string | null
+    endereco?: string | null
+    numero?: number | null
+    complemento?: string | null
+    cidade?: string | null
+    bairro?: string | null
+    cep?: string | null
+    uf?: string | null
+    email?: string | null
+    fone?: string | null
+    celular?: string | null
+    ContaPagar?: ContaPagarCreateNestedManyWithoutFornecedorInput
+  }
+
+  export type FornecedorContaPagarUncheckedCreateInput = {
+    id?: number
+    nome?: string | null
+    tipoPessoa?: string | null
+    cnpj?: string | null
+    ie?: string | null
+    cpf?: string | null
+    rg?: string | null
+    endereco?: string | null
+    numero?: number | null
+    complemento?: string | null
+    cidade?: string | null
+    bairro?: string | null
+    cep?: string | null
+    uf?: string | null
+    email?: string | null
+    fone?: string | null
+    celular?: string | null
+    ContaPagar?: ContaPagarUncheckedCreateNestedManyWithoutFornecedorInput
+  }
+
+  export type FornecedorContaPagarUpdateInput = {
+    nome?: NullableStringFieldUpdateOperationsInput | string | null
+    tipoPessoa?: NullableStringFieldUpdateOperationsInput | string | null
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
+    ie?: NullableStringFieldUpdateOperationsInput | string | null
+    cpf?: NullableStringFieldUpdateOperationsInput | string | null
+    rg?: NullableStringFieldUpdateOperationsInput | string | null
+    endereco?: NullableStringFieldUpdateOperationsInput | string | null
+    numero?: NullableIntFieldUpdateOperationsInput | number | null
+    complemento?: NullableStringFieldUpdateOperationsInput | string | null
+    cidade?: NullableStringFieldUpdateOperationsInput | string | null
+    bairro?: NullableStringFieldUpdateOperationsInput | string | null
+    cep?: NullableStringFieldUpdateOperationsInput | string | null
+    uf?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    fone?: NullableStringFieldUpdateOperationsInput | string | null
+    celular?: NullableStringFieldUpdateOperationsInput | string | null
+    ContaPagar?: ContaPagarUpdateManyWithoutFornecedorInput
+  }
+
+  export type FornecedorContaPagarUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    nome?: NullableStringFieldUpdateOperationsInput | string | null
+    tipoPessoa?: NullableStringFieldUpdateOperationsInput | string | null
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
+    ie?: NullableStringFieldUpdateOperationsInput | string | null
+    cpf?: NullableStringFieldUpdateOperationsInput | string | null
+    rg?: NullableStringFieldUpdateOperationsInput | string | null
+    endereco?: NullableStringFieldUpdateOperationsInput | string | null
+    numero?: NullableIntFieldUpdateOperationsInput | number | null
+    complemento?: NullableStringFieldUpdateOperationsInput | string | null
+    cidade?: NullableStringFieldUpdateOperationsInput | string | null
+    bairro?: NullableStringFieldUpdateOperationsInput | string | null
+    cep?: NullableStringFieldUpdateOperationsInput | string | null
+    uf?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    fone?: NullableStringFieldUpdateOperationsInput | string | null
+    celular?: NullableStringFieldUpdateOperationsInput | string | null
+    ContaPagar?: ContaPagarUncheckedUpdateManyWithoutFornecedorInput
+  }
+
+  export type FornecedorContaPagarCreateManyInput = {
+    id?: number
+    nome?: string | null
+    tipoPessoa?: string | null
+    cnpj?: string | null
+    ie?: string | null
+    cpf?: string | null
+    rg?: string | null
+    endereco?: string | null
+    numero?: number | null
+    complemento?: string | null
+    cidade?: string | null
+    bairro?: string | null
+    cep?: string | null
+    uf?: string | null
+    email?: string | null
+    fone?: string | null
+    celular?: string | null
+  }
+
+  export type FornecedorContaPagarUpdateManyMutationInput = {
+    nome?: NullableStringFieldUpdateOperationsInput | string | null
+    tipoPessoa?: NullableStringFieldUpdateOperationsInput | string | null
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
+    ie?: NullableStringFieldUpdateOperationsInput | string | null
+    cpf?: NullableStringFieldUpdateOperationsInput | string | null
+    rg?: NullableStringFieldUpdateOperationsInput | string | null
+    endereco?: NullableStringFieldUpdateOperationsInput | string | null
+    numero?: NullableIntFieldUpdateOperationsInput | number | null
+    complemento?: NullableStringFieldUpdateOperationsInput | string | null
+    cidade?: NullableStringFieldUpdateOperationsInput | string | null
+    bairro?: NullableStringFieldUpdateOperationsInput | string | null
+    cep?: NullableStringFieldUpdateOperationsInput | string | null
+    uf?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    fone?: NullableStringFieldUpdateOperationsInput | string | null
+    celular?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type FornecedorContaPagarUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    nome?: NullableStringFieldUpdateOperationsInput | string | null
+    tipoPessoa?: NullableStringFieldUpdateOperationsInput | string | null
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
+    ie?: NullableStringFieldUpdateOperationsInput | string | null
+    cpf?: NullableStringFieldUpdateOperationsInput | string | null
+    rg?: NullableStringFieldUpdateOperationsInput | string | null
+    endereco?: NullableStringFieldUpdateOperationsInput | string | null
+    numero?: NullableIntFieldUpdateOperationsInput | number | null
+    complemento?: NullableStringFieldUpdateOperationsInput | string | null
+    cidade?: NullableStringFieldUpdateOperationsInput | string | null
+    bairro?: NullableStringFieldUpdateOperationsInput | string | null
+    cep?: NullableStringFieldUpdateOperationsInput | string | null
+    uf?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    fone?: NullableStringFieldUpdateOperationsInput | string | null
+    celular?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type StringFilter = {
     equals?: string
     in?: Enumerable<string>
@@ -15596,6 +20773,311 @@ export namespace Prisma {
     pedidoNumero?: SortOrder
   }
 
+  export type ClienteContaReceberRelationFilter = {
+    is?: ClienteContaReceberWhereInput
+    isNot?: ClienteContaReceberWhereInput
+  }
+
+  export type ContaReceberCountOrderByAggregateInput = {
+    id?: SortOrder
+    situacao?: SortOrder
+    dataEmissao?: SortOrder
+    vencimentoOriginal?: SortOrder
+    vencimento?: SortOrder
+    competencia?: SortOrder
+    nroDocumento?: SortOrder
+    valor?: SortOrder
+    saldo?: SortOrder
+    historico?: SortOrder
+    categoria?: SortOrder
+    idFormaPagamento?: SortOrder
+    portador?: SortOrder
+    linkBoleto?: SortOrder
+    vendedor?: SortOrder
+    ocorrencia?: SortOrder
+    cliente_id?: SortOrder
+  }
+
+  export type ContaReceberAvgOrderByAggregateInput = {
+    valor?: SortOrder
+    saldo?: SortOrder
+    cliente_id?: SortOrder
+  }
+
+  export type ContaReceberMaxOrderByAggregateInput = {
+    id?: SortOrder
+    situacao?: SortOrder
+    dataEmissao?: SortOrder
+    vencimentoOriginal?: SortOrder
+    vencimento?: SortOrder
+    competencia?: SortOrder
+    nroDocumento?: SortOrder
+    valor?: SortOrder
+    saldo?: SortOrder
+    historico?: SortOrder
+    categoria?: SortOrder
+    idFormaPagamento?: SortOrder
+    portador?: SortOrder
+    linkBoleto?: SortOrder
+    vendedor?: SortOrder
+    ocorrencia?: SortOrder
+    cliente_id?: SortOrder
+  }
+
+  export type ContaReceberMinOrderByAggregateInput = {
+    id?: SortOrder
+    situacao?: SortOrder
+    dataEmissao?: SortOrder
+    vencimentoOriginal?: SortOrder
+    vencimento?: SortOrder
+    competencia?: SortOrder
+    nroDocumento?: SortOrder
+    valor?: SortOrder
+    saldo?: SortOrder
+    historico?: SortOrder
+    categoria?: SortOrder
+    idFormaPagamento?: SortOrder
+    portador?: SortOrder
+    linkBoleto?: SortOrder
+    vendedor?: SortOrder
+    ocorrencia?: SortOrder
+    cliente_id?: SortOrder
+  }
+
+  export type ContaReceberSumOrderByAggregateInput = {
+    valor?: SortOrder
+    saldo?: SortOrder
+    cliente_id?: SortOrder
+  }
+
+  export type ContaReceberListRelationFilter = {
+    every?: ContaReceberWhereInput
+    some?: ContaReceberWhereInput
+    none?: ContaReceberWhereInput
+  }
+
+  export type ContaReceberOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ClienteContaReceberCountOrderByAggregateInput = {
+    id?: SortOrder
+    nome?: SortOrder
+    tipoPessoa?: SortOrder
+    cpf?: SortOrder
+    rg?: SortOrder
+    cnpj?: SortOrder
+    ie?: SortOrder
+    endereco?: SortOrder
+    numero?: SortOrder
+    complemento?: SortOrder
+    cidade?: SortOrder
+    bairro?: SortOrder
+    cep?: SortOrder
+    uf?: SortOrder
+    email?: SortOrder
+    fone?: SortOrder
+    celular?: SortOrder
+  }
+
+  export type ClienteContaReceberAvgOrderByAggregateInput = {
+    id?: SortOrder
+    numero?: SortOrder
+  }
+
+  export type ClienteContaReceberMaxOrderByAggregateInput = {
+    id?: SortOrder
+    nome?: SortOrder
+    tipoPessoa?: SortOrder
+    cpf?: SortOrder
+    rg?: SortOrder
+    cnpj?: SortOrder
+    ie?: SortOrder
+    endereco?: SortOrder
+    numero?: SortOrder
+    complemento?: SortOrder
+    cidade?: SortOrder
+    bairro?: SortOrder
+    cep?: SortOrder
+    uf?: SortOrder
+    email?: SortOrder
+    fone?: SortOrder
+    celular?: SortOrder
+  }
+
+  export type ClienteContaReceberMinOrderByAggregateInput = {
+    id?: SortOrder
+    nome?: SortOrder
+    tipoPessoa?: SortOrder
+    cpf?: SortOrder
+    rg?: SortOrder
+    cnpj?: SortOrder
+    ie?: SortOrder
+    endereco?: SortOrder
+    numero?: SortOrder
+    complemento?: SortOrder
+    cidade?: SortOrder
+    bairro?: SortOrder
+    cep?: SortOrder
+    uf?: SortOrder
+    email?: SortOrder
+    fone?: SortOrder
+    celular?: SortOrder
+  }
+
+  export type ClienteContaReceberSumOrderByAggregateInput = {
+    id?: SortOrder
+    numero?: SortOrder
+  }
+
+  export type FornecedorContaPagarRelationFilter = {
+    is?: FornecedorContaPagarWhereInput
+    isNot?: FornecedorContaPagarWhereInput
+  }
+
+  export type ContaPagarCountOrderByAggregateInput = {
+    id?: SortOrder
+    situacao?: SortOrder
+    dataEmissao?: SortOrder
+    vencimentoOriginal?: SortOrder
+    vencimento?: SortOrder
+    competencia?: SortOrder
+    nroDocumento?: SortOrder
+    valor?: SortOrder
+    saldo?: SortOrder
+    historico?: SortOrder
+    categoria?: SortOrder
+    portador?: SortOrder
+    ocorrencia?: SortOrder
+    fornecedor_id?: SortOrder
+  }
+
+  export type ContaPagarAvgOrderByAggregateInput = {
+    valor?: SortOrder
+    saldo?: SortOrder
+    fornecedor_id?: SortOrder
+  }
+
+  export type ContaPagarMaxOrderByAggregateInput = {
+    id?: SortOrder
+    situacao?: SortOrder
+    dataEmissao?: SortOrder
+    vencimentoOriginal?: SortOrder
+    vencimento?: SortOrder
+    competencia?: SortOrder
+    nroDocumento?: SortOrder
+    valor?: SortOrder
+    saldo?: SortOrder
+    historico?: SortOrder
+    categoria?: SortOrder
+    portador?: SortOrder
+    ocorrencia?: SortOrder
+    fornecedor_id?: SortOrder
+  }
+
+  export type ContaPagarMinOrderByAggregateInput = {
+    id?: SortOrder
+    situacao?: SortOrder
+    dataEmissao?: SortOrder
+    vencimentoOriginal?: SortOrder
+    vencimento?: SortOrder
+    competencia?: SortOrder
+    nroDocumento?: SortOrder
+    valor?: SortOrder
+    saldo?: SortOrder
+    historico?: SortOrder
+    categoria?: SortOrder
+    portador?: SortOrder
+    ocorrencia?: SortOrder
+    fornecedor_id?: SortOrder
+  }
+
+  export type ContaPagarSumOrderByAggregateInput = {
+    valor?: SortOrder
+    saldo?: SortOrder
+    fornecedor_id?: SortOrder
+  }
+
+  export type ContaPagarListRelationFilter = {
+    every?: ContaPagarWhereInput
+    some?: ContaPagarWhereInput
+    none?: ContaPagarWhereInput
+  }
+
+  export type ContaPagarOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type FornecedorContaPagarCountOrderByAggregateInput = {
+    id?: SortOrder
+    nome?: SortOrder
+    tipoPessoa?: SortOrder
+    cnpj?: SortOrder
+    ie?: SortOrder
+    cpf?: SortOrder
+    rg?: SortOrder
+    endereco?: SortOrder
+    numero?: SortOrder
+    complemento?: SortOrder
+    cidade?: SortOrder
+    bairro?: SortOrder
+    cep?: SortOrder
+    uf?: SortOrder
+    email?: SortOrder
+    fone?: SortOrder
+    celular?: SortOrder
+  }
+
+  export type FornecedorContaPagarAvgOrderByAggregateInput = {
+    id?: SortOrder
+    numero?: SortOrder
+  }
+
+  export type FornecedorContaPagarMaxOrderByAggregateInput = {
+    id?: SortOrder
+    nome?: SortOrder
+    tipoPessoa?: SortOrder
+    cnpj?: SortOrder
+    ie?: SortOrder
+    cpf?: SortOrder
+    rg?: SortOrder
+    endereco?: SortOrder
+    numero?: SortOrder
+    complemento?: SortOrder
+    cidade?: SortOrder
+    bairro?: SortOrder
+    cep?: SortOrder
+    uf?: SortOrder
+    email?: SortOrder
+    fone?: SortOrder
+    celular?: SortOrder
+  }
+
+  export type FornecedorContaPagarMinOrderByAggregateInput = {
+    id?: SortOrder
+    nome?: SortOrder
+    tipoPessoa?: SortOrder
+    cnpj?: SortOrder
+    ie?: SortOrder
+    cpf?: SortOrder
+    rg?: SortOrder
+    endereco?: SortOrder
+    numero?: SortOrder
+    complemento?: SortOrder
+    cidade?: SortOrder
+    bairro?: SortOrder
+    cep?: SortOrder
+    uf?: SortOrder
+    email?: SortOrder
+    fone?: SortOrder
+    celular?: SortOrder
+  }
+
+  export type FornecedorContaPagarSumOrderByAggregateInput = {
+    id?: SortOrder
+    numero?: SortOrder
+  }
+
   export type CategoriasNoProdutoCreateNestedManyWithoutProdutoInput = {
     create?: XOR<Enumerable<CategoriasNoProdutoCreateWithoutProdutoInput>, Enumerable<CategoriasNoProdutoUncheckedCreateWithoutProdutoInput>>
     connectOrCreate?: Enumerable<CategoriasNoProdutoCreateOrConnectWithoutProdutoInput>
@@ -16204,6 +21686,118 @@ export namespace Prisma {
     delete?: boolean
     connect?: PedidoWhereUniqueInput
     update?: XOR<PedidoUpdateWithoutProdutosInput, PedidoUncheckedUpdateWithoutProdutosInput>
+  }
+
+  export type ClienteContaReceberCreateNestedOneWithoutContaReceberInput = {
+    create?: XOR<ClienteContaReceberCreateWithoutContaReceberInput, ClienteContaReceberUncheckedCreateWithoutContaReceberInput>
+    connectOrCreate?: ClienteContaReceberCreateOrConnectWithoutContaReceberInput
+    connect?: ClienteContaReceberWhereUniqueInput
+  }
+
+  export type ClienteContaReceberUpdateOneRequiredWithoutContaReceberInput = {
+    create?: XOR<ClienteContaReceberCreateWithoutContaReceberInput, ClienteContaReceberUncheckedCreateWithoutContaReceberInput>
+    connectOrCreate?: ClienteContaReceberCreateOrConnectWithoutContaReceberInput
+    upsert?: ClienteContaReceberUpsertWithoutContaReceberInput
+    connect?: ClienteContaReceberWhereUniqueInput
+    update?: XOR<ClienteContaReceberUpdateWithoutContaReceberInput, ClienteContaReceberUncheckedUpdateWithoutContaReceberInput>
+  }
+
+  export type ContaReceberCreateNestedManyWithoutClienteInput = {
+    create?: XOR<Enumerable<ContaReceberCreateWithoutClienteInput>, Enumerable<ContaReceberUncheckedCreateWithoutClienteInput>>
+    connectOrCreate?: Enumerable<ContaReceberCreateOrConnectWithoutClienteInput>
+    createMany?: ContaReceberCreateManyClienteInputEnvelope
+    connect?: Enumerable<ContaReceberWhereUniqueInput>
+  }
+
+  export type ContaReceberUncheckedCreateNestedManyWithoutClienteInput = {
+    create?: XOR<Enumerable<ContaReceberCreateWithoutClienteInput>, Enumerable<ContaReceberUncheckedCreateWithoutClienteInput>>
+    connectOrCreate?: Enumerable<ContaReceberCreateOrConnectWithoutClienteInput>
+    createMany?: ContaReceberCreateManyClienteInputEnvelope
+    connect?: Enumerable<ContaReceberWhereUniqueInput>
+  }
+
+  export type ContaReceberUpdateManyWithoutClienteInput = {
+    create?: XOR<Enumerable<ContaReceberCreateWithoutClienteInput>, Enumerable<ContaReceberUncheckedCreateWithoutClienteInput>>
+    connectOrCreate?: Enumerable<ContaReceberCreateOrConnectWithoutClienteInput>
+    upsert?: Enumerable<ContaReceberUpsertWithWhereUniqueWithoutClienteInput>
+    createMany?: ContaReceberCreateManyClienteInputEnvelope
+    set?: Enumerable<ContaReceberWhereUniqueInput>
+    disconnect?: Enumerable<ContaReceberWhereUniqueInput>
+    delete?: Enumerable<ContaReceberWhereUniqueInput>
+    connect?: Enumerable<ContaReceberWhereUniqueInput>
+    update?: Enumerable<ContaReceberUpdateWithWhereUniqueWithoutClienteInput>
+    updateMany?: Enumerable<ContaReceberUpdateManyWithWhereWithoutClienteInput>
+    deleteMany?: Enumerable<ContaReceberScalarWhereInput>
+  }
+
+  export type ContaReceberUncheckedUpdateManyWithoutClienteInput = {
+    create?: XOR<Enumerable<ContaReceberCreateWithoutClienteInput>, Enumerable<ContaReceberUncheckedCreateWithoutClienteInput>>
+    connectOrCreate?: Enumerable<ContaReceberCreateOrConnectWithoutClienteInput>
+    upsert?: Enumerable<ContaReceberUpsertWithWhereUniqueWithoutClienteInput>
+    createMany?: ContaReceberCreateManyClienteInputEnvelope
+    set?: Enumerable<ContaReceberWhereUniqueInput>
+    disconnect?: Enumerable<ContaReceberWhereUniqueInput>
+    delete?: Enumerable<ContaReceberWhereUniqueInput>
+    connect?: Enumerable<ContaReceberWhereUniqueInput>
+    update?: Enumerable<ContaReceberUpdateWithWhereUniqueWithoutClienteInput>
+    updateMany?: Enumerable<ContaReceberUpdateManyWithWhereWithoutClienteInput>
+    deleteMany?: Enumerable<ContaReceberScalarWhereInput>
+  }
+
+  export type FornecedorContaPagarCreateNestedOneWithoutContaPagarInput = {
+    create?: XOR<FornecedorContaPagarCreateWithoutContaPagarInput, FornecedorContaPagarUncheckedCreateWithoutContaPagarInput>
+    connectOrCreate?: FornecedorContaPagarCreateOrConnectWithoutContaPagarInput
+    connect?: FornecedorContaPagarWhereUniqueInput
+  }
+
+  export type FornecedorContaPagarUpdateOneRequiredWithoutContaPagarInput = {
+    create?: XOR<FornecedorContaPagarCreateWithoutContaPagarInput, FornecedorContaPagarUncheckedCreateWithoutContaPagarInput>
+    connectOrCreate?: FornecedorContaPagarCreateOrConnectWithoutContaPagarInput
+    upsert?: FornecedorContaPagarUpsertWithoutContaPagarInput
+    connect?: FornecedorContaPagarWhereUniqueInput
+    update?: XOR<FornecedorContaPagarUpdateWithoutContaPagarInput, FornecedorContaPagarUncheckedUpdateWithoutContaPagarInput>
+  }
+
+  export type ContaPagarCreateNestedManyWithoutFornecedorInput = {
+    create?: XOR<Enumerable<ContaPagarCreateWithoutFornecedorInput>, Enumerable<ContaPagarUncheckedCreateWithoutFornecedorInput>>
+    connectOrCreate?: Enumerable<ContaPagarCreateOrConnectWithoutFornecedorInput>
+    createMany?: ContaPagarCreateManyFornecedorInputEnvelope
+    connect?: Enumerable<ContaPagarWhereUniqueInput>
+  }
+
+  export type ContaPagarUncheckedCreateNestedManyWithoutFornecedorInput = {
+    create?: XOR<Enumerable<ContaPagarCreateWithoutFornecedorInput>, Enumerable<ContaPagarUncheckedCreateWithoutFornecedorInput>>
+    connectOrCreate?: Enumerable<ContaPagarCreateOrConnectWithoutFornecedorInput>
+    createMany?: ContaPagarCreateManyFornecedorInputEnvelope
+    connect?: Enumerable<ContaPagarWhereUniqueInput>
+  }
+
+  export type ContaPagarUpdateManyWithoutFornecedorInput = {
+    create?: XOR<Enumerable<ContaPagarCreateWithoutFornecedorInput>, Enumerable<ContaPagarUncheckedCreateWithoutFornecedorInput>>
+    connectOrCreate?: Enumerable<ContaPagarCreateOrConnectWithoutFornecedorInput>
+    upsert?: Enumerable<ContaPagarUpsertWithWhereUniqueWithoutFornecedorInput>
+    createMany?: ContaPagarCreateManyFornecedorInputEnvelope
+    set?: Enumerable<ContaPagarWhereUniqueInput>
+    disconnect?: Enumerable<ContaPagarWhereUniqueInput>
+    delete?: Enumerable<ContaPagarWhereUniqueInput>
+    connect?: Enumerable<ContaPagarWhereUniqueInput>
+    update?: Enumerable<ContaPagarUpdateWithWhereUniqueWithoutFornecedorInput>
+    updateMany?: Enumerable<ContaPagarUpdateManyWithWhereWithoutFornecedorInput>
+    deleteMany?: Enumerable<ContaPagarScalarWhereInput>
+  }
+
+  export type ContaPagarUncheckedUpdateManyWithoutFornecedorInput = {
+    create?: XOR<Enumerable<ContaPagarCreateWithoutFornecedorInput>, Enumerable<ContaPagarUncheckedCreateWithoutFornecedorInput>>
+    connectOrCreate?: Enumerable<ContaPagarCreateOrConnectWithoutFornecedorInput>
+    upsert?: Enumerable<ContaPagarUpsertWithWhereUniqueWithoutFornecedorInput>
+    createMany?: ContaPagarCreateManyFornecedorInputEnvelope
+    set?: Enumerable<ContaPagarWhereUniqueInput>
+    disconnect?: Enumerable<ContaPagarWhereUniqueInput>
+    delete?: Enumerable<ContaPagarWhereUniqueInput>
+    connect?: Enumerable<ContaPagarWhereUniqueInput>
+    update?: Enumerable<ContaPagarUpdateWithWhereUniqueWithoutFornecedorInput>
+    updateMany?: Enumerable<ContaPagarUpdateManyWithWhereWithoutFornecedorInput>
+    deleteMany?: Enumerable<ContaPagarScalarWhereInput>
   }
 
   export type NestedStringFilter = {
@@ -18037,6 +23631,347 @@ export namespace Prisma {
     nota?: NotaUncheckedUpdateOneWithoutPedidoInput
   }
 
+  export type ClienteContaReceberCreateWithoutContaReceberInput = {
+    nome?: string | null
+    tipoPessoa?: string | null
+    cpf?: string | null
+    rg?: string | null
+    cnpj?: string | null
+    ie?: string | null
+    endereco?: string | null
+    numero?: number | null
+    complemento?: string | null
+    cidade?: string | null
+    bairro?: string | null
+    cep?: string | null
+    uf?: string | null
+    email?: string | null
+    fone?: string | null
+    celular?: string | null
+  }
+
+  export type ClienteContaReceberUncheckedCreateWithoutContaReceberInput = {
+    id?: number
+    nome?: string | null
+    tipoPessoa?: string | null
+    cpf?: string | null
+    rg?: string | null
+    cnpj?: string | null
+    ie?: string | null
+    endereco?: string | null
+    numero?: number | null
+    complemento?: string | null
+    cidade?: string | null
+    bairro?: string | null
+    cep?: string | null
+    uf?: string | null
+    email?: string | null
+    fone?: string | null
+    celular?: string | null
+  }
+
+  export type ClienteContaReceberCreateOrConnectWithoutContaReceberInput = {
+    where: ClienteContaReceberWhereUniqueInput
+    create: XOR<ClienteContaReceberCreateWithoutContaReceberInput, ClienteContaReceberUncheckedCreateWithoutContaReceberInput>
+  }
+
+  export type ClienteContaReceberUpsertWithoutContaReceberInput = {
+    update: XOR<ClienteContaReceberUpdateWithoutContaReceberInput, ClienteContaReceberUncheckedUpdateWithoutContaReceberInput>
+    create: XOR<ClienteContaReceberCreateWithoutContaReceberInput, ClienteContaReceberUncheckedCreateWithoutContaReceberInput>
+  }
+
+  export type ClienteContaReceberUpdateWithoutContaReceberInput = {
+    nome?: NullableStringFieldUpdateOperationsInput | string | null
+    tipoPessoa?: NullableStringFieldUpdateOperationsInput | string | null
+    cpf?: NullableStringFieldUpdateOperationsInput | string | null
+    rg?: NullableStringFieldUpdateOperationsInput | string | null
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
+    ie?: NullableStringFieldUpdateOperationsInput | string | null
+    endereco?: NullableStringFieldUpdateOperationsInput | string | null
+    numero?: NullableIntFieldUpdateOperationsInput | number | null
+    complemento?: NullableStringFieldUpdateOperationsInput | string | null
+    cidade?: NullableStringFieldUpdateOperationsInput | string | null
+    bairro?: NullableStringFieldUpdateOperationsInput | string | null
+    cep?: NullableStringFieldUpdateOperationsInput | string | null
+    uf?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    fone?: NullableStringFieldUpdateOperationsInput | string | null
+    celular?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ClienteContaReceberUncheckedUpdateWithoutContaReceberInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    nome?: NullableStringFieldUpdateOperationsInput | string | null
+    tipoPessoa?: NullableStringFieldUpdateOperationsInput | string | null
+    cpf?: NullableStringFieldUpdateOperationsInput | string | null
+    rg?: NullableStringFieldUpdateOperationsInput | string | null
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
+    ie?: NullableStringFieldUpdateOperationsInput | string | null
+    endereco?: NullableStringFieldUpdateOperationsInput | string | null
+    numero?: NullableIntFieldUpdateOperationsInput | number | null
+    complemento?: NullableStringFieldUpdateOperationsInput | string | null
+    cidade?: NullableStringFieldUpdateOperationsInput | string | null
+    bairro?: NullableStringFieldUpdateOperationsInput | string | null
+    cep?: NullableStringFieldUpdateOperationsInput | string | null
+    uf?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    fone?: NullableStringFieldUpdateOperationsInput | string | null
+    celular?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ContaReceberCreateWithoutClienteInput = {
+    id: string
+    situacao?: string | null
+    dataEmissao?: Date | string | null
+    vencimentoOriginal?: Date | string | null
+    vencimento?: Date | string | null
+    competencia?: Date | string | null
+    nroDocumento?: string | null
+    valor?: number | null
+    saldo?: number | null
+    historico?: string | null
+    categoria?: string | null
+    idFormaPagamento?: string | null
+    portador?: string | null
+    linkBoleto?: string | null
+    vendedor?: string | null
+    ocorrencia?: string | null
+  }
+
+  export type ContaReceberUncheckedCreateWithoutClienteInput = {
+    id: string
+    situacao?: string | null
+    dataEmissao?: Date | string | null
+    vencimentoOriginal?: Date | string | null
+    vencimento?: Date | string | null
+    competencia?: Date | string | null
+    nroDocumento?: string | null
+    valor?: number | null
+    saldo?: number | null
+    historico?: string | null
+    categoria?: string | null
+    idFormaPagamento?: string | null
+    portador?: string | null
+    linkBoleto?: string | null
+    vendedor?: string | null
+    ocorrencia?: string | null
+  }
+
+  export type ContaReceberCreateOrConnectWithoutClienteInput = {
+    where: ContaReceberWhereUniqueInput
+    create: XOR<ContaReceberCreateWithoutClienteInput, ContaReceberUncheckedCreateWithoutClienteInput>
+  }
+
+  export type ContaReceberCreateManyClienteInputEnvelope = {
+    data: Enumerable<ContaReceberCreateManyClienteInput>
+    skipDuplicates?: boolean
+  }
+
+  export type ContaReceberUpsertWithWhereUniqueWithoutClienteInput = {
+    where: ContaReceberWhereUniqueInput
+    update: XOR<ContaReceberUpdateWithoutClienteInput, ContaReceberUncheckedUpdateWithoutClienteInput>
+    create: XOR<ContaReceberCreateWithoutClienteInput, ContaReceberUncheckedCreateWithoutClienteInput>
+  }
+
+  export type ContaReceberUpdateWithWhereUniqueWithoutClienteInput = {
+    where: ContaReceberWhereUniqueInput
+    data: XOR<ContaReceberUpdateWithoutClienteInput, ContaReceberUncheckedUpdateWithoutClienteInput>
+  }
+
+  export type ContaReceberUpdateManyWithWhereWithoutClienteInput = {
+    where: ContaReceberScalarWhereInput
+    data: XOR<ContaReceberUpdateManyMutationInput, ContaReceberUncheckedUpdateManyWithoutContaReceberInput>
+  }
+
+  export type ContaReceberScalarWhereInput = {
+    AND?: Enumerable<ContaReceberScalarWhereInput>
+    OR?: Enumerable<ContaReceberScalarWhereInput>
+    NOT?: Enumerable<ContaReceberScalarWhereInput>
+    id?: StringFilter | string
+    situacao?: StringNullableFilter | string | null
+    dataEmissao?: DateTimeNullableFilter | Date | string | null
+    vencimentoOriginal?: DateTimeNullableFilter | Date | string | null
+    vencimento?: DateTimeNullableFilter | Date | string | null
+    competencia?: DateTimeNullableFilter | Date | string | null
+    nroDocumento?: StringNullableFilter | string | null
+    valor?: FloatNullableFilter | number | null
+    saldo?: FloatNullableFilter | number | null
+    historico?: StringNullableFilter | string | null
+    categoria?: StringNullableFilter | string | null
+    idFormaPagamento?: StringNullableFilter | string | null
+    portador?: StringNullableFilter | string | null
+    linkBoleto?: StringNullableFilter | string | null
+    vendedor?: StringNullableFilter | string | null
+    ocorrencia?: StringNullableFilter | string | null
+    cliente_id?: IntFilter | number
+  }
+
+  export type FornecedorContaPagarCreateWithoutContaPagarInput = {
+    nome?: string | null
+    tipoPessoa?: string | null
+    cnpj?: string | null
+    ie?: string | null
+    cpf?: string | null
+    rg?: string | null
+    endereco?: string | null
+    numero?: number | null
+    complemento?: string | null
+    cidade?: string | null
+    bairro?: string | null
+    cep?: string | null
+    uf?: string | null
+    email?: string | null
+    fone?: string | null
+    celular?: string | null
+  }
+
+  export type FornecedorContaPagarUncheckedCreateWithoutContaPagarInput = {
+    id?: number
+    nome?: string | null
+    tipoPessoa?: string | null
+    cnpj?: string | null
+    ie?: string | null
+    cpf?: string | null
+    rg?: string | null
+    endereco?: string | null
+    numero?: number | null
+    complemento?: string | null
+    cidade?: string | null
+    bairro?: string | null
+    cep?: string | null
+    uf?: string | null
+    email?: string | null
+    fone?: string | null
+    celular?: string | null
+  }
+
+  export type FornecedorContaPagarCreateOrConnectWithoutContaPagarInput = {
+    where: FornecedorContaPagarWhereUniqueInput
+    create: XOR<FornecedorContaPagarCreateWithoutContaPagarInput, FornecedorContaPagarUncheckedCreateWithoutContaPagarInput>
+  }
+
+  export type FornecedorContaPagarUpsertWithoutContaPagarInput = {
+    update: XOR<FornecedorContaPagarUpdateWithoutContaPagarInput, FornecedorContaPagarUncheckedUpdateWithoutContaPagarInput>
+    create: XOR<FornecedorContaPagarCreateWithoutContaPagarInput, FornecedorContaPagarUncheckedCreateWithoutContaPagarInput>
+  }
+
+  export type FornecedorContaPagarUpdateWithoutContaPagarInput = {
+    nome?: NullableStringFieldUpdateOperationsInput | string | null
+    tipoPessoa?: NullableStringFieldUpdateOperationsInput | string | null
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
+    ie?: NullableStringFieldUpdateOperationsInput | string | null
+    cpf?: NullableStringFieldUpdateOperationsInput | string | null
+    rg?: NullableStringFieldUpdateOperationsInput | string | null
+    endereco?: NullableStringFieldUpdateOperationsInput | string | null
+    numero?: NullableIntFieldUpdateOperationsInput | number | null
+    complemento?: NullableStringFieldUpdateOperationsInput | string | null
+    cidade?: NullableStringFieldUpdateOperationsInput | string | null
+    bairro?: NullableStringFieldUpdateOperationsInput | string | null
+    cep?: NullableStringFieldUpdateOperationsInput | string | null
+    uf?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    fone?: NullableStringFieldUpdateOperationsInput | string | null
+    celular?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type FornecedorContaPagarUncheckedUpdateWithoutContaPagarInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    nome?: NullableStringFieldUpdateOperationsInput | string | null
+    tipoPessoa?: NullableStringFieldUpdateOperationsInput | string | null
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
+    ie?: NullableStringFieldUpdateOperationsInput | string | null
+    cpf?: NullableStringFieldUpdateOperationsInput | string | null
+    rg?: NullableStringFieldUpdateOperationsInput | string | null
+    endereco?: NullableStringFieldUpdateOperationsInput | string | null
+    numero?: NullableIntFieldUpdateOperationsInput | number | null
+    complemento?: NullableStringFieldUpdateOperationsInput | string | null
+    cidade?: NullableStringFieldUpdateOperationsInput | string | null
+    bairro?: NullableStringFieldUpdateOperationsInput | string | null
+    cep?: NullableStringFieldUpdateOperationsInput | string | null
+    uf?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    fone?: NullableStringFieldUpdateOperationsInput | string | null
+    celular?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ContaPagarCreateWithoutFornecedorInput = {
+    id: string
+    situacao?: string | null
+    dataEmissao?: Date | string | null
+    vencimentoOriginal?: Date | string | null
+    vencimento?: Date | string | null
+    competencia?: Date | string | null
+    nroDocumento?: string | null
+    valor?: number | null
+    saldo?: number | null
+    historico?: string | null
+    categoria?: string | null
+    portador?: string | null
+    ocorrencia?: string | null
+  }
+
+  export type ContaPagarUncheckedCreateWithoutFornecedorInput = {
+    id: string
+    situacao?: string | null
+    dataEmissao?: Date | string | null
+    vencimentoOriginal?: Date | string | null
+    vencimento?: Date | string | null
+    competencia?: Date | string | null
+    nroDocumento?: string | null
+    valor?: number | null
+    saldo?: number | null
+    historico?: string | null
+    categoria?: string | null
+    portador?: string | null
+    ocorrencia?: string | null
+  }
+
+  export type ContaPagarCreateOrConnectWithoutFornecedorInput = {
+    where: ContaPagarWhereUniqueInput
+    create: XOR<ContaPagarCreateWithoutFornecedorInput, ContaPagarUncheckedCreateWithoutFornecedorInput>
+  }
+
+  export type ContaPagarCreateManyFornecedorInputEnvelope = {
+    data: Enumerable<ContaPagarCreateManyFornecedorInput>
+    skipDuplicates?: boolean
+  }
+
+  export type ContaPagarUpsertWithWhereUniqueWithoutFornecedorInput = {
+    where: ContaPagarWhereUniqueInput
+    update: XOR<ContaPagarUpdateWithoutFornecedorInput, ContaPagarUncheckedUpdateWithoutFornecedorInput>
+    create: XOR<ContaPagarCreateWithoutFornecedorInput, ContaPagarUncheckedCreateWithoutFornecedorInput>
+  }
+
+  export type ContaPagarUpdateWithWhereUniqueWithoutFornecedorInput = {
+    where: ContaPagarWhereUniqueInput
+    data: XOR<ContaPagarUpdateWithoutFornecedorInput, ContaPagarUncheckedUpdateWithoutFornecedorInput>
+  }
+
+  export type ContaPagarUpdateManyWithWhereWithoutFornecedorInput = {
+    where: ContaPagarScalarWhereInput
+    data: XOR<ContaPagarUpdateManyMutationInput, ContaPagarUncheckedUpdateManyWithoutContaPagarInput>
+  }
+
+  export type ContaPagarScalarWhereInput = {
+    AND?: Enumerable<ContaPagarScalarWhereInput>
+    OR?: Enumerable<ContaPagarScalarWhereInput>
+    NOT?: Enumerable<ContaPagarScalarWhereInput>
+    id?: StringFilter | string
+    situacao?: StringNullableFilter | string | null
+    dataEmissao?: DateTimeNullableFilter | Date | string | null
+    vencimentoOriginal?: DateTimeNullableFilter | Date | string | null
+    vencimento?: DateTimeNullableFilter | Date | string | null
+    competencia?: DateTimeNullableFilter | Date | string | null
+    nroDocumento?: StringNullableFilter | string | null
+    valor?: FloatNullableFilter | number | null
+    saldo?: FloatNullableFilter | number | null
+    historico?: StringNullableFilter | string | null
+    categoria?: StringNullableFilter | string | null
+    portador?: StringNullableFilter | string | null
+    ocorrencia?: StringNullableFilter | string | null
+    fornecedor_id?: IntFilter | number
+  }
+
   export type CategoriasNoProdutoCreateManyProdutoInput = {
     categoria_id: number
   }
@@ -18561,6 +24496,146 @@ export namespace Prisma {
     parcelas?: ParcelaUncheckedUpdateManyWithoutPedidoInput
     nota?: NotaUncheckedUpdateOneWithoutPedidoInput
     produtos?: ProdutoNoPedidoUncheckedUpdateManyWithoutPedidoInput
+  }
+
+  export type ContaReceberCreateManyClienteInput = {
+    id: string
+    situacao?: string | null
+    dataEmissao?: Date | string | null
+    vencimentoOriginal?: Date | string | null
+    vencimento?: Date | string | null
+    competencia?: Date | string | null
+    nroDocumento?: string | null
+    valor?: number | null
+    saldo?: number | null
+    historico?: string | null
+    categoria?: string | null
+    idFormaPagamento?: string | null
+    portador?: string | null
+    linkBoleto?: string | null
+    vendedor?: string | null
+    ocorrencia?: string | null
+  }
+
+  export type ContaReceberUpdateWithoutClienteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    situacao?: NullableStringFieldUpdateOperationsInput | string | null
+    dataEmissao?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    vencimentoOriginal?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    vencimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    competencia?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nroDocumento?: NullableStringFieldUpdateOperationsInput | string | null
+    valor?: NullableFloatFieldUpdateOperationsInput | number | null
+    saldo?: NullableFloatFieldUpdateOperationsInput | number | null
+    historico?: NullableStringFieldUpdateOperationsInput | string | null
+    categoria?: NullableStringFieldUpdateOperationsInput | string | null
+    idFormaPagamento?: NullableStringFieldUpdateOperationsInput | string | null
+    portador?: NullableStringFieldUpdateOperationsInput | string | null
+    linkBoleto?: NullableStringFieldUpdateOperationsInput | string | null
+    vendedor?: NullableStringFieldUpdateOperationsInput | string | null
+    ocorrencia?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ContaReceberUncheckedUpdateWithoutClienteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    situacao?: NullableStringFieldUpdateOperationsInput | string | null
+    dataEmissao?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    vencimentoOriginal?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    vencimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    competencia?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nroDocumento?: NullableStringFieldUpdateOperationsInput | string | null
+    valor?: NullableFloatFieldUpdateOperationsInput | number | null
+    saldo?: NullableFloatFieldUpdateOperationsInput | number | null
+    historico?: NullableStringFieldUpdateOperationsInput | string | null
+    categoria?: NullableStringFieldUpdateOperationsInput | string | null
+    idFormaPagamento?: NullableStringFieldUpdateOperationsInput | string | null
+    portador?: NullableStringFieldUpdateOperationsInput | string | null
+    linkBoleto?: NullableStringFieldUpdateOperationsInput | string | null
+    vendedor?: NullableStringFieldUpdateOperationsInput | string | null
+    ocorrencia?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ContaReceberUncheckedUpdateManyWithoutContaReceberInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    situacao?: NullableStringFieldUpdateOperationsInput | string | null
+    dataEmissao?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    vencimentoOriginal?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    vencimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    competencia?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nroDocumento?: NullableStringFieldUpdateOperationsInput | string | null
+    valor?: NullableFloatFieldUpdateOperationsInput | number | null
+    saldo?: NullableFloatFieldUpdateOperationsInput | number | null
+    historico?: NullableStringFieldUpdateOperationsInput | string | null
+    categoria?: NullableStringFieldUpdateOperationsInput | string | null
+    idFormaPagamento?: NullableStringFieldUpdateOperationsInput | string | null
+    portador?: NullableStringFieldUpdateOperationsInput | string | null
+    linkBoleto?: NullableStringFieldUpdateOperationsInput | string | null
+    vendedor?: NullableStringFieldUpdateOperationsInput | string | null
+    ocorrencia?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ContaPagarCreateManyFornecedorInput = {
+    id: string
+    situacao?: string | null
+    dataEmissao?: Date | string | null
+    vencimentoOriginal?: Date | string | null
+    vencimento?: Date | string | null
+    competencia?: Date | string | null
+    nroDocumento?: string | null
+    valor?: number | null
+    saldo?: number | null
+    historico?: string | null
+    categoria?: string | null
+    portador?: string | null
+    ocorrencia?: string | null
+  }
+
+  export type ContaPagarUpdateWithoutFornecedorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    situacao?: NullableStringFieldUpdateOperationsInput | string | null
+    dataEmissao?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    vencimentoOriginal?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    vencimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    competencia?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nroDocumento?: NullableStringFieldUpdateOperationsInput | string | null
+    valor?: NullableFloatFieldUpdateOperationsInput | number | null
+    saldo?: NullableFloatFieldUpdateOperationsInput | number | null
+    historico?: NullableStringFieldUpdateOperationsInput | string | null
+    categoria?: NullableStringFieldUpdateOperationsInput | string | null
+    portador?: NullableStringFieldUpdateOperationsInput | string | null
+    ocorrencia?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ContaPagarUncheckedUpdateWithoutFornecedorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    situacao?: NullableStringFieldUpdateOperationsInput | string | null
+    dataEmissao?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    vencimentoOriginal?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    vencimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    competencia?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nroDocumento?: NullableStringFieldUpdateOperationsInput | string | null
+    valor?: NullableFloatFieldUpdateOperationsInput | number | null
+    saldo?: NullableFloatFieldUpdateOperationsInput | number | null
+    historico?: NullableStringFieldUpdateOperationsInput | string | null
+    categoria?: NullableStringFieldUpdateOperationsInput | string | null
+    portador?: NullableStringFieldUpdateOperationsInput | string | null
+    ocorrencia?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ContaPagarUncheckedUpdateManyWithoutContaPagarInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    situacao?: NullableStringFieldUpdateOperationsInput | string | null
+    dataEmissao?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    vencimentoOriginal?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    vencimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    competencia?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nroDocumento?: NullableStringFieldUpdateOperationsInput | string | null
+    valor?: NullableFloatFieldUpdateOperationsInput | number | null
+    saldo?: NullableFloatFieldUpdateOperationsInput | number | null
+    historico?: NullableStringFieldUpdateOperationsInput | string | null
+    categoria?: NullableStringFieldUpdateOperationsInput | string | null
+    portador?: NullableStringFieldUpdateOperationsInput | string | null
+    ocorrencia?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
 

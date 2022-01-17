@@ -8,7 +8,6 @@ class CategoryRepository {
     }
 
     async createMany(categories: Prisma.CategoriaProdutoCreateInput[]) {
-        await this.prisma.categoriasNoProduto.deleteMany({})
         await this.prisma.categoriaProduto.deleteMany({})
 
         await this.prisma.categoriaProduto.createMany({

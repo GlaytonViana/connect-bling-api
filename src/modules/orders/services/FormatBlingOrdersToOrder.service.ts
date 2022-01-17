@@ -107,7 +107,7 @@ class FormatBlingOrdersToOrder {
 
             ordersListToCreate.push({
                 numero: Number(pedido.numero),
-                desconto: Number(pedido.desconto),
+                desconto: Number(pedido.desconto) || 0,
                 valorfrete: Number(pedido.valorfrete),
                 outrasdespesas: Number(pedido.outrasdespesas),
                 totalprodutos: Number(pedido.totalprodutos),

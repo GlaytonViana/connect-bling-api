@@ -11,12 +11,12 @@ const Prisma = {}
 exports.Prisma = Prisma
 
 /**
- * Prisma Client JS version: 3.6.0
- * Query Engine version: dc520b92b1ebb2d28dc3161f9f82e875bd35d727
+ * Prisma Client JS version: 3.8.0
+ * Query Engine version: 34df67547cf5598f5a6cd3eb45f14ee70c3fb86f
  */
 Prisma.prismaVersion = {
-  client: "3.6.0",
-  engine: "dc520b92b1ebb2d28dc3161f9f82e875bd35d727"
+  client: "3.8.0",
+  engine: "34df67547cf5598f5a6cd3eb45f14ee70c3fb86f"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -257,6 +257,83 @@ exports.Prisma.ProdutoNoPedidoScalarFieldEnum = makeEnum({
   pedidoNumero: 'pedidoNumero'
 });
 
+exports.Prisma.ContaReceberScalarFieldEnum = makeEnum({
+  id: 'id',
+  situacao: 'situacao',
+  dataEmissao: 'dataEmissao',
+  vencimentoOriginal: 'vencimentoOriginal',
+  vencimento: 'vencimento',
+  competencia: 'competencia',
+  nroDocumento: 'nroDocumento',
+  valor: 'valor',
+  saldo: 'saldo',
+  historico: 'historico',
+  categoria: 'categoria',
+  idFormaPagamento: 'idFormaPagamento',
+  portador: 'portador',
+  linkBoleto: 'linkBoleto',
+  vendedor: 'vendedor',
+  ocorrencia: 'ocorrencia',
+  cliente_id: 'cliente_id'
+});
+
+exports.Prisma.ClienteContaReceberScalarFieldEnum = makeEnum({
+  id: 'id',
+  nome: 'nome',
+  tipoPessoa: 'tipoPessoa',
+  cpf: 'cpf',
+  rg: 'rg',
+  cnpj: 'cnpj',
+  ie: 'ie',
+  endereco: 'endereco',
+  numero: 'numero',
+  complemento: 'complemento',
+  cidade: 'cidade',
+  bairro: 'bairro',
+  cep: 'cep',
+  uf: 'uf',
+  email: 'email',
+  fone: 'fone',
+  celular: 'celular'
+});
+
+exports.Prisma.ContaPagarScalarFieldEnum = makeEnum({
+  id: 'id',
+  situacao: 'situacao',
+  dataEmissao: 'dataEmissao',
+  vencimentoOriginal: 'vencimentoOriginal',
+  vencimento: 'vencimento',
+  competencia: 'competencia',
+  nroDocumento: 'nroDocumento',
+  valor: 'valor',
+  saldo: 'saldo',
+  historico: 'historico',
+  categoria: 'categoria',
+  portador: 'portador',
+  ocorrencia: 'ocorrencia',
+  fornecedor_id: 'fornecedor_id'
+});
+
+exports.Prisma.FornecedorContaPagarScalarFieldEnum = makeEnum({
+  id: 'id',
+  nome: 'nome',
+  tipoPessoa: 'tipoPessoa',
+  cnpj: 'cnpj',
+  ie: 'ie',
+  cpf: 'cpf',
+  rg: 'rg',
+  endereco: 'endereco',
+  numero: 'numero',
+  complemento: 'complemento',
+  cidade: 'cidade',
+  bairro: 'bairro',
+  cep: 'cep',
+  uf: 'uf',
+  email: 'email',
+  fone: 'fone',
+  celular: 'celular'
+});
+
 exports.Prisma.SortOrder = makeEnum({
   asc: 'asc',
   desc: 'desc'
@@ -279,7 +356,11 @@ exports.Prisma.ModelName = makeEnum({
   Volume: 'Volume',
   Parcela: 'Parcela',
   Nota: 'Nota',
-  ProdutoNoPedido: 'ProdutoNoPedido'
+  ProdutoNoPedido: 'ProdutoNoPedido',
+  ContaReceber: 'ContaReceber',
+  ClienteContaReceber: 'ClienteContaReceber',
+  ContaPagar: 'ContaPagar',
+  FornecedorContaPagar: 'FornecedorContaPagar'
 });
 
 /**

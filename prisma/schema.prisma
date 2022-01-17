@@ -69,16 +69,16 @@ model Produto {
   codigoPai             String?
   clonarDadosPai        String?
 
-  categorias CategoriasNoProduto[]
+  categorias CategoriasNoProduto[] @relation()
 
   @@map("produto")
 }
 
 model CategoriasNoProduto {
   produto_id   String
-  produto      Produto          @relation(fields: [produto_id], references: [id])
+  produto      Produto          @relation(fields: [produto_id], references: [id], onDelete: Cascade)
   categoria_id Int
-  categoria    CategoriaProduto @relation(fields: [categoria_id], references: [id])
+  categoria    CategoriaProduto @relation(fields: [categoria_id], references: [id], onDelete: Cascade)
 
   @@id([produto_id, categoria_id])
   @@map("categorias_no_produto")
@@ -267,4 +267,96 @@ model ProdutoNoPedido {
   pedido       Pedido? @relation(fields: [pedidoNumero], references: [numero], onDelete: Cascade)
 
   @@map("produto_no_pedido")
+}
+
+model ContaReceber {
+
+  id                 String    @id
+  situacao           String?
+  dataEmissao        DateTime?
+  vencimentoOriginal DateTime?
+  vencimento         DateTime?
+  competencia        DateTime?
+  nroDocumento       String?
+  valor              Float?
+  saldo              Float?
+  historico          String?
+  categoria          String?
+  idFormaPagamento   String?
+  portador           String?
+  linkBoleto         String?
+  vendedor           String?
+  ocorrencia         String?
+
+  cliente_id Int
+  cliente    ClienteContaReceber @relation(fields: [cliente_id], references: [id], onDelete: Cascade)
+
+  @@map("conta_a_receber")
+}
+
+model ClienteContaReceber {
+  id           Int            @id @default(autoincrement())
+  nome         String?
+  tipoPessoa   String?
+  cpf          String?
+  rg           String?
+  cnpj         String?
+  ie           String?
+  endereco     String?
+  numero       Int?
+  complemento  String?
+  cidade       String?
+  bairro       String?
+  cep          String?
+  uf           String?
+  email        String?
+  fone         String?
+  celular      String?
+  ContaReceber ContaReceber[]
+
+  @@map("cliente_conta_receber")
+}
+
+model ContaPagar {
+  id                 String    @id
+  situacao           String?
+  dataEmissao        DateTime?
+  vencimentoOriginal DateTime?
+  vencimento         DateTime?
+  competencia        DateTime?
+  nroDocumento       String?
+  valor              Float?
+  saldo              Float?
+  historico          String?
+  categoria          String?
+  portador           String?
+  ocorrencia         String?
+
+  fornecedor_id Int
+  fornecedor    FornecedorContaPagar @relation(fields: [fornecedor_id], references: [id], onDelete: Cascade)
+
+  @@map("conta_a_pagar")
+}
+
+model FornecedorContaPagar {
+  id          Int     @id @default(autoincrement())
+  nome        String?
+  tipoPessoa  String?
+  cnpj        String?
+  ie          String?
+  cpf         String?
+  rg          String?
+  endereco    String?
+  numero      Int?
+  complemento String?
+  cidade      String?
+  bairro      String?
+  cep         String?
+  uf          String?
+  email       String?
+  fone        String?
+  celular     String?
+
+  ContaPagar ContaPagar[]
+  @@map("fornecedor_conta_pagar")
 }

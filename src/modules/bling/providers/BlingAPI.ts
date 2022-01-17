@@ -205,6 +205,85 @@ export interface IBlingOrder {
     }
 }
 
+export interface IBlingBillsToReceive {
+    contaReceber: {
+        id: string
+        situacao: string
+        dataEmissao: string
+        vencimentoOriginal: string
+        vencimento: string
+        competencia: string
+        nroDocumento: string
+        valor: string
+        saldo: string
+        historico: string
+        categoria: string
+        idFormaPagamento: string
+        portador: string
+        linkBoleto: string
+        vendedor: string
+        pagamento: any
+        ocorrencia: string
+        cliente: {
+            idContato: string
+            nome: string
+            tipoPessoa: string
+            cnpj?: string
+            ie?: string
+            cpf?: string
+            rg?: string
+            endereco: string
+            numero: string
+            complemento: string
+            cidade: string
+            bairro: string
+            cep: string
+            uf: string
+            email: string
+            fone: string
+            celular: string
+        }
+    }
+}
+
+export interface IBlingBillsToPay {
+    contapagar: {
+        id: string
+        situacao: string
+        dataEmissao: string
+        vencimentoOriginal: string
+        vencimento: string
+        competencia: string
+        nroDocumento: string
+        valor: string
+        saldo: string
+        historico: string
+        categoria: string
+        portador: string
+        pagamento: any
+        ocorrencia: string
+        fornecedor: {
+            idContato: string
+            nome: string
+            tipoPessoa: string
+            cnpj?: string
+            ie?: string
+            cpf?: string
+            rg?: string
+            endereco: string
+            numero: string
+            complemento: string
+            cidade: string
+            bairro: string
+            cep: string
+            uf: string
+            email: string
+            fone: string
+            celular: string
+        }
+    }
+}
+
 export default class BlingAPI {
     private api: AxiosInstance
 
@@ -247,5 +326,11 @@ export default class BlingAPI {
     async getOrders() {
         const orders = await this.call<IBlingOrder>('pedidos')
         return orders
+    }
+
+    async getBills(): Promise<[IBlingBillsToReceive[], IBlingBillsToPay[]]> {
+        const billsToReceive = await this.call<IBlingBillsToReceive>('contasreceber')
+        const billsToPay = await this.call<IBlingBillsToPay>('contaspagar')
+        return [billsToReceive, billsToPay]
     }
 }

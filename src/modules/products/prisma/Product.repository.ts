@@ -25,7 +25,15 @@ class ProductRepository {
 
         try {
             // const createdProducts = await Promise.all(createProducts)
-            const createdProducts = await this.prisma.$transaction(createProducts)
+            // const createdProducts = await this.prisma.$transaction(createProducts)
+
+            const createdProducts: any = []
+
+            while (createProducts.length > 0) {
+                let result = await this.prisma.$transaction(createProducts.splice(0, 100))
+                createdProducts.push(...result)
+            }
+
             return createdProducts
         } catch (error) {
             console.log(error)

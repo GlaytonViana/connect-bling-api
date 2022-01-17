@@ -9,7 +9,7 @@ class OrderController {
         const listService = new ListService()
         const ordersFromApi = await listService.execute()
 
-        // Formatar Produtos
+        // Formatar Pedidos
         const formatBlingProductToProduct = new FormatBlingOrdersToOrderService()
         const formattedOrders = formatBlingProductToProduct.execute(ordersFromApi)
 

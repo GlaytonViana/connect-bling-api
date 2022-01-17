@@ -11,6 +11,7 @@ export default class ProductController {
         const productsFromApi = await listService.execute()
 
         // Formatar Produtos
+
         const formatBlingProductToProduct = new FormatBlingProductToProductService()
         const [productsFormatted, categoriesFormatted] =
             formatBlingProductToProduct.execute(productsFromApi)
@@ -19,7 +20,7 @@ export default class ProductController {
         const categoryRepository = new CategoryRepository()
         await categoryRepository.createMany(categoriesFormatted)
 
-        // Salvar Produtos e categorias
+        // Salvar Produtos e categorias no produto
         const productRepository = new ProductRepository()
         const products = await productRepository.createMany(productsFormatted)
 
