@@ -7,9 +7,22 @@ class BillsToReceiveRepository {
         this.prisma = new PrismaClient()
     }
 
-    async createMany(billsToReceive: Prisma.ContaReceberCreateInput[]) {
-        await this.prisma.contaReceber.deleteMany({})
+    async count() {
+        const count = await this.prisma.contaReceber.count()
+        return count
+    }
 
+    async deleteMany(billsId: string[]) {
+        await this.prisma.contaReceber.deleteMany({
+            where: {
+                id: {
+                    in: billsId,
+                },
+            },
+        })
+    }
+
+    async createMany(billsToReceive: Prisma.ContaReceberCreateInput[]) {
         const createBillsToReceive = billsToReceive.map(bills => {
             return this.prisma.contaReceber.create({
                 data: bills,

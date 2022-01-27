@@ -5,16 +5,20 @@ import OrderRepository from './prisma/Order.repository'
 
 class OrderController {
     async listAndSave(request: Request, response: Response): Promise<Response> {
+        const orderRepository = new OrderRepository()
+        const firstExecution = await orderRepository.count()
+
         // Buscar da API
         const listService = new ListService()
-        const ordersFromApi = await listService.execute()
+        const ordersFromApi = await listService.execute(!firstExecution)
 
         // Formatar Pedidos
         const formatBlingProductToProduct = new FormatBlingOrdersToOrderService()
         const formattedOrders = formatBlingProductToProduct.execute(ordersFromApi)
 
+        await orderRepository.deleteMany(ordersFromApi.map(order => Number(order.pedido.numero)))
+
         // Salvar Ordens e derivados
-        const orderRepository = new OrderRepository()
         const orders = await orderRepository.createMany(formattedOrders.orders)
 
         return response.json(orders)

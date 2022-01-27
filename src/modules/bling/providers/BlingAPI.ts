@@ -284,6 +284,16 @@ export interface IBlingBillsToPay {
     }
 }
 
+interface ICallParams {
+    endpoint: string
+    filters?: string[]
+}
+
+interface IGetBill {
+    filtersBillToReceive: string[]
+    filtersBillToPay: string[]
+}
+
 export default class BlingAPI {
     private api: AxiosInstance
 
@@ -297,13 +307,19 @@ export default class BlingAPI {
         })
     }
 
-    async call<T>(endpoint: string): Promise<T[]> {
+    async call<T>({ endpoint, filters }: ICallParams): Promise<T[]> {
         let list: T[] = []
         let page = 1
         let statusResponse = true
 
+        let stringFilter = filters?.join('&') || ''
+
         do {
-            const { data } = await this.api.get(`/${endpoint}/page=${page}/json/`)
+            const { data } = await this.api.get(`/${endpoint}/page=${page}/json/`, {
+                params: {
+                    filters: stringFilter,
+                },
+            })
 
             if (data.retorno.erros !== undefined) {
                 statusResponse = false
@@ -318,19 +334,31 @@ export default class BlingAPI {
         return list
     }
 
-    async getProducts() {
-        const products = await this.call<IBlingProduct>('produtos')
+    async getProducts(filters: string[]) {
+        const products = await this.call<IBlingProduct>({
+            endpoint: 'produtos',
+            filters,
+        })
         return products
     }
 
-    async getOrders() {
-        const orders = await this.call<IBlingOrder>('pedidos')
+    async getOrders(filters: string[]) {
+        const orders = await this.call<IBlingOrder>({ endpoint: 'pedidos', filters })
         return orders
     }
 
-    async getBills(): Promise<[IBlingBillsToReceive[], IBlingBillsToPay[]]> {
-        const billsToReceive = await this.call<IBlingBillsToReceive>('contasreceber')
-        const billsToPay = await this.call<IBlingBillsToPay>('contaspagar')
+    async getBills({
+        filtersBillToReceive,
+        filtersBillToPay,
+    }: IGetBill): Promise<[IBlingBillsToReceive[], IBlingBillsToPay[]]> {
+        const billsToReceive = await this.call<IBlingBillsToReceive>({
+            endpoint: 'contasreceber',
+            filters: filtersBillToReceive,
+        })
+        const billsToPay = await this.call<IBlingBillsToPay>({
+            endpoint: 'contaspagar',
+            filters: filtersBillToPay,
+        })
         return [billsToReceive, billsToPay]
     }
 }

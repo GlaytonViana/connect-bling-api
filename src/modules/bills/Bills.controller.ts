@@ -8,23 +8,34 @@ import BillsToPayRepository from './prisma/BillsToPay.repository'
 
 export default class ProductController {
     async listAndSave(request: Request, response: Response): Promise<Response> {
+        const billsToPayRepository = new BillsToPayRepository()
+        const billsToReceiveRepository = new BillsToReceiveRepository()
+
+        const firstExecutionBillToPay = await billsToPayRepository.count()
+        const firstExecutionBillToReceive = await billsToReceiveRepository.count()
+
         // Buscar da API
         const listService = new ListService()
-        const [billsToReceive, billsToPay] = await listService.execute()
-
-        const formatBillsToReceiveService = new FormatBillsToReceiveService()
-        const formattedBillsToReceive = formatBillsToReceiveService.execute(billsToReceive)
+        const [billsToReceive, billsToPay] = await listService.execute({
+            firstExecutionBillToPay: !firstExecutionBillToPay,
+            firstExecutionBillToReceive: !firstExecutionBillToReceive,
+        })
 
         const formatBillsToPayService = new FormatBillsToPayService()
         const formattedBillsToPay = formatBillsToPayService.execute(billsToPay)
 
+        await billsToPayRepository.deleteMany(billsToPay.map(bill => bill.contapagar.id))
+
+        const formatBillsToReceiveService = new FormatBillsToReceiveService()
+        const formattedBillsToReceive = formatBillsToReceiveService.execute(billsToReceive)
+
+        await billsToReceiveRepository.deleteMany(billsToReceive.map(bill => bill.contaReceber.id))
+
         // Salvar
-        const billsToReceiveRepository = new BillsToReceiveRepository()
         const billsToReceiveStored = await billsToReceiveRepository.createMany(
             formattedBillsToReceive,
         )
 
-        const billsToPayRepository = new BillsToPayRepository()
         const billsToPayStored = await billsToPayRepository.createMany(formattedBillsToPay)
 
         return response.json({ billsToReceive: billsToReceiveStored, billsToPay: billsToPayStored })

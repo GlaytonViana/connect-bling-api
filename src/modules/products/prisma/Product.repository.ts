@@ -7,9 +7,22 @@ class ProductRepository {
         this.prisma = new PrismaClient()
     }
 
-    async createMany(products: Prisma.ProdutoCreateInput[]) {
-        await this.prisma.produto.deleteMany({})
+    async count() {
+        const count = await this.prisma.produto.count()
+        return count
+    }
 
+    async deleteMany(productsId: string[]) {
+        await this.prisma.produto.deleteMany({
+            where: {
+                id: {
+                    in: productsId,
+                },
+            },
+        })
+    }
+
+    async createMany(products: Prisma.ProdutoCreateInput[]) {
         const createProducts = products.map(product => {
             return this.prisma.produto.create({
                 data: product,

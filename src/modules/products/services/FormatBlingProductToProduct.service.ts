@@ -1,4 +1,4 @@
-import { Prisma } from '@database/prisma/prisma-client-js'
+import { Prisma } from '@prisma/client'
 import { IBlingProduct } from '@modules/bling/providers/BlingAPI'
 import { removeDuplicatedElementByAttribute } from '@shared/utils'
 
@@ -76,6 +76,7 @@ class FormatBlingProductToProduct {
                 dataValidade:
                     produto.dataValidade !== '0000-00-00' ? new Date(produto.dataValidade) : null,
 
+                // Pivô de produtos e categorias de produtos
                 categorias: {
                     createMany: {
                         data: categories.map(category => ({ categoria_id: category.id })),

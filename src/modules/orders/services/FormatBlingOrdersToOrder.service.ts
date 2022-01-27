@@ -1,4 +1,4 @@
-import { Prisma } from '@database/prisma/prisma-client-js'
+import { Prisma } from '@prisma/client'
 import { IBlingOrder } from '@modules/bling/providers/BlingAPI'
 
 interface IReturn {

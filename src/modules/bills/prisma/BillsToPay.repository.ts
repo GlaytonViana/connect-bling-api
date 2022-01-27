@@ -7,9 +7,22 @@ class BillsToPayRepository {
         this.prisma = new PrismaClient()
     }
 
-    async createMany(billsToPay: Prisma.ContaPagarCreateInput[]) {
-        await this.prisma.contaPagar.deleteMany({})
+    async count() {
+        const count = await this.prisma.contaPagar.count()
+        return count
+    }
 
+    async deleteMany(billsId: string[]) {
+        await this.prisma.contaPagar.deleteMany({
+            where: {
+                id: {
+                    in: billsId,
+                },
+            },
+        })
+    }
+
+    async createMany(billsToPay: Prisma.ContaPagarCreateInput[]) {
         const createBillsToPay = billsToPay.map(bills => {
             return this.prisma.contaPagar.create({
                 data: bills,

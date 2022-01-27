@@ -7,9 +7,22 @@ class OrderRepository {
         this.prisma = new PrismaClient()
     }
 
-    async createMany(orders: Prisma.PedidoCreateInput[]) {
-        await this.prisma.pedido.deleteMany({})
+    async count() {
+        const count = await this.prisma.pedido.count()
+        return count
+    }
 
+    async deleteMany(orderNumbers: number[]) {
+        await this.prisma.pedido.deleteMany({
+            where: {
+                numero: {
+                    in: orderNumbers,
+                },
+            },
+        })
+    }
+
+    async createMany(orders: Prisma.PedidoCreateInput[]) {
         const createOrders = orders.map(order => {
             return this.prisma.pedido.create({
                 data: order,
@@ -30,23 +43,18 @@ class OrderRepository {
         })
 
         try {
-            // const createdOrders = await Promise.all(createOrders)
-            // const createdOrders = await this.prisma.$transaction(createOrders)
-
-            let createdOrders: any = []
+            let savedOrders: any = []
 
             while (createOrders.length > 0) {
                 let result = await this.prisma.$transaction(createOrders.splice(0, 100))
-                createdOrders.push(...result)
+                savedOrders.push(...result)
             }
 
-            return createdOrders
+            return savedOrders
         } catch (error) {
             console.log(error)
-            process.exit()
+            return { status: 'error' }
         }
-
-        return orders
     }
 }
 

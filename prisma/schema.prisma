@@ -78,7 +78,7 @@ model CategoriasNoProduto {
   produto_id   String
   produto      Produto          @relation(fields: [produto_id], references: [id], onDelete: Cascade)
   categoria_id Int
-  categoria    CategoriaProduto @relation(fields: [categoria_id], references: [id], onDelete: Cascade)
+  categoria    CategoriaProduto @relation(fields: [categoria_id], references: [id], onDelete: NoAction)
 
   @@id([produto_id, categoria_id])
   @@map("categorias_no_produto")
