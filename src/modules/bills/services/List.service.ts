@@ -1,4 +1,5 @@
 import BlingAPI, { IBlingBillsToReceive, IBlingBillsToPay } from '@modules/bling/providers/BlingAPI'
+import { getPeriod } from '@shared/utils'
 
 interface IListServiceParam {
     firstExecutionBillToReceive: boolean
@@ -13,23 +14,14 @@ export default class ListService {
         let paramByllToReceive = []
         let paramByllToPay = []
 
-        const date = new Date()
-        const year = String(date.getFullYear())
-        const month = String(date.getMonth() + 1).padStart(2, '0')
-        const today = String(date.getDate()).padStart(2, '0')
-        const yesterday =
-            date.getDate() - 1 > 0 ? String(date.getDate() - 1).padStart(2, '0') : '01'
+        const period = getPeriod()
 
         if (!firstExecutionBillToReceive) {
-            paramByllToReceive.push(
-                `dataEmissao[${yesterday}/${month}/${year} TO ${today}/${month}/${year}]`,
-            )
+            paramByllToReceive.push(`dataEmissao[${period}]`)
         }
 
         if (!firstExecutionBillToPay) {
-            paramByllToPay.push(
-                `dataEmissao[${yesterday}/${month}/${year} TO ${today}/${month}/${year}]`,
-            )
+            paramByllToPay.push(`dataEmissao[${period}]`)
         }
 
         const api = new BlingAPI()

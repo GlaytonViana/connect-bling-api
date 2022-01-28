@@ -13,8 +13,6 @@ export default class ProductController {
         const listService = new ListService()
         const productsFromApi = await listService.execute(!firstExecution)
 
-        console.log(productsFromApi.length)
-
         // Formatar Produtos
         const formatBlingProductToProduct = new FormatBlingProductToProductService()
         const [productsFormatted, categoriesFormatted] =

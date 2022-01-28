@@ -23,3 +23,23 @@ export function removeDuplicatedElementByAttribute<T>(arr: Array<T>, property: s
     })
     return result
 }
+
+export function getPeriod() {
+    const date = new Date()
+
+    const year = String(date.getFullYear())
+    const month = String(date.getMonth() + 1).padStart(2, '0')
+    const today = String(date.getDate()).padStart(2, '0')
+    const yesterday = date.getDate() - 1 > 0 ? String(date.getDate() - 1).padStart(2, '0') : '30'
+
+    let lastMonth = month
+    if (date.getDate() - 1 == 0) {
+        lastMonth = String(date.getMonth()).padStart(2, '0')
+    }
+
+    if (date.getDate() - 1 == 0 && date.getMonth() == 0) {
+        lastMonth = '12'
+    }
+
+    return `${yesterday}/${lastMonth}/${year} TO ${today}/${month}/${year}`
+}
