@@ -33,20 +33,21 @@ class BillsToReceiveRepository {
         })
 
         try {
-            // const createdBills = await Promise.all(createBillsToReceive)
-            // const createdBills = await this.prisma.$transaction(createBillsToReceive)
+            const createdBills = await this.prisma.$transaction(createBillsToReceive)
+            await this.prisma.$disconnect()
+            console.log(`Contas a receber: ${createdBills.length}`)
 
-            const createdBills: any = []
+            // const createdBills: any = []
 
-            while (createBillsToReceive.length > 0) {
-                let result = await this.prisma.$transaction(createBillsToReceive.splice(0, 100))
-                createdBills.push(...result)
-            }
+            // while (createBillsToReceive.length > 0) {
+            //     let result = await this.prisma.$transaction(createBillsToReceive.splice(0, 100))
+            //     createdBills.push(...result)
+            // }
 
             return createdBills
         } catch (error) {
             console.log(error)
-            process.exit()
+            return { status: 'error' }
         }
     }
 }

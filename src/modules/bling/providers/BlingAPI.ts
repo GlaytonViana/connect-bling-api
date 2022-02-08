@@ -284,6 +284,50 @@ export interface IBlingBillsToPay {
     }
 }
 
+export interface IBlingInvoice {
+    notafiscal: {
+        id: string
+        serie: string
+        numero: string
+        loja: string
+        numeroPedidoLoja?: string
+        tipo: string
+        situacao: string
+        contato: string
+        cnpj: string
+        vendedor: string
+        dataEmissao: string
+        valorNota: string
+        chaveAcesso: string
+        xml: string
+        linkDanfe: string
+        linkPdf: string
+
+        transporte: {
+            transportadora: string
+            cnpj: string
+            tipo_frete: string
+        }
+
+        cliente: {
+            nome: string
+            cnpj: string
+            ie: string
+            rg: string
+            endereco: string
+            numero: string
+            complemento: string
+            cidade: string
+            bairro: string
+            cep: string
+            uf: string
+            email: string
+            celular: string
+            fone: string
+        }
+    }
+}
+
 interface ICallParams {
     endpoint: string
     filters?: string[]
@@ -360,5 +404,10 @@ export default class BlingAPI {
             filters: filtersBillToPay,
         })
         return [billsToReceive, billsToPay]
+    }
+
+    async getInvoices(filters: string[]) {
+        const invoices = await this.call<IBlingInvoice>({ endpoint: 'notasfiscais', filters })
+        return invoices
     }
 }

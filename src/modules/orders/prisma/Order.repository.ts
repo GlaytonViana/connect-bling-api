@@ -43,14 +43,17 @@ class OrderRepository {
         })
 
         try {
-            let savedOrders: any = []
+            const createdOrders = await this.prisma.$transaction(createOrders)
+            await this.prisma.$disconnect()
+            console.log(`Pedidos salvos: ${createdOrders.length}`)
 
-            while (createOrders.length > 0) {
-                let result = await this.prisma.$transaction(createOrders.splice(0, 100))
-                savedOrders.push(...result)
-            }
+            // let createdOrders: any = []
+            // while (createOrders.length > 0) {
+            //     let result = await this.prisma.$transaction(createOrders.splice(0, 100))
+            //     createdOrders.push(...result)
+            // }
 
-            return savedOrders
+            return createdOrders
         } catch (error) {
             console.log(error)
             return { status: 'error' }

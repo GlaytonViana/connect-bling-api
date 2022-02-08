@@ -37,20 +37,21 @@ class ProductRepository {
         })
 
         try {
-            // const createdProducts = await Promise.all(createProducts)
-            // const createdProducts = await this.prisma.$transaction(createProducts)
+            const createdProducts = await this.prisma.$transaction(createProducts)
+            console.log(`Produtos salvos: ${createdProducts.length}`)
+            await this.prisma.$disconnect()
 
-            const createdProducts: any = []
-
-            while (createProducts.length > 0) {
-                let result = await this.prisma.$transaction(createProducts.splice(0, 100))
-                createdProducts.push(...result)
-            }
+            // const createdProducts: any = []
+            // while (createProducts.length > 0) {
+            //     let result = await this.prisma.$transaction(createProducts.splice(0, 100))
+            //     createdProducts.push(...result)
+            //     await this.prisma.$disconnect()
+            // }
 
             return createdProducts
         } catch (error) {
             console.log(error)
-            process.exit()
+            return { status: 'error' }
         }
     }
 }

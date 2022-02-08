@@ -165,7 +165,8 @@ model Transportadora {
   tipo_frete       String?
   servico_correios String?
 
-  pedido Pedido[]
+  pedido     Pedido[]
+  NotaFiscal NotaFiscal[]
   @@map("transportadora")
 }
 
@@ -359,4 +360,52 @@ model FornecedorContaPagar {
 
   ContaPagar ContaPagar[]
   @@map("fornecedor_conta_pagar")
+}
+
+model NotaFiscal {
+
+  id               String   @id
+  serie            String
+  numero           String
+  loja             String
+  numeroPedidoLoja String
+  tipo             String
+  situacao         String
+  contato          String
+  cnpj             String
+  vendedor         String
+  dataEmissao      DateTime
+  valorNota        Float
+  chaveAcesso      String?
+  xml              String?
+  linkDanfe        String?
+  linkPdf          String?
+
+  transportadoraCnpj String?
+  transportadora     Transportadora? @relation(fields: [transportadoraCnpj], references: [cnpj])
+
+  clienteNotaCnpj String?
+  cliente         ClienteNota? @relation(fields: [clienteNotaCnpj], references: [cnpj])
+
+  @@map("nota_fiscal")
+}
+
+model ClienteNota {
+
+  nome        String
+  cnpj        String @id
+  ie          String
+  rg          String
+  endereco    String
+  numero      String
+  complemento String
+  cidade      String
+  bairro      String
+  cep         String
+  uf          String
+  email       String
+  fone        String
+
+  NotaFiscal NotaFiscal[]
+  @@map("cliente_nota")
 }

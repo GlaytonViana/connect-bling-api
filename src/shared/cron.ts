@@ -38,6 +38,12 @@ cron.schedule('*/10 * * * *', async () => {
         console.log(error)
     })
 
+    console.log('Get invoices')
+
+    await api.get('/invoices').catch(error => {
+        console.log(error)
+    })
+
     console.log('cron executado')
 })
 
