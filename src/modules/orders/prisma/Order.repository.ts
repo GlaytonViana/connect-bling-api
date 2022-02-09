@@ -9,6 +9,8 @@ class OrderRepository {
 
     async count() {
         const count = await this.prisma.pedido.count()
+        await this.prisma.$disconnect()
+
         return count
     }
 
@@ -20,6 +22,7 @@ class OrderRepository {
                 },
             },
         })
+        await this.prisma.$disconnect()
     }
 
     async createMany(orders: Prisma.PedidoCreateInput[]) {

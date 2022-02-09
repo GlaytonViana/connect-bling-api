@@ -9,6 +9,8 @@ class InvoiceRepository {
 
     async count() {
         const count = await this.prisma.notaFiscal.count()
+        await this.prisma.$disconnect()
+
         return count
     }
 
@@ -20,6 +22,7 @@ class InvoiceRepository {
                 },
             },
         })
+        await this.prisma.$disconnect()
     }
 
     async createMany(invoices: Prisma.NotaFiscalCreateInput[]) {

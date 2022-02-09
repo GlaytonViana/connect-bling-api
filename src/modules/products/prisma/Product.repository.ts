@@ -9,6 +9,8 @@ class ProductRepository {
 
     async count() {
         const count = await this.prisma.produto.count()
+        await this.prisma.$disconnect()
+
         return count
     }
 
@@ -20,6 +22,7 @@ class ProductRepository {
                 },
             },
         })
+        await this.prisma.$disconnect()
     }
 
     async createMany(products: Prisma.ProdutoCreateInput[]) {

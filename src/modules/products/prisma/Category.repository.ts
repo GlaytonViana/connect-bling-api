@@ -12,6 +12,7 @@ class CategoryRepository {
             data: categories,
             skipDuplicates: true,
         })
+        await this.prisma.$disconnect()
 
         return categories
     }

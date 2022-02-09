@@ -9,6 +9,8 @@ class BillsToPayRepository {
 
     async count() {
         const count = await this.prisma.contaPagar.count()
+        await this.prisma.$disconnect()
+
         return count
     }
 
@@ -20,6 +22,7 @@ class BillsToPayRepository {
                 },
             },
         })
+        await this.prisma.$disconnect()
     }
 
     async createMany(billsToPay: Prisma.ContaPagarCreateInput[]) {
