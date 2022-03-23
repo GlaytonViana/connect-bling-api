@@ -327,6 +327,16 @@ export interface IBlingInvoice {
         }
     }
 }
+export interface IBlingPaymentMethod {
+    formapagamento: {
+        id: string
+        descricao: string
+        codigoFiscal: string
+        padrao: string
+        situacao: string
+        fixa: string
+    }
+}
 
 interface ICallParams {
     endpoint: string
@@ -409,5 +419,13 @@ export default class BlingAPI {
     async getInvoices(filters: string[]) {
         const invoices = await this.call<IBlingInvoice>({ endpoint: 'notasfiscais', filters })
         return invoices
+    }
+
+    async getPaymentMethods(filters: string[]) {
+        const paymentMethods = await this.call<IBlingPaymentMethod>({
+            endpoint: 'formaspagamento',
+            filters,
+        })
+        return paymentMethods
     }
 }

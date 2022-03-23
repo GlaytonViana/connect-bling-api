@@ -409,3 +409,22 @@ model ClienteNota {
   NotaFiscal NotaFiscal[]
   @@map("cliente_nota")
 }
+
+model Loja {
+  id     Int    @id() @default(autoincrement())
+  nome   String
+  codigo Int
+
+  @@map("loja")
+}
+
+model FormaDePagamento {
+  id           Int    @id()
+  descricao    String
+  codigoFiscal Int
+  padrao       Int
+  situacao     Int
+  fixa         Int
+
+  @@map("forma_de_pagamento")
+}
