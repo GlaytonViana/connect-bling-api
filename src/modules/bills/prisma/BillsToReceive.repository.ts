@@ -35,13 +35,6 @@ class BillsToReceiveRepository {
             await prisma.$disconnect()
             console.log(`Contas a receber: ${createdBills.length}`)
 
-            // const createdBills: any = []
-
-            // while (createBillsToReceive.length > 0) {
-            //     let result = await prisma.$transaction(createBillsToReceive.splice(0, 100))
-            //     createdBills.push(...result)
-            // }
-
             return createdBills
         } catch (error) {
             console.log(error)

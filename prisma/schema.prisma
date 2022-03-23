@@ -283,11 +283,11 @@ model ContaReceber {
   saldo              Float?
   historico          String?
   categoria          String?
-  idFormaPagamento   Int?
   portador           String?
   linkBoleto         String?
   vendedor           String?
   ocorrencia         String?
+  idFormaPagamento   Int?
 
   cliente_id Int
   cliente    ClienteContaReceber @relation(fields: [cliente_id], references: [id], onDelete: Cascade)
