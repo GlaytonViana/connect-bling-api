@@ -1,33 +1,28 @@
-import { PrismaClient, Prisma } from '@prisma/client'
+import { Prisma } from '@prisma/client'
+import prisma from '@shared/prisma'
 
 class OrderRepository {
-    private prisma: PrismaClient
-
-    constructor() {
-        this.prisma = new PrismaClient()
-    }
-
     async count() {
-        const count = await this.prisma.pedido.count()
-        await this.prisma.$disconnect()
+        const count = await prisma.pedido.count()
+        await prisma.$disconnect()
 
         return count
     }
 
     async deleteMany(orderNumbers: number[]) {
-        await this.prisma.pedido.deleteMany({
+        await prisma.pedido.deleteMany({
             where: {
                 numero: {
                     in: orderNumbers,
                 },
             },
         })
-        await this.prisma.$disconnect()
+        await prisma.$disconnect()
     }
 
     async createMany(orders: Prisma.PedidoCreateInput[]) {
         const createOrders = orders.map(order => {
-            return this.prisma.pedido.create({
+            return prisma.pedido.create({
                 data: order,
                 include: {
                     cliente: {
@@ -46,13 +41,13 @@ class OrderRepository {
         })
 
         try {
-            const createdOrders = await this.prisma.$transaction(createOrders)
-            await this.prisma.$disconnect()
+            const createdOrders = await prisma.$transaction(createOrders)
+            await prisma.$disconnect()
             console.log(`Pedidos salvos: ${createdOrders.length}`)
 
             // let createdOrders: any = []
             // while (createOrders.length > 0) {
-            //     let result = await this.prisma.$transaction(createOrders.splice(0, 100))
+            //     let result = await prisma.$transaction(createOrders.splice(0, 100))
             //     createdOrders.push(...result)
             // }
 

@@ -1,18 +1,13 @@
-import { PrismaClient, Prisma } from '@prisma/client'
+import { Prisma } from '@prisma/client'
+import prisma from '@shared/prisma'
 
 class CategoryRepository {
-    private prisma: PrismaClient
-
-    constructor() {
-        this.prisma = new PrismaClient()
-    }
-
     async createMany(categories: Prisma.CategoriaProdutoCreateInput[]) {
-        await this.prisma.categoriaProduto.createMany({
+        await prisma.categoriaProduto.createMany({
             data: categories,
             skipDuplicates: true,
         })
-        await this.prisma.$disconnect()
+        await prisma.$disconnect()
 
         return categories
     }

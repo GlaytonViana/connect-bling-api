@@ -1,33 +1,28 @@
 import { PrismaClient, Prisma } from '@prisma/client'
+import prisma from '@shared/prisma'
 
 class ProductRepository {
-    private prisma: PrismaClient
-
-    constructor() {
-        this.prisma = new PrismaClient()
-    }
-
     async count() {
-        const count = await this.prisma.produto.count()
-        await this.prisma.$disconnect()
+        const count = await prisma.produto.count()
+        await prisma.$disconnect()
 
         return count
     }
 
     async deleteMany(productsId: string[]) {
-        await this.prisma.produto.deleteMany({
+        await prisma.produto.deleteMany({
             where: {
                 id: {
                     in: productsId,
                 },
             },
         })
-        await this.prisma.$disconnect()
+        await prisma.$disconnect()
     }
 
     async createMany(products: Prisma.ProdutoCreateInput[]) {
         const createProducts = products.map(product => {
-            return this.prisma.produto.create({
+            return prisma.produto.create({
                 data: product,
                 include: {
                     categorias: {
@@ -40,16 +35,9 @@ class ProductRepository {
         })
 
         try {
-            const createdProducts = await this.prisma.$transaction(createProducts)
+            const createdProducts = await prisma.$transaction(createProducts)
             console.log(`Produtos salvos: ${createdProducts.length}`)
-            await this.prisma.$disconnect()
-
-            // const createdProducts: any = []
-            // while (createProducts.length > 0) {
-            //     let result = await this.prisma.$transaction(createProducts.splice(0, 100))
-            //     createdProducts.push(...result)
-            //     await this.prisma.$disconnect()
-            // }
+            await prisma.$disconnect()
 
             return createdProducts
         } catch (error) {

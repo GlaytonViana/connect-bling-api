@@ -1,15 +1,10 @@
-import { PrismaClient, FormaDePagamento } from '@prisma/client'
+import { FormaDePagamento } from '@prisma/client'
+import prisma from '@shared/prisma'
 
 export default class PaymentMethodRepository {
-    private prisma: PrismaClient
-
-    constructor() {
-        this.prisma = new PrismaClient()
-    }
-
     async upsertMany(paymentMethods: FormaDePagamento[]) {
         paymentMethods.forEach(async paymentMethod => {
-            await this.prisma.formaDePagamento.upsert({
+            await prisma.formaDePagamento.upsert({
                 where: {
                     id: paymentMethod.id,
                 },
@@ -17,5 +12,7 @@ export default class PaymentMethodRepository {
                 update: paymentMethod,
             })
         })
+
+        console.log(`Métodos de pagamento ${paymentMethods.length}`)
     }
 }

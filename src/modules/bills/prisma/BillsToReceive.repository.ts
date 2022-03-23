@@ -1,33 +1,28 @@
-import { PrismaClient, Prisma } from '@prisma/client'
+import { Prisma } from '@prisma/client'
+import prisma from '@shared/prisma'
 
 class BillsToReceiveRepository {
-    private prisma: PrismaClient
-
-    constructor() {
-        this.prisma = new PrismaClient()
-    }
-
     async count() {
-        const count = await this.prisma.contaReceber.count()
-        await this.prisma.$disconnect()
+        const count = await prisma.contaReceber.count()
+        await prisma.$disconnect()
 
         return count
     }
 
     async deleteMany(billsId: string[]) {
-        await this.prisma.contaReceber.deleteMany({
+        await prisma.contaReceber.deleteMany({
             where: {
                 id: {
                     in: billsId,
                 },
             },
         })
-        await this.prisma.$disconnect()
+        await prisma.$disconnect()
     }
 
     async createMany(billsToReceive: Prisma.ContaReceberCreateInput[]) {
         const createBillsToReceive = billsToReceive.map(bills => {
-            return this.prisma.contaReceber.create({
+            return prisma.contaReceber.create({
                 data: bills,
                 include: {
                     cliente: true,
@@ -36,14 +31,14 @@ class BillsToReceiveRepository {
         })
 
         try {
-            const createdBills = await this.prisma.$transaction(createBillsToReceive)
-            await this.prisma.$disconnect()
+            const createdBills = await prisma.$transaction(createBillsToReceive)
+            await prisma.$disconnect()
             console.log(`Contas a receber: ${createdBills.length}`)
 
             // const createdBills: any = []
 
             // while (createBillsToReceive.length > 0) {
-            //     let result = await this.prisma.$transaction(createBillsToReceive.splice(0, 100))
+            //     let result = await prisma.$transaction(createBillsToReceive.splice(0, 100))
             //     createdBills.push(...result)
             // }
 
