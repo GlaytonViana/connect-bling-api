@@ -260,7 +260,7 @@ export interface IBlingBillsToPay {
         historico: string
         categoria: string
         portador: string
-        pagamento: any
+        idFormaPagamento?: string
         ocorrencia: string
         fornecedor: {
             idContato: string

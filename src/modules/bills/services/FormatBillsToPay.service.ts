@@ -1,11 +1,11 @@
-import { Prisma } from '@database/prisma/prisma-client-js'
+import { Prisma } from '@prisma/client'
 import { IBlingBillsToPay } from '@modules/bling/providers/BlingAPI'
 
 class FormatBillsToPayService {
     execute(billsToPay: IBlingBillsToPay[]): Prisma.ContaPagarCreateInput[] {
         const billsToPayFormatted: Prisma.ContaPagarCreateInput[] = billsToPay.map(
-            ({ contapagar }) => {
-                const {
+            ({
+                contapagar: {
                     id,
                     situacao,
                     dataEmissao,
@@ -20,8 +20,9 @@ class FormatBillsToPayService {
                     portador,
                     ocorrencia,
                     fornecedor,
-                } = contapagar
-
+                    idFormaPagamento,
+                },
+            }) => {
                 return {
                     id,
                     situacao,
@@ -36,6 +37,7 @@ class FormatBillsToPayService {
                     categoria,
                     portador,
                     ocorrencia,
+                    idFormaPagamento: idFormaPagamento ? parseInt(idFormaPagamento) : undefined,
 
                     fornecedor: {
                         create: {

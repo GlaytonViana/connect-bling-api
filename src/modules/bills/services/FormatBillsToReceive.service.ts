@@ -1,11 +1,11 @@
-import { Prisma } from '@database/prisma/prisma-client-js'
+import { Prisma } from '@prisma/client'
 import { IBlingBillsToReceive } from '@modules/bling/providers/BlingAPI'
 
 class FormatBillsToReceiveService {
     execute(billsToReceive: IBlingBillsToReceive[]): Prisma.ContaReceberCreateInput[] {
         const billsToReceiveFormatted: Prisma.ContaReceberCreateInput[] = billsToReceive.map(
-            ({ contaReceber }) => {
-                const {
+            ({
+                contaReceber: {
                     id,
                     situacao,
                     dataEmissao,
@@ -23,8 +23,8 @@ class FormatBillsToReceiveService {
                     vendedor,
                     ocorrencia,
                     cliente,
-                } = contaReceber
-
+                },
+            }) => {
                 return {
                     id,
                     situacao,
@@ -37,7 +37,7 @@ class FormatBillsToReceiveService {
                     saldo: Number(saldo) || 0,
                     historico,
                     categoria,
-                    idFormaPagamento,
+                    idFormaPagamento: idFormaPagamento ? parseInt(idFormaPagamento) : undefined,
                     portador,
                     linkBoleto,
                     vendedor,
