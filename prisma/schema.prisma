@@ -20,56 +20,56 @@ datasource db {
 }
 
 model Produto {
-  id                    String    @id
-  codigo                String
-  descricao             String?
-  tipo                  String?
-  situacao              String?
-  unidade               String?
-  preco                 Float?
-  precoCusto            Float?
-  descricaoCurta        String?
-  descricaoComplementar String?
-  dataInclusao          DateTime?
-  dataAlteracao         DateTime?
-  imageThumbnail        String?
-  urlVideo              String?
-  nomeFornecedor        String?
-  codigoFabricante      String?
-  marca                 String?
-  classFiscal           String?
-  cest                  String?
-  origem                Int?
-  idGrupoProduto        Int?
-  linkExterno           String?
-  observacoes           String?
-  grupoProduto          String?
-  garantia              Int?
-  descricaoFornecedor   String?
-  idFabricante          Int?
-  pesoLiq               Float?
-  pesoBruto             Float?
-  estoqueMinimo         Float?
-  estoqueMaximo         Float?
-  gtin                  String?
-  gtinEmbalagem         String?
-  larguraProduto        Float?
-  alturaProduto         Float?
-  profundidadeProduto   Float?
-  unidadeMedida         String?
-  itensPorCaixa         Int?
-  volumes               Int?
-  localizacao           String?
-  crossdocking          Int?
-  condicao              String?
-  freteGratis           String?
-  producao              String?
-  dataValidade          DateTime?
-  spedTipoItem          String?
-  codigoPai             String?
-  clonarDadosPai        String?
-
-  categorias CategoriasNoProduto[] @relation()
+  id                       String                     @id
+  codigo                   String
+  descricao                String?
+  tipo                     String?
+  situacao                 String?
+  unidade                  String?
+  preco                    Float?
+  precoCusto               Float?
+  descricaoCurta           String?
+  descricaoComplementar    String?
+  dataInclusao             DateTime?
+  dataAlteracao            DateTime?
+  imageThumbnail           String?
+  urlVideo                 String?
+  nomeFornecedor           String?
+  codigoFabricante         String?
+  marca                    String?
+  classFiscal              String?
+  cest                     String?
+  origem                   Int?
+  idGrupoProduto           Int?
+  linkExterno              String?
+  observacoes              String?
+  grupoProduto             String?
+  garantia                 Int?
+  descricaoFornecedor      String?
+  idFabricante             Int?
+  pesoLiq                  Float?
+  pesoBruto                Float?
+  estoqueMinimo            Float?
+  estoqueMaximo            Float?
+  gtin                     String?
+  gtinEmbalagem            String?
+  larguraProduto           Float?
+  alturaProduto            Float?
+  profundidadeProduto      Float?
+  unidadeMedida            String?
+  itensPorCaixa            Int?
+  volumes                  Int?
+  localizacao              String?
+  crossdocking             Int?
+  condicao                 String?
+  freteGratis              String?
+  producao                 String?
+  dataValidade             DateTime?
+  spedTipoItem             String?
+  codigoPai                String?
+  clonarDadosPai           String?
+  categorias               CategoriasNoProduto[]      @relation()
+  produtosNoPedidoDeCompra ProdutosNoPedidoDeCompra[]
 
   @@map("produto")
 }
@@ -428,4 +428,65 @@ model FormaDePagamento {
   fixa         Int
 
   @@map("forma_de_pagamento")
+}
+
+model Fornecedor {
+  id             Int              @id()
+  nome           String
+  tipopessoa     String
+  cpfcnpj        String
+  ie             Int
+  rg             String
+  contribuinte   String
+  endereco       String
+  endereconro    String
+  complemento    String
+  bairro         String
+  cep            String
+  cidade         String
+  uf             String
+  fone           String
+  celular        String
+  email          String
+  pedidoDeCompra PedidoDeCompra[]
+
+  @@map("fornecedor")
+}
+
+model CategoriaPedidoCompra {
+  id        BigInt @id()
+  descricao String
+
+  pedidos PedidoDeCompra[]
+  @@map("categoria_do_pedido_compra")
+}
+
+model PedidoDeCompra {
+
+  numeropedido             Int                        @id()
+  datacompra               DateTime
+  dataprevista             DateTime?
+  ordemcompra              Int?
+  desconto                 Float?
+  observacoes              String
+  observacaointerna        String
+  fornecedorId             Int
+  categoriaId              BigInt
+  fornecedor               Fornecedor                 @relation(fields: [fornecedorId], references: [id])
+  categoria                CategoriaPedidoCompra      @relation(fields: [categoriaId], references: [id], onDelete: Cascade)
+  produtosNoPedidoDeCompra ProdutosNoPedidoDeCompra[]
+
+  @@map("pedido_de_compra")
+}
+
+model ProdutosNoPedidoDeCompra {
+
+  pedidoId  Int
+  produtoId String
+
+  produto        Produto        @relation(fields: [produtoId], references: [id])
+  pedidoDeCompra PedidoDeCompra @relation(fields: [pedidoId], references: [numeropedido], onDelete: Cascade)
+
+  @@id([pedidoId, produtoId])
+  @@map("produtos_no_pedido_de_compra")
 }

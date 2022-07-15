@@ -1,6 +1,5 @@
 import { Prisma } from '@prisma/client'
 import { IBlingProduct } from '@modules/bling/providers/BlingAPI'
-import { removeDuplicatedElementByAttribute } from '@shared/utils'
 
 class FormatBlingProductToProduct {
     execute(

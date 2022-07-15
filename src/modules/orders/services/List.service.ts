@@ -1,4 +1,5 @@
-import BlingAPI, { IBlingOrder } from '@modules/bling/providers/BlingAPI'
+import BlingAPI from '@modules/bling/providers/BlingAPI'
+import IBlingOrder from '@modules/bling/interfaces/IBlingOrder'
 import { getPeriod } from '@shared/utils'
 
 class ListService {
