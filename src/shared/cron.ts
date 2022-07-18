@@ -1,58 +1,59 @@
-import express from 'express'
-import cors from 'cors'
+import dotenv from 'dotenv'
 import cron from 'node-cron'
 import axios from 'axios'
-import dotenv from 'dotenv'
 
 dotenv.config()
 
-const app = express()
+let isSync = false
 
-app.use(express.json())
-app.use(cors())
+cron.schedule('*/1 * * * *', async () => {
+    isSync ? console.info('sincronizando...') : console.info('inicio de sincronizacao')
 
-cron.schedule('*/10 * * * *', async () => {
-    const api = axios.create({
-        baseURL: process.env.API_URL,
-        timeout: 1000 * 60 * 5,
-        responseType: 'json',
-    })
+    if (!isSync) {
+        isSync = true
 
-    console.log('Get products')
+        const api = axios.create({
+            baseURL: process.env.API_URL,
+            timeout: 1000 * 60 * 5,
+            responseType: 'json',
+        })
 
-    await api.get('/products').catch(error => {
-        console.log(error)
-    })
+        console.log('Get products')
 
-    console.log('Get orders')
+        await api.get('/products').catch(error => {
+            console.log(error)
+        })
 
-    await api.get('/orders').catch(error => {
-        console.log(error)
-    })
+        console.log('Get orders')
 
-    console.log('Get bills')
+        await api.get('/orders').catch(error => {
+            console.log(error)
+        })
 
-    await api.get('/bills').catch(error => {
-        console.log(error)
-    })
+        console.log('Get bills')
 
-    console.log('Get invoices')
+        await api.get('/bills').catch(error => {
+            console.log(error)
+        })
 
-    await api.get('/invoices').catch(error => {
-        console.log(error)
-    })
+        console.log('Get invoices')
 
-    console.log('Get payment methods')
+        await api.get('/invoices').catch(error => {
+            console.log(error)
+        })
 
-    await api.get('/payment-methods').catch(error => {
-        console.log(error)
-    })
+        console.log('Get payment methods')
 
-    console.log('Get Purchase Requests')
+        await api.get('/payment-methods').catch(error => {
+            console.log(error)
+        })
 
-    await api.get('/purchase-requests').catch(error => {
-        console.log(error)
-    })
+        console.log('Get Purchase Requests')
+
+        await api.get('/purchase-requests').catch(error => {
+            console.log(error)
+        })
+
+        isSync = false
+    }
 })
-
-app.listen(3334, () => {})
