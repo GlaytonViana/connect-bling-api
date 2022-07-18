@@ -20,6 +20,10 @@ class ProductRepository {
         await prisma.$disconnect()
     }
 
+    async deleteAll() {
+        await prisma.produto.deleteMany({})
+    }
+
     async createMany(products: Prisma.ProdutoCreateInput[]) {
         const createProducts = products.map(product => {
             return prisma.produto.create({
@@ -34,16 +38,10 @@ class ProductRepository {
             })
         })
 
-        try {
-            const createdProducts = await prisma.$transaction(createProducts)
-            console.log(`Produtos salvos: ${createdProducts.length}`)
-            await prisma.$disconnect()
-
-            return createdProducts
-        } catch (error) {
-            console.log(error)
-            return { status: 'error' }
-        }
+        const createdProducts = await prisma.$transaction(createProducts).catch(error => {
+            throw new Error(error)
+        })
+        return createdProducts
     }
 }
 

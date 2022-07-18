@@ -268,6 +268,16 @@ export default class BlingAPI {
     }
 
     async getProducts(filters: string[]) {
+        this.api.interceptors.request.use(
+            function (config) {
+                config.params = { ...config.params, estoque: 'S' }
+                return config
+            },
+            function (error) {
+                return Promise.reject(error)
+            },
+        )
+
         const products = await this.call<IBlingProduct>({
             endpoint: 'produtos',
             filters,

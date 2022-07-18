@@ -71,6 +71,7 @@ model Produto {
   categorias               CategoriasNoProduto[]      @relation()
   produtosNoPedidoDeCompra ProdutosNoPedidoDeCompra[]
 
+  deposito ProdutoNoDeposito[]
   @@map("produto")
 }
 
@@ -218,7 +219,8 @@ model Volume {
 }
 
 model Parcela {
-  id                         Int
+  id                         Int      @id @default(autoincrement())
+  parcela                    Int
   valor                      Float
   dataVencimento             DateTime
   obs                        String?
@@ -230,7 +232,6 @@ model Parcela {
   pedidoNumero Int
   pedido       Pedido @relation(fields: [pedidoNumero], references: [numero], onDelete: Cascade)
 
-  @@id([id, pedidoNumero])
   @@map("parcela")
 }
 
@@ -489,4 +490,24 @@ model ProdutosNoPedidoDeCompra {
 
   @@id([pedidoId, produtoId])
   @@map("produtos_no_pedido_de_compra")
+}
+
+model Deposito {
+  id   BigInt @id
+  nome String
+
+  produtos ProdutoNoDeposito[]
+  @@map("deposito")
+}
+
+model ProdutoNoDeposito {
+  produtoId    String
+  depositoId   BigInt
+  saldo        Float
+  saldoVirtual Float
+  produto      Produto  @relation(fields: [produtoId], references: [id])
+  deposito     Deposito @relation(fields: [depositoId], references: [id])
+
+  @@id([produtoId, depositoId])
+  @@map("produto_no_deposito")
 }

@@ -1,17 +1,9 @@
 import BlingAPI, { IBlingProduct } from '@modules/bling/providers/BlingAPI'
-import { getPeriod } from '@shared/utils'
 
 export default class ListService {
-    async execute(firstExecution: boolean): Promise<IBlingProduct[]> {
-        let param = []
-
-        if (!firstExecution) {
-            const period = getPeriod()
-            param.push(`dataAlteracao[${period}]`)
-        }
-
+    async execute(): Promise<IBlingProduct[]> {
         const api = new BlingAPI()
-        const products = await api.getProducts(param)
+        const products = await api.getProducts([])
         return products
     }
 }

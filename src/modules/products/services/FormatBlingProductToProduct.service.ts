@@ -4,9 +4,14 @@ import { IBlingProduct } from '@modules/bling/providers/BlingAPI'
 class FormatBlingProductToProduct {
     execute(
         products: IBlingProduct[],
-    ): [Prisma.ProdutoCreateInput[], Prisma.CategoriaProdutoCreateInput[]] {
+    ): [
+        Prisma.ProdutoCreateInput[],
+        Prisma.CategoriaProdutoCreateInput[],
+        Prisma.DepositoCreateInput[],
+    ] {
         const productToCreateList: Prisma.ProdutoCreateInput[] = []
         const categoriesToCreateList: Prisma.CategoriaProdutoCreateInput[] = []
+        const depositsToCreat: Prisma.DepositoCreateInput[] = []
 
         products.forEach(({ produto }) => {
             let categories: Prisma.CategoriaProdutoCreateInput[] = []
@@ -16,6 +21,23 @@ class FormatBlingProductToProduct {
                     id: Number(produto.categoria.id),
                     descricao: produto.categoria.descricao,
                 })
+            }
+
+            let deposits: Prisma.ProdutoNoDepositoCreateManyProdutoInput[] = []
+
+            if (produto.depositos) {
+                for (const { deposito } of produto.depositos) {
+                    deposits.push({
+                        depositoId: Number(deposito.id),
+                        saldo: deposito.saldo,
+                        saldoVirtual: deposito.saldoVirtual,
+                    })
+
+                    depositsToCreat.push({
+                        id: Number(deposito.id),
+                        nome: deposito.nome,
+                    })
+                }
             }
 
             const product: Prisma.ProdutoCreateInput = {
@@ -81,6 +103,12 @@ class FormatBlingProductToProduct {
                         data: categories.map(category => ({ categoria_id: category.id })),
                     },
                 },
+
+                deposito: {
+                    createMany: {
+                        data: deposits,
+                    },
+                },
             }
 
             productToCreateList.push(product)
@@ -90,7 +118,18 @@ class FormatBlingProductToProduct {
             }
         })
 
-        return [productToCreateList, categoriesToCreateList]
+        const uniqueDeposits: Prisma.DepositoCreateInput[] = []
+
+        depositsToCreat.forEach(deposit => {
+            const findedDeposit = uniqueDeposits.find(
+                uniqueDeposit => uniqueDeposit.id === deposit.id,
+            )
+            if (!findedDeposit) {
+                uniqueDeposits.push(deposit)
+            }
+        })
+
+        return [productToCreateList, categoriesToCreateList, uniqueDeposits]
     }
 }
 

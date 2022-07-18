@@ -1,12 +1,16 @@
-import { Prisma } from '@prisma/client'
+import { Prisma, Pedido } from '@prisma/client'
 import prisma from '@shared/prisma'
 
 class OrderRepository {
     async count() {
         const count = await prisma.pedido.count()
-        await prisma.$disconnect()
 
         return count
+    }
+
+    async deleteAll() {
+        await prisma.pedido.deleteMany({})
+        return
     }
 
     async deleteMany(orderNumbers: number[]) {
@@ -17,7 +21,6 @@ class OrderRepository {
                 },
             },
         })
-        await prisma.$disconnect()
     }
 
     async createMany(orders: Prisma.PedidoCreateInput[]) {
@@ -42,20 +45,30 @@ class OrderRepository {
 
         try {
             const createdOrders = await prisma.$transaction(createOrders)
-            await prisma.$disconnect()
-            console.log(`Pedidos salvos: ${createdOrders.length}`)
-
-            // let createdOrders: any = []
-            // while (createOrders.length > 0) {
-            //     let result = await prisma.$transaction(createOrders.splice(0, 100))
-            //     createdOrders.push(...result)
-            // }
-
             return createdOrders
         } catch (error) {
             console.log(error)
             return { status: 'error' }
         }
+    }
+
+    async upsertMany(orders: Prisma.PedidoCreateInput[]) {
+        for (const order of orders) {
+            await prisma.pedido
+                .upsert({
+                    where: {
+                        numero: order.numero,
+                    },
+                    create: order,
+                    update: order,
+                })
+                .catch(error => {
+                    console.log(JSON.stringify(order, null, 2))
+                    console.log(error)
+                })
+        }
+
+        return orders
     }
 }
 

@@ -47,6 +47,12 @@ cron.schedule('*/10 * * * *', async () => {
     await api.get('/payment-methods').catch(error => {
         console.log(error)
     })
+
+    console.log('Get Purchase Requests')
+
+    await api.get('/purchase-requests').catch(error => {
+        console.log(error)
+    })
 })
 
 app.listen(3334, () => {})

@@ -19,7 +19,13 @@ class OrderController {
         await orderRepository.deleteMany(ordersFromApi.map(order => Number(order.pedido.numero)))
 
         // Salvar Ordens e derivados
-        const orders = await orderRepository.createMany(formattedOrders.orders)
+        // const orders = await orderRepository.createMany(formattedOrders.orders).catch(error => {
+        //     console.log(error)
+        // })
+
+        const orders = await orderRepository.upsertMany(formattedOrders.orders).catch(error => {
+            console.log(error)
+        })
 
         return response.json(orders)
     }

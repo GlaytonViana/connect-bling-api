@@ -1,5 +1,5 @@
 import { Prisma } from '@prisma/client'
-import { IBlingOrder } from '@modules/bling/providers/BlingAPI'
+import IBlingOrder from '@modules/bling/interfaces/IBlingOrder'
 
 interface IReturn {
     orders: Prisma.PedidoCreateInput[]
@@ -57,7 +57,7 @@ class FormatBlingOrdersToOrder {
                 installments = {
                     createMany: {
                         data: pedido.parcelas.map(({ parcela }) => ({
-                            id: Number(parcela.idLancamento),
+                            parcela: Number(parcela.idLancamento),
                             valor: Number(parcela.valor),
                             dataVencimento: new Date(parcela.dataVencimento),
                             obs: parcela.obs,
