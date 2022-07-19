@@ -4,7 +4,7 @@ import FormatBlingOrdersToOrderService from './services/FormatBlingOrdersToOrder
 import OrderRepository from './prisma/Order.repository'
 
 class OrderController {
-    async listAndSave(request: Request, response: Response): Promise<Response> {
+    async executeListAndSave() {
         const orderRepository = new OrderRepository()
         const firstExecution = await orderRepository.count()
 
@@ -26,6 +26,12 @@ class OrderController {
         const orders = await orderRepository.upsertMany(formattedOrders.orders).catch(error => {
             console.log(error)
         })
+
+        return orders
+    }
+
+    async listAndSave(request: Request, response: Response): Promise<Response> {
+        const orders = await this.executeListAndSave()
 
         return response.json(orders)
     }

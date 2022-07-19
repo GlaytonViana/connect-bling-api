@@ -3,7 +3,7 @@ import ListService from './services/List.service'
 import FormatBlingPurchaseRequestsService from './services/FormatBlingPurchaseRequests.service'
 
 export default class PurchaseRequestsContoller {
-    async listAndSave(request: Request, response: Response): Promise<Response> {
+    async executeListAndSave() {
         // Buscar da API
         const listService = new ListService()
         const purchaseRequestsFromApi = await listService.execute()
@@ -15,10 +15,20 @@ export default class PurchaseRequestsContoller {
                 purchaseRequests: purchaseRequestsFromApi,
             })
             .catch(error => {
-                console.log(error)
-                return response.status(500).json({ status: 'fail' })
+                throw new Error(error)
             })
 
-        return response.json(purchaseRequestsFromApi)
+        return purchaseRequestsFromApi
+    }
+
+    async listAndSave(request: Request, response: Response): Promise<Response> {
+        try {
+            const purchaseRequestsFromApi = await this.executeListAndSave()
+            return response.json(purchaseRequestsFromApi)
+        } catch (error) {
+            console.log(error)
+
+            return response.status(500).json({ status: 'fail' })
+        }
     }
 }

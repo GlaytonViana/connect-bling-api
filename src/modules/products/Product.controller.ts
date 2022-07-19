@@ -6,7 +6,7 @@ import CategoryRepository from './prisma/Category.repository'
 import DepositRepository from './prisma/Deposit.repository'
 
 export default class ProductController {
-    async listAndSave(request: Request, response: Response): Promise<Response> {
+    async executeListAndSave() {
         const productRepository = new ProductRepository()
         await productRepository.deleteAll()
 
@@ -31,7 +31,11 @@ export default class ProductController {
 
         // Salvar Produtos e categorias no produto
         const products = await productRepository.createMany(productsFormatted)
+        return products
+    }
 
+    async listAndSave(request: Request, response: Response): Promise<Response> {
+        const products = await this.executeListAndSave()
         return response.header({ 'X-Count': products.length }).json(products)
     }
 }

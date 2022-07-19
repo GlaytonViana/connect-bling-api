@@ -1,6 +1,12 @@
 import dotenv from 'dotenv'
 import cron from 'node-cron'
 import axios from 'axios'
+import ProductController from '@modules/products/Product.controller'
+import OrderController from '@modules/orders/Order.controller'
+import BillsController from '@modules/bills/Bills.controller'
+import InvoiceController from '@modules/invoice/Invoice.controller'
+import PaymentMethodController from '@modules/paymentMethods/PaymentMethod.controller'
+import PurchaseRequestsContoller from '@modules/purchaseRequests/PurchaseRequests.controller'
 
 dotenv.config()
 
@@ -19,40 +25,22 @@ cron.schedule('*/1 * * * *', async () => {
         })
 
         console.log('Get products')
-
-        await api.get('/products').catch(error => {
-            console.log(error)
-        })
+        await new ProductController().executeListAndSave()
 
         console.log('Get orders')
-
-        await api.get('/orders').catch(error => {
-            console.log(error)
-        })
+        await new OrderController().executeListAndSave()
 
         console.log('Get bills')
-
-        await api.get('/bills').catch(error => {
-            console.log(error)
-        })
+        await new BillsController().executeListAndSave()
 
         console.log('Get invoices')
-
-        await api.get('/invoices').catch(error => {
-            console.log(error)
-        })
+        await new InvoiceController().executeListAndSave()
 
         console.log('Get payment methods')
-
-        await api.get('/payment-methods').catch(error => {
-            console.log(error)
-        })
+        await new PaymentMethodController().executeListAndSave()
 
         console.log('Get Purchase Requests')
-
-        await api.get('/purchase-requests').catch(error => {
-            console.log(error)
-        })
+        await new PurchaseRequestsContoller().executeListAndSave()
 
         isSync = false
     }

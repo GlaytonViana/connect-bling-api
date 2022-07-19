@@ -6,8 +6,8 @@ import FormatBillsToPayService from './services/FormatBillsToPay.service'
 import BillsToReceiveRepository from './prisma/BillsToReceive.repository'
 import BillsToPayRepository from './prisma/BillsToPay.repository'
 
-export default class ProductController {
-    async listAndSave(request: Request, response: Response): Promise<Response> {
+export default class BillsController {
+    async executeListAndSave() {
         const billsToPayRepository = new BillsToPayRepository()
         const billsToReceiveRepository = new BillsToReceiveRepository()
 
@@ -37,6 +37,12 @@ export default class ProductController {
         )
 
         const billsToPayStored = await billsToPayRepository.createMany(formattedBillsToPay)
+
+        return [billsToReceiveStored, billsToPayStored]
+    }
+
+    async listAndSave(request: Request, response: Response): Promise<Response> {
+        const [billsToReceiveStored, billsToPayStored] = await this.executeListAndSave()
 
         return response.json({ billsToReceive: billsToReceiveStored, billsToPay: billsToPayStored })
     }
