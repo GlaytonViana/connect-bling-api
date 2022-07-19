@@ -1,7 +1,7 @@
 import dotenv from 'dotenv'
 import cron from 'node-cron'
 import axios from 'axios'
-import ProductController from '@modules/products/Product.controller'
+import { ProductControllerExecute } from '@modules/products/Product.controller'
 import OrderController from '@modules/orders/Order.controller'
 import BillsController from '@modules/bills/Bills.controller'
 import InvoiceController from '@modules/invoice/Invoice.controller'
@@ -24,24 +24,28 @@ cron.schedule('*/1 * * * *', async () => {
             responseType: 'json',
         })
 
-        console.log('Get products')
-        await new ProductController().executeListAndSave()
+        try {
+            console.log('Get products')
+            await new ProductControllerExecute().executeListAndSave()
 
-        console.log('Get orders')
-        await new OrderController().executeListAndSave()
+            console.log('Get orders')
+            await new OrderController().executeListAndSave()
 
-        console.log('Get bills')
-        await new BillsController().executeListAndSave()
+            console.log('Get bills')
+            await new BillsController().executeListAndSave()
 
-        console.log('Get invoices')
-        await new InvoiceController().executeListAndSave()
+            console.log('Get invoices')
+            await new InvoiceController().executeListAndSave()
 
-        console.log('Get payment methods')
-        await new PaymentMethodController().executeListAndSave()
+            console.log('Get payment methods')
+            await new PaymentMethodController().executeListAndSave()
 
-        console.log('Get Purchase Requests')
-        await new PurchaseRequestsContoller().executeListAndSave()
+            console.log('Get Purchase Requests')
+            await new PurchaseRequestsContoller().executeListAndSave()
 
-        isSync = false
+            isSync = false
+        } catch (error) {
+            console.log(error)
+        }
     }
 })

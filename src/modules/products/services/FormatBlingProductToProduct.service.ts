@@ -1,4 +1,4 @@
-import { Prisma } from '@prisma/client'
+import { Deposito, Prisma } from '@prisma/client'
 import { IBlingProduct } from '@modules/bling/providers/BlingAPI'
 
 class FormatBlingProductToProduct {
@@ -118,14 +118,17 @@ class FormatBlingProductToProduct {
             }
         })
 
-        const uniqueDeposits: Prisma.DepositoCreateInput[] = []
+        const uniqueDeposits: { id: number; nome: string }[] = []
 
         depositsToCreat.forEach(deposit => {
             const findedDeposit = uniqueDeposits.find(
                 uniqueDeposit => uniqueDeposit.id === deposit.id,
             )
             if (!findedDeposit) {
-                uniqueDeposits.push(deposit)
+                uniqueDeposits.push({
+                    id: Number(deposit.id),
+                    nome: deposit.nome,
+                })
             }
         })
 
