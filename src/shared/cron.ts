@@ -1,12 +1,11 @@
 import dotenv from 'dotenv'
 import cron from 'node-cron'
-import axios from 'axios'
 import { ProductControllerExecute } from '@modules/products/Product.controller'
-import OrderController from '@modules/orders/Order.controller'
-import BillsController from '@modules/bills/Bills.controller'
-import InvoiceController from '@modules/invoice/Invoice.controller'
-import PaymentMethodController from '@modules/paymentMethods/PaymentMethod.controller'
-import PurchaseRequestsContoller from '@modules/purchaseRequests/PurchaseRequests.controller'
+import { OrderControllerExecute } from '@modules/orders/Order.controller'
+import { BillsControllerExecute } from '@modules/bills/Bills.controller'
+import { InvoiceControllerExecute } from '@modules/invoice/Invoice.controller'
+import { PaymentMethodControllerExecute } from '@modules/paymentMethods/PaymentMethod.controller'
+import { PurchaseRequestsControllerExecute } from '@modules/purchaseRequests/PurchaseRequests.controller'
 
 dotenv.config()
 
@@ -18,30 +17,24 @@ cron.schedule('*/1 * * * *', async () => {
     if (!isSync) {
         isSync = true
 
-        const api = axios.create({
-            baseURL: process.env.API_URL,
-            timeout: 1000 * 60 * 5,
-            responseType: 'json',
-        })
-
         try {
             console.log('Get products')
             await new ProductControllerExecute().executeListAndSave()
 
             console.log('Get orders')
-            await new OrderController().executeListAndSave()
+            await new OrderControllerExecute().executeListAndSave()
 
             console.log('Get bills')
-            await new BillsController().executeListAndSave()
+            await new BillsControllerExecute().executeListAndSave()
 
             console.log('Get invoices')
-            await new InvoiceController().executeListAndSave()
+            await new InvoiceControllerExecute().executeListAndSave()
 
             console.log('Get payment methods')
-            await new PaymentMethodController().executeListAndSave()
+            await new PaymentMethodControllerExecute().executeListAndSave()
 
             console.log('Get Purchase Requests')
-            await new PurchaseRequestsContoller().executeListAndSave()
+            await new PurchaseRequestsControllerExecute().executeListAndSave()
 
             isSync = false
         } catch (error) {

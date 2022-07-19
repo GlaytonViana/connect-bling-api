@@ -3,7 +3,7 @@ import ListService from './services/List.service'
 import FormatBlingOrdersToOrderService from './services/FormatBlingOrdersToOrder.service'
 import OrderRepository from './prisma/Order.repository'
 
-class OrderController {
+export class OrderControllerExecute {
     async executeListAndSave() {
         const orderRepository = new OrderRepository()
         const firstExecution = await orderRepository.count()
@@ -29,9 +29,12 @@ class OrderController {
 
         return orders
     }
+}
 
+class OrderController {
     async listAndSave(request: Request, response: Response): Promise<Response> {
-        const orders = await this.executeListAndSave()
+        const orderControllerExecute = new OrderControllerExecute()
+        const orders = await orderControllerExecute.executeListAndSave()
 
         return response.json(orders)
     }

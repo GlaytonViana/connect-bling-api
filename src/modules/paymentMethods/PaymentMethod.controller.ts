@@ -3,7 +3,7 @@ import ListService from './services/List.service'
 import FormatPaymentMethodBlingService from './services/FormatPaymentMethodBling.service'
 import PaymentMethodRepository from './prisma/PaymentMethod.repository'
 
-export default class PaymentMethodController {
+export class PaymentMethodControllerExecute {
     async executeListAndSave() {
         const paymentMethodsRepository = new PaymentMethodRepository()
 
@@ -18,9 +18,12 @@ export default class PaymentMethodController {
         await paymentMethodsRepository.upsertMany(paymentFormatted)
         return paymentMethods
     }
+}
 
+export default class PaymentMethodController {
     async listAndSave(request: Request, response: Response): Promise<Response> {
-        const paymentMethods = await this.executeListAndSave()
+        const paymentMethodControllerExecute = new PaymentMethodControllerExecute()
+        const paymentMethods = await paymentMethodControllerExecute.executeListAndSave()
 
         return response.json(paymentMethods)
     }

@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 import ListService from './services/List.service'
 import FormatBlingPurchaseRequestsService from './services/FormatBlingPurchaseRequests.service'
 
-export default class PurchaseRequestsContoller {
+export class PurchaseRequestsControllerExecute {
     async executeListAndSave() {
         // Buscar da API
         const listService = new ListService()
@@ -20,10 +20,13 @@ export default class PurchaseRequestsContoller {
 
         return purchaseRequestsFromApi
     }
-
+}
+export default class PurchaseRequestsContoller {
     async listAndSave(request: Request, response: Response): Promise<Response> {
         try {
-            const purchaseRequestsFromApi = await this.executeListAndSave()
+            const purchaseRequestsControllerExecute = new PurchaseRequestsControllerExecute()
+            const purchaseRequestsFromApi =
+                await purchaseRequestsControllerExecute.executeListAndSave()
             return response.json(purchaseRequestsFromApi)
         } catch (error) {
             console.log(error)

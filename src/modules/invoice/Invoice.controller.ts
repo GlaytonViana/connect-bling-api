@@ -3,7 +3,7 @@ import ListService from './services/List.service'
 import FormatToInvoiceService from './services/FormatToInvoice.service'
 import InvoiceRepository from './prisma/Invoice.repository'
 
-class InvoiceController {
+export class InvoiceControllerExecute {
     async executeListAndSave() {
         const invoiceRepository = new InvoiceRepository()
         const firstExecution = await invoiceRepository.count()
@@ -22,9 +22,12 @@ class InvoiceController {
         const invoices = await invoiceRepository.createMany(formattedInvoices)
         return invoices
     }
+}
 
+class InvoiceController {
     async listAndSave(request: Request, response: Response): Promise<Response> {
-        const invoices = await this.executeListAndSave()
+        const invoiceControllerExecute = new InvoiceControllerExecute()
+        const invoices = await invoiceControllerExecute.executeListAndSave()
         return response.json(invoices)
     }
 }
