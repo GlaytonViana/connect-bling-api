@@ -70,6 +70,7 @@ class FormatToInvoice {
                 linkPdf: notafiscal.linkPdf || '',
                 cliente,
                 transportadora,
+                cfop: notafiscal.cfops[0],
             }
         })
 

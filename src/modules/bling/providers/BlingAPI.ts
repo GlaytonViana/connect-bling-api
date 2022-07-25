@@ -181,6 +181,7 @@ export interface IBlingInvoice {
         xml: string
         linkDanfe: string
         linkPdf: string
+        cfops: string[]
 
         transporte: {
             transportadora: string

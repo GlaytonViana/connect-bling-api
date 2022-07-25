@@ -72,6 +72,7 @@ model Produto {
   produtosNoPedidoDeCompra ProdutosNoPedidoDeCompra[]
 
   deposito ProdutoNoDeposito[]
+
   @@map("produto")
 }
 
@@ -157,6 +158,7 @@ model Cliente {
 
   // Pedido
   pedido Pedido[]
+
   @@map("cliente")
 }
 
@@ -168,6 +170,7 @@ model Transportadora {
 
   pedido     Pedido[]
   NotaFiscal NotaFiscal[]
+
   @@map("transportadora")
 }
 
@@ -184,11 +187,11 @@ model Endereco {
 
   cliente Cliente[]
   pedido  Pedido[]
+
   @@map("endereco")
 }
 
 model Volume {
-
   id                   Int       @id @default(autoincrement())
   codigo               Int
   idServico            Int
@@ -272,7 +275,6 @@ model ProdutoNoPedido {
 }
 
 model ContaReceber {
-
   id                 String    @id
   situacao           String?
   dataEmissao        DateTime?
@@ -361,11 +363,11 @@ model FornecedorContaPagar {
   celular     String?
 
   ContaPagar ContaPagar[]
+
   @@map("fornecedor_conta_pagar")
 }
 
 model NotaFiscal {
-
   id               String   @id
   serie            String
   numero           String
@@ -388,12 +390,12 @@ model NotaFiscal {
 
   clienteNotaCnpj String?
   cliente         ClienteNota? @relation(fields: [clienteNotaCnpj], references: [cnpj])
+  cfop            String
 
   @@map("nota_fiscal")
 }
 
 model ClienteNota {
-
   nome        String
   cnpj        String @id
   ie          String
@@ -409,6 +411,7 @@ model ClienteNota {
   fone        String
 
   NotaFiscal NotaFiscal[]
+
   @@map("cliente_nota")
 }
 
@@ -459,11 +462,11 @@ model CategoriaPedidoCompra {
   descricao String
 
   pedidos PedidoDeCompra[]
+
   @@map("categoria_do_pedido_compra")
 }
 
 model PedidoDeCompra {
-
   numeropedido             Int                        @id()
   datacompra               DateTime
   dataprevista             DateTime?
@@ -481,7 +484,6 @@ model PedidoDeCompra {
 }
 
 model ProdutosNoPedidoDeCompra {
-
   pedidoId  Int
   produtoId String
 
@@ -497,6 +499,7 @@ model Deposito {
   nome String
 
   produtos ProdutoNoDeposito[]
+
   @@map("deposito")
 }
 
