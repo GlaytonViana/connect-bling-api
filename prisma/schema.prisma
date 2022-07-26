@@ -112,6 +112,7 @@ model Pedido {
   loja              String?
   numeroPedidoLoja  String?
   tipoIntegracao    String?
+  chaveAcessoNota   String?
 
   // Cliente
   cliente_id Int
@@ -130,9 +131,6 @@ model Pedido {
 
   // Parcelas
   parcelas Parcela[]
-
-  // Nota
-  nota Nota?
 
   // Produtos
   produtos ProdutoNoPedido[]
@@ -236,20 +234,6 @@ model Parcela {
   pedido       Pedido @relation(fields: [pedidoNumero], references: [numero], onDelete: Cascade)
 
   @@map("parcela")
-}
-
-model Nota {
-  numero      String    @id
-  serie       String?
-  dataEmissao DateTime?
-  situacao    Int?
-  valorNota   Float?
-  chaveAcesso String?
-
-  pedidoNumero Int    @unique
-  pedido       Pedido @relation(fields: [pedidoNumero], references: [numero], onDelete: Cascade)
-
-  @@map("nota")
 }
 
 model ProdutoNoPedido {
