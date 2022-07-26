@@ -123,7 +123,7 @@ class FormatBlingOrdersToOrder {
 
                 data: new Date(pedido.data),
                 dataSaida: new Date(pedido.data),
-                chaveAcessoNota: pedido.nota.chaveAcesso,
+                chaveAcessoNota: pedido.nota?.chaveAcesso || '',
 
                 cliente: {
                     connectOrCreate: {

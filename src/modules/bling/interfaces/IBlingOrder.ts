@@ -132,7 +132,7 @@ export default interface IBlingOrder {
         numeroPedidoLoja: string
         tipoIntegracao: string
         cliente: IOrderClient
-        nota: IOrderInvoice
+        nota?: IOrderInvoice
         transporte: IOrderTranportation
         itens: IOrderItem[]
         parcelas?: IOrderParcel[]
