@@ -50,10 +50,17 @@ export class ProductControllerExecute {
         await categoryRepository.createMany(categoriesFormatted)
 
         console.log('salvando depósitos')
-        // Salvar depósitos
-        await prisma.deposito.createMany({
-            data: depositsToCreat,
-        })
+
+        for (const deposit of depositsToCreat) {
+            // Salvar depósitos
+            await prisma.deposito.upsert({
+                where: {
+                    id: deposit.id,
+                },
+                create: deposit,
+                update: deposit,
+            })
+        }
 
         // Salvar Produtos e categorias no produto
         const products = await productRepository.createMany(productsFormatted)
