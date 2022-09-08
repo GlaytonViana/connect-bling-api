@@ -11,7 +11,7 @@ dotenv.config()
 
 let isSync = false
 
-cron.schedule('30 * * * * *', async () => {
+cron.schedule('*/1 * * * * *', async () => {
     isSync ? console.info('sincronizando...') : console.info('inicio de sincronizacao')
 
     if (!isSync) {

@@ -24,8 +24,8 @@ export function removeDuplicatedElementByAttribute<T>(arr: Array<T>, property: s
     return result
 }
 
-export function getPeriod() {
-    const date = new Date()
+export function getPeriod(dateParam?: Date) {
+    const date = dateParam || new Date()
 
     const year = String(date.getFullYear())
     const month = String(date.getMonth() + 1).padStart(2, '0')
