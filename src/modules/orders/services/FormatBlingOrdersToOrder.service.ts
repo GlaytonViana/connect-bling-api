@@ -95,8 +95,8 @@ class FormatBlingOrdersToOrder {
                             valorDeclarado: Number(volume.valorDeclarado) || null,
                             valorFretePrevisto: Number(volume.valorFretePrevisto),
 
-                            altura: volume.dimensoes.altura,
                             comprimento: volume.dimensoes.comprimento,
+                            altura: volume.dimensoes.altura,
                             diametro: volume.dimensoes.diametro,
                             largura: volume.dimensoes.largura,
                             peso: volume.dimensoes.peso,

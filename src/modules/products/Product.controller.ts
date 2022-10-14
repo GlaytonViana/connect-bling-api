@@ -5,7 +5,6 @@ import FormatBlingProductToProductService from './services/FormatBlingProductToP
 import ProductRepository from './prisma/Product.repository'
 import CategoryRepository from './prisma/Category.repository'
 import { IBlingProduct } from '@modules/bling/providers/BlingAPI'
-import { Prisma, ProdutoNoDeposito } from '@prisma/client'
 
 export class ProductControllerExecute {
     async executeListAndSave() {
@@ -64,38 +63,38 @@ export class ProductControllerExecute {
 
         // Salvar Produtos e categorias no produto
         const products = await productRepository.createMany(productsFormatted)
-        const depositsToUpdate: Prisma.Prisma__ProdutoNoDepositoClient<ProdutoNoDeposito>[] = []
 
         console.log('Atualizando estoque')
-        // Atualizar os estoques
-        for (const { produto } of productsFromApi) {
-            const depositsToUpdatePromise = produto.depositos.map(({ deposito }) => {
-                return prisma.produtoNoDeposito.upsert({
-                    where: {
-                        produtoId_depositoId: {
-                            depositoId: Number(deposito.id),
-                            produtoId: produto.id,
-                        },
-                    },
-                    create: {
-                        depositoId: Number(deposito.id),
-                        produtoId: produto.id,
-                        saldo: deposito.saldo,
-                        saldoVirtual: deposito.saldoVirtual,
-                    },
-                    update: {
-                        depositoId: Number(deposito.id),
-                        produtoId: produto.id,
-                        saldo: deposito.saldo,
-                        saldoVirtual: deposito.saldoVirtual,
-                    },
-                })
-            })
-            depositsToUpdate.push(...depositsToUpdatePromise)
-        }
 
-        await prisma.$transaction(depositsToUpdate).catch(error => {
-            throw new Error(error)
+        const distinctProducts = productsFromApi.reduce<
+            { depositoId: number; produtoId: string; saldo: number; saldoVirtual: number }[]
+        >((acc, { produto }) => {
+            for (const { deposito } of produto.depositos) {
+                const existProduto = acc.find(
+                    accProduto =>
+                        accProduto.depositoId === Number(deposito.id) &&
+                        accProduto.produtoId === produto.id &&
+                        accProduto.saldo === deposito.saldo &&
+                        accProduto.saldoVirtual === deposito.saldoVirtual,
+                )
+
+                if (!existProduto) {
+                    acc.push({
+                        depositoId: Number(deposito.id),
+                        produtoId: produto.id,
+                        saldo: deposito.saldo,
+                        saldoVirtual: deposito.saldoVirtual,
+                    })
+                }
+            }
+
+            return acc
+        }, [])
+
+        await prisma.produtoNoDeposito.deleteMany()
+
+        await prisma.produtoNoDeposito.createMany({
+            data: distinctProducts,
         })
 
         console.log('Produtos atualizados')

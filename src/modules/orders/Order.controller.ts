@@ -16,7 +16,7 @@ export class OrderControllerExecute {
         const formatBlingProductToProduct = new FormatBlingOrdersToOrderService()
         const formattedOrders = formatBlingProductToProduct.execute(ordersFromApi)
 
-        await orderRepository.deleteMany(ordersFromApi.map(order => Number(order.pedido.numero)))
+        // await orderRepository.deleteMany(ordersFromApi.map(order => Number(order.pedido.numero)))
 
         // Salvar Ordens e derivados
         // const orders = await orderRepository.createMany(formattedOrders.orders).catch(error => {

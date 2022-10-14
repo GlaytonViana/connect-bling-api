@@ -29,6 +29,7 @@ export default class ListService {
             filtersBillToReceive: paramByllToReceive,
             filtersBillToPay: paramByllToPay,
         })
+
         return bills
     }
 }
