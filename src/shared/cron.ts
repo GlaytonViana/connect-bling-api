@@ -39,6 +39,7 @@ cron.schedule('*/15 * * * *', async () => {
             isSync = false
         } catch (error) {
             console.log(error)
+            isSync = false
         }
     }
 })
