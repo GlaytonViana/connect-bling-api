@@ -238,6 +238,7 @@ export default class BlingAPI {
             params: {
                 apikey: 'c36e785d6010de1e1504df69faef90942ae6daa0fd1a25f93fc293034d090e3fa43af124',
             },
+            timeout: 10 * 1000, // 10 segundos
         })
     }
 
