@@ -5,3 +5,4 @@ dist
 todo.mkd
 prisma/migrations
 node-env.yaml
+captain.yaml

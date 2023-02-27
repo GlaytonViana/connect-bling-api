@@ -21,20 +21,20 @@ cron.schedule('*/15 * * * *', async () => {
             console.log('Get products')
             await new ProductControllerExecute().executeListAndSave()
 
-            console.log('Get orders')
-            await new OrderControllerExecute().executeListAndSave()
+            // console.log('Get orders')
+            // await new OrderControllerExecute().executeListAndSave()
 
-            console.log('Get bills')
-            await new BillsControllerExecute().executeListAndSave()
+            // console.log('Get bills')
+            // await new BillsControllerExecute().executeListAndSave()
 
-            console.log('Get invoices')
-            await new InvoiceControllerExecute().executeListAndSave()
+            // console.log('Get invoices')
+            // await new InvoiceControllerExecute().executeListAndSave()
 
-            console.log('Get payment methods')
-            await new PaymentMethodControllerExecute().executeListAndSave()
+            // console.log('Get payment methods')
+            // await new PaymentMethodControllerExecute().executeListAndSave()
 
-            console.log('Get Purchase Requests')
-            await new PurchaseRequestsControllerExecute().executeListAndSave()
+            // console.log('Get Purchase Requests')
+            // await new PurchaseRequestsControllerExecute().executeListAndSave()
 
             isSync = false
         } catch (error) {

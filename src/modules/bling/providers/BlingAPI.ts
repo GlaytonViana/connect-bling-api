@@ -233,10 +233,10 @@ export default class BlingAPI {
 
     constructor() {
         this.api = axios.create({
-            baseURL: 'https://bling.com.br/Api/v2',
+            baseURL: process.env.BLING_BASE_URL,
             responseType: 'json',
             params: {
-                apikey: 'c36e785d6010de1e1504df69faef90942ae6daa0fd1a25f93fc293034d090e3fa43af124',
+                apikey: process.env.BLING_API_KEY,
             },
             timeout: 10 * 1000, // 10 segundos
         })
